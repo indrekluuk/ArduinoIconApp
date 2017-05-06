@@ -7,33 +7,60 @@
 
 #include "PBlocksUserInterface.h"
 #include "src/icons/Icon.h"
-#include "DrawingGrid.h"
+
 
 
 
 
 void ExampleView::init() {
 
+  uint8_t buttonW = SCALE_BUTTONS_W / 2;
+  scaleUpButton.init(SCALE_BUTTONS_X, SCALE_BUTTONS_Y, buttonW, SCALE_BUTTONS_H, "+");
+  scaleDownButton.init(SCALE_BUTTONS_X + buttonW, SCALE_BUTTONS_Y, buttonW, SCALE_BUTTONS_H, "-");
 }
 
 
 
-bool ExampleView::tap(uint16_t x, uint16_t y, bool hold) {
-
+void ExampleView::scaleUp() {
+  if ((scale+1)*16 <= VIEW_W) {
+    scale++;
+    reDrawExamples();
+    printScale();
+  };
 }
+
+
+void ExampleView::scaleDown() {
+  if (scale > 1) {
+    scale--;
+    reDrawExamples();
+    printScale();
+  };
+}
+
 
 
 void ExampleView::draw(bool redrawAll) {
-  reDrawExamples();
+  if (redrawAll) {
+    reDrawExamples();
+    scaleUpButton.draw();
+    scaleDownButton.draw();
+    printScale();
+  }
 }
 
 
 
 void ExampleView::reDrawExamples() {
-  uint8_t size = 2;
   IconColor color = UI->activeIcon.getColor();
   color.setBackgroundColor(Palette::DARK_GREEN);
-  UI->tft.drawIcon(0, DrawingGrid::GRID_Y, UI->activeIcon, color, DrawingGrid::GRID_X, DrawingGrid::GRID_X, 0, 0, size, size);
+  UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
 }
 
+void ExampleView::printScale() {
+  UI->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
+  UI->tft.setTextSize(2);
+  UI->tft.setCursor(0, 0);
+  UI->tft.print((int)scale);
+}
 
