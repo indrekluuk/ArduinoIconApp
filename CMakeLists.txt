@@ -32,6 +32,8 @@ add_executable(runTests
         src/PBlockIcons/src/ui/PBlocksUserInterface.cpp
         src/PBlockIcons/src/ui/DrawingGrid.cpp
         src/PBlockIcons/src/ui/ExampleView.cpp
+        src/PBlockIcons/src/ui/ColorPicker.cpp
+        src/PBlockIcons/src/ui/Button.cpp
         src/PBlockIcons/src/screen/TFT.cpp
         src/PBlockIcons/src/screen/Font.cpp
         src/PBlockIcons/src/icons/ProgMemIcons.cpp

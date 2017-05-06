@@ -28,17 +28,22 @@
 
 
 enum Palette {
-    BLACK = 0,
-    WHITE = 1,
-    GRAY85 = 2,
-    GRAY66 = 3,
-    GRAY50 = 4,
-    GRAY33 = 5,
-    BLUE = 6,
+    WHITE = 0,
+    GRAY85 = 1,
+    GRAY66 = 2,
+    GRAY50 = 3,
+    GRAY33 = 4,
+    BLACK = 5,
+    RED = 6,
     GREEN = 7,
-    DARK_GREEN = 8,
+    BLUE = 8,
     DARK_RED = 9,
-    YELLOW = 10,
+    DARK_GREEN = 10,
+    DARK_BLUE = 11,
+    YELLOW = 12,
+    CYAN = 13,
+    MAGENTA = 14,
+    ORANGE = 15
 };
 
 
@@ -52,9 +57,6 @@ struct RgbColor {
     RgbColor(Palette p) {
       switch (p) {
         default:
-        case Palette::BLACK:
-          colorCode = COLOR_BLACK;
-          break;
         case Palette::WHITE:
           colorCode = COLOR_WHITE;
           break;
@@ -70,20 +72,38 @@ struct RgbColor {
         case Palette::GRAY33:
           colorCode = COLOR_GRAY33;
           break;
-        case Palette::BLUE:
-          colorCode = COLOR_BLUE;
+        case Palette::BLACK:
+          colorCode = COLOR_BLACK;
+          break;
+        case Palette::RED:
+          colorCode = COLOR_RED;
           break;
         case Palette::GREEN:
           colorCode = COLOR_GREEN;
           break;
-        case Palette::DARK_GREEN:
-          colorCode = COLOR_DARK_GREEN;
+        case Palette::BLUE:
+          colorCode = COLOR_BLUE;
           break;
         case Palette::DARK_RED:
           colorCode = COLOR_DARK_RED;
           break;
+        case Palette::DARK_GREEN:
+          colorCode = COLOR_DARK_GREEN;
+          break;
+        case Palette::DARK_BLUE:
+          colorCode = COLOR_BLUE; // todo
+          break;
         case Palette::YELLOW:
           colorCode = COLOR_YELLOW;
+          break;
+        case Palette::MAGENTA:
+          colorCode = COLOR_MAGENTA;
+          break;
+        case Palette::CYAN:
+          colorCode = COLOR_CYAN;
+          break;
+        case Palette::ORANGE:
+          colorCode = COLOR_YELLOW; // todo
           break;
       }
     }

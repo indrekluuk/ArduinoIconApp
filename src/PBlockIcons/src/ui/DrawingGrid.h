@@ -16,13 +16,15 @@
 class DrawingGrid : public Touchable {
 
 
-    static const uint8_t COUNT = 16;
-    static const uint8_t SIZE = 18;
 
     bool isColorSelected = false;
     bool selectedColor = false;
 
+    static const uint8_t COUNT = 16;
+    static const uint8_t SIZE = 18;
+
 public:
+    static const uint16_t GRID_H = COUNT * SIZE;
     static const uint16_t GRID_X = 130;
     static const uint16_t GRID_Y = (SCREEN_HEIGHT - COUNT * SIZE) / 2;
 

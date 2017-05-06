@@ -20,6 +20,11 @@ void ExampleView::init() {
   scaleDownButton.init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH, "-");
   toggle3DButton.init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH, "3d");
   toggleBorderButton.init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH, "O");
+
+  uint8_t pickerH = PICKERS_H / 3 - 1;
+  bgColorPicker.init(PICKERS_X, PICKERS_Y, PICKERS_W, pickerH);
+  fgColorPicker.init(PICKERS_X, PICKERS_Y + pickerH + 1, PICKERS_W, pickerH);
+  bColorPicker.init(PICKERS_X, PICKERS_Y  + (pickerH + 1) * 2, PICKERS_W, pickerH);
 }
 
 
@@ -57,6 +62,24 @@ void ExampleView::toggleBorder() {
 
 
 
+void ExampleView::setBackgroundColor(Palette c) {
+  bgColor = c;
+  reDrawExamples();
+}
+
+
+void ExampleView::setForegroundColor(Palette c) {
+  fgColor = c;
+  reDrawExamples();
+}
+
+
+void ExampleView::setBorderColor(Palette c) {
+  bColor = c;
+  reDrawExamples();
+}
+
+
 
 void ExampleView::draw(bool redrawAll) {
   if (redrawAll) {
@@ -65,6 +88,9 @@ void ExampleView::draw(bool redrawAll) {
     scaleDownButton.draw();
     toggle3DButton.draw();
     toggleBorderButton.draw();
+    bgColorPicker.draw();
+    fgColorPicker.draw();
+    bColorPicker.draw();
     printScale();
   }
 }
@@ -77,8 +103,10 @@ void ExampleView::reDrawExamples() {
   if (is3D) {
     color.setBorder3d();
   } else if (hasBorder) {
-    color.setBorderColor(Palette::BLACK);
+    color.setBorderColor(bColor);
   }
+  color.setBackgroundColor(bgColor);
+  color.setForegroundColor(fgColor);
   UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
 }
 
