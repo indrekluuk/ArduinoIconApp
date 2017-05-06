@@ -21,10 +21,10 @@ void ExampleView::init() {
   toggle3DButton.init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH, "3d");
   toggleBorderButton.init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH, "O");
 
-  uint8_t pickerH = PICKERS_H / 3 - 1;
-  bgColorPicker.init(PICKERS_X, PICKERS_Y, PICKERS_W, pickerH);
-  fgColorPicker.init(PICKERS_X, PICKERS_Y + pickerH + 1, PICKERS_W, pickerH);
-  bColorPicker.init(PICKERS_X, PICKERS_Y  + (pickerH + 1) * 2, PICKERS_W, pickerH);
+  uint8_t pickerH = PICKERS_H / 3;
+  bgColorPicker.init(PICKERS_X, PICKERS_Y + GAP, PICKERS_W, pickerH - GAP);
+  fgColorPicker.init(PICKERS_X, PICKERS_Y + pickerH + GAP, PICKERS_W, pickerH - GAP);
+  bColorPicker.init(PICKERS_X, PICKERS_Y + PICKERS_H - pickerH + GAP, PICKERS_W, pickerH - GAP);
 }
 
 

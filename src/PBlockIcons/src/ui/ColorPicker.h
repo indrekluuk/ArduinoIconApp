@@ -37,6 +37,9 @@ private:
 
 
     uint16_t getColorX(uint8_t c);
+    uint16_t getColorX1(uint8_t c);
+    uint16_t getColorX2(uint8_t c);
+    uint16_t getColorY(uint8_t c);
 
     ExampleView* view;
     CallbackMethod callbackMethod;

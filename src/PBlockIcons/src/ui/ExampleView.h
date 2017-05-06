@@ -26,26 +26,28 @@ class ExampleView {
     uint8_t scale = 2;
     bool is3D = false;
     bool hasBorder = false;
-    Palette bgColor = Palette::GRAY50;
+    Palette bgColor = Palette::GRAY33;
     Palette fgColor = Palette::GRAY85;
     Palette bColor = Palette::BLACK;
 
 public:
+    static const uint16_t GAP = 2;
 
     static const uint16_t VIEW_X = 0;
     static const uint16_t VIEW_Y = DrawingGrid::GRID_Y;
-    static const uint8_t VIEW_W = DrawingGrid::GRID_X - 5;
+    static const uint8_t VIEW_W = DrawingGrid::GRID_X - GAP;
     static const uint8_t VIEW_H = VIEW_W;
 
     static const uint16_t BUTTONS_X = VIEW_X;
-    static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H;
+    static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H + GAP;
     static const uint8_t BUTTONS_W = VIEW_W;
     static const uint8_t BUTTONS_H = 60;
 
     static const uint16_t PICKERS_X = VIEW_X;
-    static const uint16_t PICKERS_Y = BUTTONS_Y + BUTTONS_H + 1;
+    static const uint16_t PICKERS_Y = BUTTONS_Y + BUTTONS_H;
     static const uint16_t PICKERS_W = VIEW_W;
-    static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
+    static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y + 1;
+
 
 
     ExampleView() :
