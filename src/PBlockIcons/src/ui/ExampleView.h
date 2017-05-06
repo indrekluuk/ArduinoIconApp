@@ -15,7 +15,12 @@ class ExampleView {
 
     Button<ExampleView> scaleUpButton;
     Button<ExampleView> scaleDownButton;
+    Button<ExampleView> toggle3DButton;
+    Button<ExampleView> toggleBorderButton;
+
     uint8_t scale = 2;
+    bool is3D = false;
+    bool hasBorder = false;
 
 public:
 
@@ -24,20 +29,25 @@ public:
     static const uint8_t VIEW_W = DrawingGrid::GRID_X - 10;
     static const uint8_t VIEW_H = VIEW_W;
 
-    static const uint16_t SCALE_BUTTONS_X = VIEW_X;
-    static const uint16_t SCALE_BUTTONS_Y = VIEW_Y + VIEW_H;
-    static const uint8_t SCALE_BUTTONS_W = VIEW_W;
-    static const uint8_t SCALE_BUTTONS_H = 50;
+    static const uint16_t BUTTONS_X = VIEW_X;
+    static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H;
+    static const uint8_t BUTTONS_W = VIEW_W;
+    static const uint8_t BUTTONS_H = 60;
 
 
     ExampleView() :
         scaleUpButton(this, &ExampleView::scaleUp),
-        scaleDownButton(this, &ExampleView::scaleDown) {}
+        scaleDownButton(this, &ExampleView::scaleDown),
+        toggle3DButton(this, &ExampleView::toggle3d),
+        toggleBorderButton(this, &ExampleView::toggleBorder)
+    {}
 
     void init();
 
     void scaleUp();
     void scaleDown();
+    void toggle3d();
+    void toggleBorder();
 
     void draw(bool redrawAll);
     void reDrawExamples();
