@@ -10,67 +10,92 @@
 
 
 void Tools::init() {
-  mainToolbar.addButton(showEditButton, &iconEdit);
-  mainToolbar.addButton(showSaveButton, &iconSave);
-  mainToolbar.addButton(showLoadButton, &iconLoad);
-  mainToolbar.addButton(showSendButton, &iconSend);
-
-  editToolbar.addButton(invertIconButton, &iconInvert);
-  editToolbar.addButton(clearIconButton, &iconClear);
-  editToolbar.addButton(cancelEditButton, &iconReturn);
-
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
-    saveToolbar.addButton(saveButtons[i], &buttonIcons[i]);
-  }
-  saveToolbar.addButton(cancelSaveButton, &iconReturn);
-
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
-    loadToolbar.addButton(loadButtons[i], &buttonIcons[i]);
-  }
-  loadToolbar.addButton(cancelLoadButton, &iconReturn);
-
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
-    sendToolbar.addButton(sendButtons[i], &buttonIcons[i]);
-  }
-  sendToolbar.addButton(cancelSendButton, &iconReturn);
-
-  setActiveToolbar(&mainToolbar);
+  toolbar.init();
+  showMainToolbar(0);
 }
 
 
 
 void Tools::draw(bool redrawAll) {
   if (redrawAll) {
-    activeToolbar->draw(redrawAll);
+    toolbar.draw(redrawAll);
   }
 }
 
 
-void Tools::setActiveToolbar(Toolbar * toolbar) {
-  activeToolbar->setActive(false);
-  activeToolbar = toolbar;
-  activeToolbar->setActive(true);
-  activeToolbar->draw(true);
+void Tools::showMainToolbar(uint8_t) {
+  toolbar.reset();
+  toolbar.addButton()
+      .setCallback(this, &Tools::showEditToolbar)
+      .setIcon(&iconEdit);
+  toolbar.addButton()
+      .setCallback(this, &Tools::showSaveToolbar)
+      .setIcon(&iconSave);
+  toolbar.addButton()
+      .setCallback(this, &Tools::showLoadToolbar)
+      .setIcon(&iconLoad);
+  toolbar.addButton()
+      .setCallback(this, &Tools::showSendToolbar)
+      .setIcon(&iconSend);
+  draw(true);
 }
 
 
-void Tools::showEditToolbar() {
-  setActiveToolbar(&editToolbar);
+void Tools::showEditToolbar(uint8_t) {
+  toolbar.reset();
+  toolbar.addButton()
+      .setCallback(this, &Tools::invertIcon)
+      .setIcon(&iconInvert);
+  toolbar.addButton()
+      .setCallback(this, &Tools::clearIcon)
+      .setIcon(&iconClear);
+  toolbar.addButton()
+      .setCallback(this, &Tools::showMainToolbar)
+      .setIcon(&iconReturn);
+  draw(true);
 }
 
-void Tools::showSaveToolbar() {
+
+void Tools::showSaveToolbar(uint8_t) {
   reloadButtonIcons();
-  setActiveToolbar(&saveToolbar);
+  toolbar.reset();
+  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
+    toolbar.addButton()
+        .setCallback(this, &Tools::saveIcon, i)
+        .setIcon(&buttonIcons[i]);
+  }
+  toolbar.addButton()
+      .setCallback(this, &Tools::showMainToolbar)
+      .setIcon(&iconReturn);
+  draw(true);
 }
 
-void Tools::showLoadToolbar() {
+void Tools::showLoadToolbar(uint8_t) {
   reloadButtonIcons();
-  setActiveToolbar(&loadToolbar);
+  toolbar.reset();
+  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
+    toolbar.addButton()
+        .setCallback(this, &Tools::loadIcon, i)
+        .setIcon(&buttonIcons[i]);
+  }
+  toolbar.addButton()
+      .setCallback(this, &Tools::showMainToolbar)
+      .setIcon(&iconReturn);
+  draw(true);
 }
 
-void Tools::showSendToolbar() {
+void Tools::showSendToolbar(uint8_t) {
   reloadButtonIcons();
-  setActiveToolbar(&sendToolbar);
+  toolbar.reset();
+  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
+    toolbar.addButton()
+        .setCallback(this, &Tools::sendIcon, i)
+        .setIcon(&buttonIcons[i]);
+  }
+  toolbar.addButton()
+      .setCallback(this, &Tools::showMainToolbar)
+      .setIcon(&iconReturn);
+  draw(true);
 }
 
 
@@ -81,33 +106,30 @@ void Tools::reloadButtonIcons() {
 }
 
 
-void Tools::invertIcon() {
+void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  returnToMain();
-  UI->draw(true);
+  showMainToolbar(0);
 }
 
-void Tools::clearIcon() {
+void Tools::clearIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = 0;
   }
-  returnToMain();
-  UI->draw(true);
+  showMainToolbar(0);
 }
 
 
 
 void Tools::saveIcon(uint8_t slotIndex) {
-  returnToMain();
-  UI->draw(true);
+  showMainToolbar(0);
   UI->iconStorage.saveIcon(slotIndex, UI->activeIcon);
 }
 
 
 void Tools::loadIcon(uint8_t slotIndex) {
-  returnToMain();
+  showMainToolbar(0);
   UI->iconStorage.loadIcon(slotIndex, UI->activeIcon);
   UI->draw(true);
 }
@@ -128,10 +150,5 @@ void Tools::sendIcon(uint8_t slotIndex) {
   }
 }
 
-
-
-void Tools::returnToMain() {
-  setActiveToolbar(&mainToolbar);
-}
 
 

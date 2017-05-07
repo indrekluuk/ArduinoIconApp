@@ -11,9 +11,12 @@
 #include "UiConstants.h"
 
 
+class Tools;
+
+
 class Toolbar {
     static const uint8_t MAX_BUTTON_COUNT = 7;
-    ButtonBase * buttons[MAX_BUTTON_COUNT];
+    Button<Tools> buttons[MAX_BUTTON_COUNT];
     uint8_t buttonCount = 0;
 
 public:
@@ -24,10 +27,14 @@ public:
     static const uint16_t TOOLBAR_H = DrawingGrid::GRID_H;
     static const uint16_t TOOLBAR_BUTTON_H = 40;
 
+
+    Toolbar() {}
+
     void init();
-    void addButton(ButtonBase & button, const char * label);
-    void addButton(ButtonBase & button, Icon * icon);
-    void setActive(bool active);
+    void reset();
+
+    Button<Tools> & addButton();
+
     void draw(bool redrawAll);
 
 

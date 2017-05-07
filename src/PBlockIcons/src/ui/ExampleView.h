@@ -62,10 +62,10 @@ public:
 
     void init();
 
-    void scaleUp();
-    void scaleDown();
-    void toggle3d();
-    void toggleBorder();
+    void scaleUp(uint8_t);
+    void scaleDown(uint8_t);
+    void toggle3d(uint8_t);
+    void toggleBorder(uint8_t);
     void setBackgroundColor(Palette c);
     void setForegroundColor(Palette c);
     void setBorderColor(Palette c);

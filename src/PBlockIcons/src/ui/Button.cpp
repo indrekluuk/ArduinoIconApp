@@ -8,14 +8,19 @@
 
 
 
+void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+  buttonX = x;
+  buttonY = y;
+  buttonW = w;
+  buttonH = h;
+}
 
 void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon) {
   buttonX = x;
   buttonY = y;
   buttonW = w;
   buttonH = h;
-  decoration = icon;
-  isDecorationIcon = true;
+  setIcon(icon);
 }
 
 void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label) {
@@ -23,9 +28,23 @@ void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char *
   buttonY = y;
   buttonW = w;
   buttonH = h;
+  setLabel(label);
+}
+
+
+ButtonBase & ButtonBase::setIcon(Icon * icon) {
+  decoration = icon;
+  isDecorationIcon = true;
+  return *this;
+}
+
+
+ButtonBase & ButtonBase::setLabel(const char * label) {
   decoration = label;
   isDecorationLabel = true;
+  return *this;
 }
+
 
 
 void ButtonBase::setActive(bool active) {

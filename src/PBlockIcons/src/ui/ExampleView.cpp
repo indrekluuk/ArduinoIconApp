@@ -29,7 +29,7 @@ void ExampleView::init() {
 
 
 
-void ExampleView::scaleUp() {
+void ExampleView::scaleUp(uint8_t) {
   if ((scale+1)*16 <= VIEW_W) {
     scale++;
     reDrawExamples();
@@ -38,7 +38,7 @@ void ExampleView::scaleUp() {
 }
 
 
-void ExampleView::scaleDown() {
+void ExampleView::scaleDown(uint8_t) {
   if (scale > 1) {
     scale--;
     reDrawExamples();
@@ -47,14 +47,14 @@ void ExampleView::scaleDown() {
 }
 
 
-void ExampleView::toggle3d() {
+void ExampleView::toggle3d(uint8_t) {
   is3D = !is3D;
   hasBorder = false;
   reDrawExamples();
 }
 
 
-void ExampleView::toggleBorder() {
+void ExampleView::toggleBorder(uint8_t) {
   hasBorder = !hasBorder;
   is3D = false;
   reDrawExamples();
