@@ -12,19 +12,24 @@
 
 class ButtonBase : public Touchable {
 
+    Icon * buttonIcon = nullptr;
+    const char * buttonLabel = nullptr;
+
+    bool isPressed = false;
+    bool isActive = true;
+
+public:
+
     uint16_t buttonX;
     uint16_t buttonY;
     uint8_t buttonW;
     uint8_t buttonH;
 
-    Icon * buttonIcon = nullptr;
-    const char * buttonLabel = nullptr;
 
-    bool isPressed = false;
-
-public:
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label);
+
+    void setActive(bool active);
 
     bool tap(uint16_t x, uint16_t y, bool hold) override;
     virtual void action() = 0;

@@ -10,6 +10,7 @@
 #include "src/screen/TFT.h"
 #include "DrawingGrid.h"
 #include "ExampleView.h"
+#include "Tools.h"
 #include "src/icons/Icon.h"
 
 
@@ -19,7 +20,9 @@ public:
     TouchHandler touchHandler;
     DrawingGrid drawingGrid;
     ExampleView exampleView;
+    Tools tools;
     IconBufferMem activeIcon;
+
 
 
     PBlocksUserInterface();

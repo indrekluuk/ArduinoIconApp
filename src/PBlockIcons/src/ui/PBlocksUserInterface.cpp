@@ -23,6 +23,7 @@ void PBlocksUserInterface::init() {
 
   drawingGrid.init();
   exampleView.init();
+  tools.init();
   touchHandler.init((uint16_t)tft.width(), (uint16_t)tft.height());
 }
 
@@ -31,6 +32,7 @@ void PBlocksUserInterface::init() {
 void PBlocksUserInterface::draw(bool redrawAll) {
   drawingGrid.draw(redrawAll);
   exampleView.draw(redrawAll);
+  tools.draw(redrawAll);
 }
 
 

@@ -27,7 +27,16 @@ void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char *
 }
 
 
+void ButtonBase::setActive(bool active) {
+  isActive = active;
+}
+
+
 bool ButtonBase::tap(uint16_t x, uint16_t y, bool hold) {
+  if (!isActive) {
+    return false;
+  }
+
   if (isTapBetween(x, buttonX, buttonX + buttonW) && isTapBetween(y, buttonY, buttonY + buttonH)) {
     if (hold) {
       if (!isPressed) {
@@ -36,8 +45,8 @@ bool ButtonBase::tap(uint16_t x, uint16_t y, bool hold) {
       }
     } else {
       isPressed = false;
-      action();
       draw();
+      action();
     }
     return true;
   } else {
