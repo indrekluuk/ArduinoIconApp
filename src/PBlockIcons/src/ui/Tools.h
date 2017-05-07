@@ -9,12 +9,27 @@
 #include <src/storage/IconStorage.h>
 #include "Toolbar.h"
 #include "Button.h"
+#include "src/icons/ProgMemIcons.h"
 
 
 class Tools {
 
     static const uint8_t SAVED_ICON_COUNT = IconStorage::SLOT_COUNT;
     IconBufferMem buttonIcons[SAVED_ICON_COUNT];
+    IconBufferProgMem iconReturn = IconBufferProgMem(&ICON_RETURN);
+
+    IconBufferProgMem iconEdit = IconBufferProgMem(&ICON_EDIT);
+    IconBufferProgMem iconSave = IconBufferProgMem(&ICON_SAVE);
+    IconBufferProgMem iconLoad = IconBufferProgMem(&ICON_LOAD);
+    IconBufferProgMem iconSend = IconBufferProgMem(&ICON_SEND);
+
+    IconBufferProgMem iconInvert = IconBufferProgMem(&ICON_INVERT);
+    IconBufferProgMem iconClear = IconBufferProgMem(&ICON_CLEAR);
+
+
+
+
+
 
     Toolbar mainToolbar;
     Button<Tools> showEditButton;
@@ -36,6 +51,8 @@ class Tools {
     Button<Tools> cancelLoadButton;
 
     Toolbar sendToolbar;
+    Button<Tools> sendButtons[SAVED_ICON_COUNT];
+    Button<Tools> cancelSendButton;
 
 
     Toolbar * activeToolbar = &mainToolbar;
@@ -67,9 +84,16 @@ public:
             {this, &Tools::loadIcon, 3},
             {this, &Tools::loadIcon, 4},
             {this, &Tools::loadIcon, 5}},
-        cancelLoadButton(this, &Tools::returnToMain)
+        cancelLoadButton(this, &Tools::returnToMain),
 
-
+        sendButtons{
+            {this, &Tools::sendIcon, 0},
+            {this, &Tools::sendIcon, 1},
+            {this, &Tools::sendIcon, 2},
+            {this, &Tools::sendIcon, 3},
+            {this, &Tools::sendIcon, 4},
+            {this, &Tools::sendIcon, 5}},
+        cancelSendButton(this, &Tools::returnToMain)
     {};
 
 
@@ -90,6 +114,7 @@ private:
 
     void saveIcon(uint8_t slotIndex);
     void loadIcon(uint8_t slotIndex);
+    void sendIcon(uint8_t slotIndex);
 
     void returnToMain();
 

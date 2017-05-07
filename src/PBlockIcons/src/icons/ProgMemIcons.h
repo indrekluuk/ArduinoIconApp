@@ -10,12 +10,14 @@
 
 
 
-extern const IconBufferProgMem::IconData ICON_PERSON;
-extern const IconBufferProgMem::IconData ICON_PLAY;
-extern const IconBufferProgMem::IconData ICON_PLAY_NEXT;
-extern const IconBufferProgMem::IconData ICON_STOP;
-extern const IconBufferProgMem::IconData ICON_TIMER;
-extern const IconBufferProgMem::IconData ICON_MODULES;
+extern const IconBufferProgMem::IconData ICON_RETURN;
+extern const IconBufferProgMem::IconData ICON_EDIT;
+extern const IconBufferProgMem::IconData ICON_SAVE;
+extern const IconBufferProgMem::IconData ICON_LOAD;
+extern const IconBufferProgMem::IconData ICON_SEND;
+extern const IconBufferProgMem::IconData ICON_INVERT;
+extern const IconBufferProgMem::IconData ICON_CLEAR;
+
 
 
 

@@ -10,24 +10,29 @@
 
 
 void Tools::init() {
-  mainToolbar.addButton(showEditButton, "E");
-  mainToolbar.addButton(showSaveButton, "S");
-  mainToolbar.addButton(showLoadButton, "L");
-  mainToolbar.addButton(showSendButton, "snd");
+  mainToolbar.addButton(showEditButton, &iconEdit);
+  mainToolbar.addButton(showSaveButton, &iconSave);
+  mainToolbar.addButton(showLoadButton, &iconLoad);
+  mainToolbar.addButton(showSendButton, &iconSend);
 
-  editToolbar.addButton(invertIconButton, "inv");
-  editToolbar.addButton(clearIconButton, "clr");
-  editToolbar.addButton(cancelEditButton, "R");
+  editToolbar.addButton(invertIconButton, &iconInvert);
+  editToolbar.addButton(clearIconButton, &iconClear);
+  editToolbar.addButton(cancelEditButton, &iconReturn);
 
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     saveToolbar.addButton(saveButtons[i], &buttonIcons[i]);
   }
-  saveToolbar.addButton(cancelSaveButton, "R");
+  saveToolbar.addButton(cancelSaveButton, &iconReturn);
 
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     loadToolbar.addButton(loadButtons[i], &buttonIcons[i]);
   }
-  loadToolbar.addButton(cancelLoadButton, "R");
+  loadToolbar.addButton(cancelLoadButton, &iconReturn);
+
+  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
+    sendToolbar.addButton(sendButtons[i], &buttonIcons[i]);
+  }
+  sendToolbar.addButton(cancelSendButton, &iconReturn);
 
   setActiveToolbar(&mainToolbar);
 }
@@ -64,7 +69,8 @@ void Tools::showLoadToolbar() {
 }
 
 void Tools::showSendToolbar() {
-
+  reloadButtonIcons();
+  setActiveToolbar(&sendToolbar);
 }
 
 
@@ -105,6 +111,24 @@ void Tools::loadIcon(uint8_t slotIndex) {
   UI->iconStorage.loadIcon(slotIndex, UI->activeIcon);
   UI->draw(true);
 }
+
+
+void Tools::sendIcon(uint8_t slotIndex) {
+  IconBufferMem icon;
+  UI->iconStorage.loadIcon(slotIndex, icon);
+  Serial.println();
+  for (uint8_t row = 0; row < Icon::BITMAP_HEIGHT; row++) {
+    Serial.print("(uint16_t) 0b");
+    uint32_t mask = 0x10000;
+    for (uint8_t i=0; i<16; i++) {
+      mask >>= 1;
+      Serial.print(icon.bitmap[row] & mask ? "1" : "0");
+    }
+    Serial.println(",");
+  }
+}
+
+
 
 void Tools::returnToMain() {
   setActiveToolbar(&mainToolbar);
