@@ -14,8 +14,8 @@ void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon)
   buttonY = y;
   buttonW = w;
   buttonH = h;
-  buttonIcon = icon;
-
+  decoration = icon;
+  isDecorationIcon = true;
 }
 
 void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label) {
@@ -23,7 +23,8 @@ void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char *
   buttonY = y;
   buttonW = w;
   buttonH = h;
-  buttonLabel = label;
+  decoration = label;
+  isDecorationLabel = true;
 }
 
 
@@ -74,10 +75,10 @@ void ButtonBase::draw() {
   uint8_t w = buttonW - 2;
   uint8_t h = buttonH - 2;
 
-  if (buttonIcon != nullptr) {
-    drawIcon(x, y, w, h);
-  } else if (buttonLabel != nullptr) {
-    drawLabel(x, y, w, h);
+  if (isDecorationIcon) {
+    drawIcon((Icon *)decoration, x, y, w, h);
+  } else if (isDecorationLabel) {
+    drawLabel((const char *)decoration, x, y, w, h);
   } else {
     tft.fillRect(x, y, w, h, isPressed ? COLOR_GRAY66 : COLOR_GRAY85);
   }
@@ -88,7 +89,8 @@ void ButtonBase::draw() {
 
 
 
-void ButtonBase::drawIcon(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+void ButtonBase::drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+
   if (isPressed) {
     IconColor color = buttonIcon->getColor();
 
@@ -110,7 +112,7 @@ void ButtonBase::drawIcon(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 
 
 
-void ButtonBase::drawLabel(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 
   TFT & tft = UI->tft;
   if (isPressed) {

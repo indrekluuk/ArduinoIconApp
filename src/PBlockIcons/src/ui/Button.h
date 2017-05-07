@@ -12,11 +12,13 @@
 
 class ButtonBase : public Touchable {
 
-    Icon * buttonIcon = nullptr;
-    const char * buttonLabel = nullptr;
+    const void * decoration = nullptr;
 
-    bool isPressed = false;
-    bool isActive = true;
+    uint8_t isPressed : 1;
+    uint8_t isActive : 1;
+    uint8_t isDecorationIcon : 1;
+    uint8_t isDecorationLabel : 1;
+    uint8_t reserve : 4;
 
 public:
 
@@ -24,6 +26,13 @@ public:
     uint16_t buttonY;
     uint8_t buttonW;
     uint8_t buttonH;
+
+    ButtonBase() {
+      isPressed = false;
+      isActive = false;
+      isDecorationIcon = false;
+      isDecorationLabel = false;
+    }
 
 
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
@@ -37,8 +46,8 @@ public:
     void draw();
 
 private:
-    void drawIcon(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
-    void drawLabel(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
+    void drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, uint8_t h);
+    void drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uint8_t w, uint8_t h);
 
 };
 
