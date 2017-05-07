@@ -42,6 +42,9 @@ void IconStorage::loadIcon(uint8_t slotIndex, IconBufferMem & icon) {
 
 
 void IconStorage::saveSlot(uint8_t slotIndex) {
+  // Find next free slot and mark current one as available when saving.
+  // This is necessary to get more equal wear over memory.
+
   int16_t currentMemIndex = slots[slotIndex].memIndex;
   if (currentMemIndex >= 0) {
     iconMem.setSlotNumber(currentMemIndex, 0xFF);
