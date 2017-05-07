@@ -24,6 +24,19 @@ void Toolbar::addButton(ButtonBase & button, const char * label) {
 }
 
 
+
+void Toolbar::addButton(ButtonBase & button, Icon * icon) {
+  if (buttonCount < MAX_BUTTON_COUNT) {
+    button.init(TOOLBAR_X, TOOLBAR_Y + buttonCount*TOOLBAR_BUTTON_H, TOOLBAR_W, TOOLBAR_BUTTON_H, icon);
+    buttons[buttonCount] = &button;
+    button.setActive(false);
+    buttonCount++;
+  }
+}
+
+
+
+
 void Toolbar::setActive(bool active) {
   for (uint8_t i=0; i<buttonCount; i++) {
     buttons[i]->setActive(active);

@@ -50,18 +50,34 @@ class Button : public ButtonBase {
 
 public:
     typedef void (TObj::*CallbackMethod)(void);
+    typedef void (TObj::*CallbackMethodWithParam)(uint8_t param);
 
     Button(TObj* object, CallbackMethod callbackMethod) :
         object(object),
-        callbackMethod(callbackMethod) {};
+        callbackMethod(callbackMethod),
+        callbackMethodWithParam(nullptr),
+        methodParam(0) {};
+
+    Button(TObj* object, CallbackMethodWithParam callbackMethod, uint8_t param) :
+        object(object),
+        callbackMethod(nullptr),
+        callbackMethodWithParam(callbackMethod),
+        methodParam(param) {};
 
     void action() override {
-      (object->*callbackMethod)();
+      if (callbackMethod != nullptr) {
+        (object->*callbackMethod)();
+      }
+      if (callbackMethodWithParam != nullptr) {
+        (object->*callbackMethodWithParam)(methodParam);
+      }
     }
 
 private:
     TObj* object;
     CallbackMethod callbackMethod;
+    CallbackMethodWithParam callbackMethodWithParam;
+    uint8_t methodParam;
 
 };
 

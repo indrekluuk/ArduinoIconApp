@@ -12,7 +12,7 @@
 
 
 class Toolbar {
-    static const uint8_t MAX_BUTTON_COUNT = 6;
+    static const uint8_t MAX_BUTTON_COUNT = 7;
     ButtonBase * buttons[MAX_BUTTON_COUNT];
     uint8_t buttonCount = 0;
 
@@ -26,6 +26,7 @@ public:
 
     void init();
     void addButton(ButtonBase & button, const char * label);
+    void addButton(ButtonBase & button, Icon * icon);
     void setActive(bool active);
     void draw(bool redrawAll);
 

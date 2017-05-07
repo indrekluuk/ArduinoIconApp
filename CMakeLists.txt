@@ -34,9 +34,13 @@ add_executable(runTests
         src/PBlockIcons/src/ui/ExampleView.cpp
         src/PBlockIcons/src/ui/ColorPicker.cpp
         src/PBlockIcons/src/ui/Button.cpp
+        src/PBlockIcons/src/ui/Tools.cpp
+        src/PBlockIcons/src/ui/Toolbar.cpp
         src/PBlockIcons/src/screen/TFT.cpp
         src/PBlockIcons/src/screen/Font.cpp
         src/PBlockIcons/src/icons/ProgMemIcons.cpp
+        src/PBlockIcons/src/storage/IconStorage.cpp
+        src/PBlockIcons/src/storage/IconMem.cpp
 
         test/src/PBlocksDisplay/TestTouchRegion.cpp
         )

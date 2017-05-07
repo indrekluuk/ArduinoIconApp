@@ -1,6 +1,5 @@
 
 
-
 #include <MCUFRIEND_kbv.h>
 #include <TouchScreen.h>
 #include "PBlocksIconsEditor.h"

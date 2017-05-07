@@ -25,6 +25,7 @@ void PBlocksUserInterface::init() {
   exampleView.init();
   tools.init();
   touchHandler.init((uint16_t)tft.width(), (uint16_t)tft.height());
+
 }
 
 
