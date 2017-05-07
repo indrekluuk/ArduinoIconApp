@@ -62,7 +62,8 @@ void Tools::showSaveToolbar(uint8_t) {
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::saveIcon, i)
-        .setIcon(&buttonIcons[i]);
+        .setIcon(&buttonIcons[i])
+        .showArrow(false, true);
   }
   toolbar.addButton()
       .setCallback(this, &Tools::showMainToolbar)
@@ -76,7 +77,8 @@ void Tools::showLoadToolbar(uint8_t) {
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::loadIcon, i)
-        .setIcon(&buttonIcons[i]);
+        .setIcon(&buttonIcons[i])
+        .showArrow(false, false);
   }
   toolbar.addButton()
       .setCallback(this, &Tools::showMainToolbar)
@@ -90,7 +92,8 @@ void Tools::showSendToolbar(uint8_t) {
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::sendIcon, i)
-        .setIcon(&buttonIcons[i]);
+        .setIcon(&buttonIcons[i])
+        .showArrow(true, true);
   }
   toolbar.addButton()
       .setCallback(this, &Tools::showMainToolbar)

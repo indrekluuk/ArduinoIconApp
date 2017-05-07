@@ -46,6 +46,19 @@ ButtonBase & ButtonBase::setLabel(const char * label) {
 }
 
 
+ButtonBase & ButtonBase::showArrow(bool isPlacementRight, bool isDirectionRight) {
+  isShowArrow = true;
+  arrowPlacementRight = isPlacementRight;
+  arrowDirectionRight = isDirectionRight;
+  return *this;
+}
+
+
+ButtonBase & ButtonBase::removeArrow() {
+  isShowArrow = false;
+  return *this;
+}
+
 
 void ButtonBase::setActive(bool active) {
   isActive = active;
@@ -101,6 +114,12 @@ void ButtonBase::draw() {
   } else {
     tft.fillRect(x, y, w, h, isPressed ? COLOR_GRAY66 : COLOR_GRAY85);
   }
+
+  if (isShowArrow) {
+    uint16_t arrX = arrowPlacementRight ? buttonX + buttonW - 10 : buttonX + 4 ;
+    uint16_t arrY = buttonY + 4;
+    drawArrow(arrX, arrY);
+  }
 }
 
 
@@ -132,8 +151,8 @@ void ButtonBase::drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, 
 
 
 void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
-
   TFT & tft = UI->tft;
+
   if (isPressed) {
     tft.setTextColor(COLOR_WHITE, COLOR_GRAY85);
   } else {
@@ -152,6 +171,20 @@ void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uin
     tft.print(buttonLabel);
   }
   tft.finishTextFillBox();
+}
+
+
+void ButtonBase::drawArrow(uint16_t x, uint16_t y) {
+  TFT & tft = UI->tft;
+
+  if (isPressed) {
+    x += 2;
+    y += 2;
+  }
+
+  tft.fillRect(x + (arrowDirectionRight ? 0 : 4), y + 0, 2, 10, COLOR_BLACK);
+  tft.fillRect(x + (arrowDirectionRight ? 2 : 2), y + 2, 2, 6, COLOR_BLACK);
+  tft.fillRect(x + (arrowDirectionRight ? 4 : 0), y + 4, 2, 2, COLOR_BLACK);
 }
 
 

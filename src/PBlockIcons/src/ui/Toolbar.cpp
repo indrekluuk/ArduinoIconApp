@@ -21,6 +21,7 @@ void Toolbar::reset() {
   buttonCount = 0;
   for (uint8_t i = 0; i<MAX_BUTTON_COUNT; i++) {
     buttons[i].setActive(false);
+    buttons[i].removeArrow();
   }
 }
 

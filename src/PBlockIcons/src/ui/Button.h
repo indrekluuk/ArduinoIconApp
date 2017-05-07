@@ -18,7 +18,10 @@ class ButtonBase : public Touchable {
     uint8_t isActive : 1;
     uint8_t isDecorationIcon : 1;
     uint8_t isDecorationLabel : 1;
-    uint8_t reserve : 4;
+    uint8_t isShowArrow : 1;
+    uint8_t arrowPlacementRight : 1;
+    uint8_t arrowDirectionRight : 1;
+    uint8_t reserve : 1;
 
 public:
 
@@ -40,6 +43,9 @@ public:
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label);
     ButtonBase & setIcon(Icon * icon);
     ButtonBase & setLabel(const char * label);
+    ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
+    ButtonBase & removeArrow();
+
 
     void setActive(bool active);
 
@@ -51,6 +57,7 @@ public:
 private:
     void drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, uint8_t h);
     void drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uint8_t w, uint8_t h);
+    void drawArrow(uint16_t x, uint16_t y);
 
 };
 
