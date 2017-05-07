@@ -111,6 +111,7 @@ void Tools::invertIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
   showMainToolbar(0);
+  UI->draw(true);
 }
 
 void Tools::clearIcon(uint8_t) {
@@ -118,6 +119,7 @@ void Tools::clearIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = 0;
   }
   showMainToolbar(0);
+  UI->draw(true);
 }
 
 
