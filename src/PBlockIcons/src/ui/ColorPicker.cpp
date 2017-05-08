@@ -19,6 +19,10 @@ void ColorPicker::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 
 
 bool ColorPicker::tap(uint16_t x, uint16_t y, bool hold) {
+  if (!isActive) {
+    return false;
+  }
+
   if (isTapBetween(x, pickerX, pickerX + pickerW) && isTapBetween(y, pickerY, pickerY + pickerH)) {
     for (uint8_t c = 0; c<COLOR_COUNT; c++) {
       uint16_t cX = getColorX2(c);
@@ -36,11 +40,15 @@ bool ColorPicker::tap(uint16_t x, uint16_t y, bool hold) {
 
 
 void ColorPicker::draw() {
-  for (uint8_t c=0; c<COLOR_COUNT; c++) {
-    uint16_t cx = getColorX1(c);
-    uint16_t cy = getColorY(c);
-    uint16_t cw = getColorX2(c) - cx;
-    UI->tft.fillRect(cx, cy, cw, pickerH/2, RgbColor((Palette)c).colorCode);
+  if (isActive) {
+    for (uint8_t c=0; c<COLOR_COUNT; c++) {
+      uint16_t cx = getColorX1(c);
+      uint16_t cy = getColorY(c);
+      uint16_t cw = getColorX2(c) - cx;
+      UI->tft.fillRect(cx, cy, cw, pickerH/2, RgbColor((Palette)c).colorCode);
+    }
+  } else {
+    UI->tft.fillRect(pickerX, pickerY, pickerW, pickerH, COLOR_BLACK);
   }
 }
 
@@ -63,3 +71,7 @@ uint16_t ColorPicker::getColorY(uint8_t c) {
   return pickerY + (c >= (COLOR_COUNT / 2) ? pickerH / 2 : 0);
 }
 
+
+void ColorPicker::setActive(bool active) {
+  isActive = active;
+}

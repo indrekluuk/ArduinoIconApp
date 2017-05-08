@@ -50,6 +50,8 @@ void ExampleView::scaleDown(uint8_t) {
 void ExampleView::toggle3d(uint8_t) {
   is3D = !is3D;
   hasBorder = false;
+  bColorPicker.setActive(false);
+  bColorPicker.draw();
   reDrawExamples();
 }
 
@@ -57,6 +59,8 @@ void ExampleView::toggle3d(uint8_t) {
 void ExampleView::toggleBorder(uint8_t) {
   hasBorder = !hasBorder;
   is3D = false;
+  bColorPicker.setActive(hasBorder);
+  bColorPicker.draw();
   reDrawExamples();
 }
 
@@ -90,6 +94,7 @@ void ExampleView::draw(bool redrawAll) {
     toggleBorderButton.draw();
     bgColorPicker.draw();
     fgColorPicker.draw();
+    bColorPicker.setActive(hasBorder);
     bColorPicker.draw();
     printScale();
   }

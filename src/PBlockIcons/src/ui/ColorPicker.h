@@ -21,6 +21,8 @@ class ColorPicker : public Touchable {
     uint8_t pickerW;
     uint8_t pickerH;
 
+    bool isActive = true;
+
 public:
     typedef void (ExampleView::*CallbackMethod)(Palette c);
 
@@ -32,6 +34,7 @@ public:
     bool tap(uint16_t x, uint16_t y, bool hold) override;
     void draw();
 
+    void setActive(bool active);
 
 private:
 
