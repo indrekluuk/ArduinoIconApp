@@ -36,6 +36,7 @@ void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char *
 ButtonBase & ButtonBase::setIcon(Icon * icon) {
   decoration = icon;
   isDecorationIcon = true;
+  isDecorationLabel = false;
   return *this;
 }
 
@@ -43,6 +44,7 @@ ButtonBase & ButtonBase::setIcon(Icon * icon) {
 ButtonBase & ButtonBase::setLabel(const char * label) {
   decoration = label;
   isDecorationLabel = true;
+  isDecorationIcon = false;
   return *this;
 }
 

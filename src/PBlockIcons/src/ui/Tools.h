@@ -23,6 +23,10 @@ class Tools {
     IconBufferProgMem iconLoad = IconBufferProgMem(&ICON_LOAD);
     IconBufferProgMem iconSend = IconBufferProgMem(&ICON_SEND);
     IconBufferProgMem iconInvert = IconBufferProgMem(&ICON_INVERT);
+    IconBufferProgMem iconUp = IconBufferProgMem(&ICON_UP);
+    IconBufferProgMem iconDown = IconBufferProgMem(&ICON_DOWN);
+    IconBufferProgMem iconLeft = IconBufferProgMem(&ICON_LEFT);
+    IconBufferProgMem iconRight = IconBufferProgMem(&ICON_RIGHT);
     IconBufferProgMem iconClear = IconBufferProgMem(&ICON_CLEAR);
 
     Toolbar toolbar;
@@ -44,6 +48,10 @@ private:
     void reloadButtonIcons();
 
     void invertIcon(uint8_t);
+    void moveIconUp(uint8_t);
+    void moveIconDown(uint8_t);
+    void moveIconLeft(uint8_t);
+    void moveIconRight(uint8_t);
     void clearIcon(uint8_t);
 
     void saveIcon(uint8_t slotIndex);

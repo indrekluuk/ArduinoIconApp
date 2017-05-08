@@ -156,6 +156,103 @@ const PROGMEM IconBufferProgMem::IconData ICON_INVERT = {
 
 
 
+const PROGMEM IconBufferProgMem::IconData ICON_UP = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000001111000000,
+        (uint16_t) 0b0000011111100000,
+        (uint16_t) 0b0000111111110000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_DOWN = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000111111110000,
+        (uint16_t) 0b0000011111100000,
+        (uint16_t) 0b0000001111000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_LEFT = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000001000000000,
+        (uint16_t) 0b0000011000000000,
+        (uint16_t) 0b0000111000000000,
+        (uint16_t) 0b0001111111111000,
+        (uint16_t) 0b0001111111111000,
+        (uint16_t) 0b0000111000000000,
+        (uint16_t) 0b0000011000000000,
+        (uint16_t) 0b0000001000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_RIGHT = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000001000000,
+        (uint16_t) 0b0000000001100000,
+        (uint16_t) 0b0000000001110000,
+        (uint16_t) 0b0001111111111000,
+        (uint16_t) 0b0001111111111000,
+        (uint16_t) 0b0000000001110000,
+        (uint16_t) 0b0000000001100000,
+        (uint16_t) 0b0000000001000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
 
 const PROGMEM IconBufferProgMem::IconData ICON_CLEAR = {
     IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
