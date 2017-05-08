@@ -8,6 +8,7 @@
 
 
 
+
 void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
   buttonX = x;
   buttonY = y;
@@ -154,13 +155,14 @@ void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uin
   TFT & tft = UI->tft;
 
   if (isPressed) {
-    tft.setTextColor(COLOR_WHITE, COLOR_GRAY85);
+    tft.setTextColor(COLOR_BLACK, COLOR_GRAY85);
   } else {
-    tft.setTextColor(COLOR_WHITE, COLOR_GRAY66);
+    tft.setTextColor(COLOR_BLACK, COLOR_GRAY66);
   }
   tft.setTextSize(2);
 
-  uint8_t cX = 10;
+  ;
+  uint8_t cX = (w >> 1) - ((strlen(buttonLabel)*10) >> 1);
   uint8_t cY = (h >> 1) - (uint8_t)6;
   if (isPressed) {
     cX+=2;

@@ -179,3 +179,79 @@ const PROGMEM IconBufferProgMem::IconData ICON_CLEAR = {
     }
 };
 
+
+
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_ZOOM_IN = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000011111000,
+        (uint16_t) 0b0000000110001100,
+        (uint16_t) 0b0000001100100110,
+        (uint16_t) 0b0000001000100010,
+        (uint16_t) 0b0000001011111010,
+        (uint16_t) 0b0000001000100010,
+        (uint16_t) 0b0000001100100110,
+        (uint16_t) 0b0000001110001100,
+        (uint16_t) 0b0000011111111000,
+        (uint16_t) 0b0000111000000000,
+        (uint16_t) 0b0001110000000000,
+        (uint16_t) 0b0011100000000000,
+        (uint16_t) 0b0111000000000000,
+        (uint16_t) 0b0110000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_ZOOM_OUT = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000011111000,
+        (uint16_t) 0b0000000110001100,
+        (uint16_t) 0b0000001100000110,
+        (uint16_t) 0b0000001000000010,
+        (uint16_t) 0b0000001011111010,
+        (uint16_t) 0b0000001000000010,
+        (uint16_t) 0b0000001100000110,
+        (uint16_t) 0b0000001110001100,
+        (uint16_t) 0b0000011111111000,
+        (uint16_t) 0b0000111000000000,
+        (uint16_t) 0b0001110000000000,
+        (uint16_t) 0b0011100000000000,
+        (uint16_t) 0b0111000000000000,
+        (uint16_t) 0b0110000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_BORDER = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1000000000000001,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+        (uint16_t) 0b0000000000000000,
+    }
+};
+

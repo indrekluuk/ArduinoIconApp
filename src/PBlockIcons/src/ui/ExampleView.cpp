@@ -16,10 +16,10 @@ void ExampleView::init() {
 
   uint8_t buttonW = BUTTONS_W / 2;
   uint8_t buttonH = BUTTONS_H / 2;
-  scaleUpButton.init(BUTTONS_X, BUTTONS_Y, buttonW, buttonH, "+");
-  scaleDownButton.init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH, "-");
-  toggle3DButton.init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH, "3d");
-  toggleBorderButton.init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH, "O");
+  scaleUpButton.init(BUTTONS_X, BUTTONS_Y, buttonW, buttonH, &iconZoomIn);
+  scaleDownButton.init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH, &iconZoomOut);
+  toggle3DButton.init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH, "3D");
+  toggleBorderButton.init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH, &iconBorder);
 
   uint8_t pickerH = PICKERS_H / 3;
   bgColorPicker.init(PICKERS_X, PICKERS_Y + GAP, PICKERS_W, pickerH - GAP);
