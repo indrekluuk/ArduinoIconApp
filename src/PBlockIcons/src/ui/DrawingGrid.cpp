@@ -58,8 +58,8 @@ void DrawingGrid::draw(bool redrawAll) {
 void DrawingGrid::drawGrid() {
   TFT & tft = UI->tft;
   for (uint8_t i=0; i<COUNT+1; i++) {
-    tft.drawFastVLine(GRID_X + i*SIZE, GRID_Y, SIZE*COUNT, COLOR_GRAY50);
-    tft.drawFastHLine(GRID_X, GRID_Y + i*SIZE, SIZE*COUNT, COLOR_GRAY50);
+    tft.drawFastVLine(GRID_X + i*SIZE, GRID_Y, SIZE*COUNT + 1, COLOR_GRAY50);
+    tft.drawFastHLine(GRID_X, GRID_Y + i*SIZE, SIZE*COUNT + 1, COLOR_GRAY50);
   }
 }
 

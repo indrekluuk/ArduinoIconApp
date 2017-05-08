@@ -53,7 +53,7 @@ public:
     static const uint16_t PICKERS_X = VIEW_X;
     static const uint16_t PICKERS_Y = BUTTONS_Y + BUTTONS_H;
     static const uint16_t PICKERS_W = VIEW_W;
-    static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y + 1;
+    static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
 
 
 

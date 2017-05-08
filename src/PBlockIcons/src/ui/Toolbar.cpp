@@ -11,8 +11,12 @@
 
 void Toolbar::init() {
   reset();
+  uint16_t y1 = TOOLBAR_Y;
   for (uint8_t i = 0; i<MAX_BUTTON_COUNT; i++) {
-    buttons[i].init(TOOLBAR_X, TOOLBAR_Y + i*TOOLBAR_BUTTON_H, TOOLBAR_W, TOOLBAR_BUTTON_H);
+    uint16_t y2 = TOOLBAR_Y + ((i+1) * TOOLBAR_H) / MAX_BUTTON_COUNT;
+    uint8_t h = y2 - y1;
+    buttons[i].init(TOOLBAR_X, y1, TOOLBAR_W, h);
+    y1 = y2;
   }
 }
 

@@ -26,8 +26,8 @@ class DrawingGrid : public Touchable {
 public:
     static const uint16_t GRID_X = 130;
     static const uint16_t GRID_Y = (SCREEN_HEIGHT - COUNT * SIZE) / 2;
-    static const uint16_t GRID_W = COUNT * SIZE;
-    static const uint16_t GRID_H = COUNT * SIZE;
+    static const uint16_t GRID_W = COUNT * SIZE + 1;
+    static const uint16_t GRID_H = COUNT * SIZE + 1;
 
     void init();
     bool tap(uint16_t x, uint16_t y, bool hold) override;

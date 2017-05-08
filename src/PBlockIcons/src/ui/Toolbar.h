@@ -21,11 +21,10 @@ class Toolbar {
 
 public:
 
-    static const uint16_t TOOLBAR_X = DrawingGrid::GRID_X +  DrawingGrid::GRID_W + 3;
+    static const uint16_t TOOLBAR_X = DrawingGrid::GRID_X +  DrawingGrid::GRID_W + 2;
     static const uint16_t TOOLBAR_Y = DrawingGrid::GRID_Y;
     static const uint16_t TOOLBAR_W = SCREEN_WIDTH - TOOLBAR_X;
     static const uint16_t TOOLBAR_H = DrawingGrid::GRID_H;
-    static const uint16_t TOOLBAR_BUTTON_H = 40;
 
 
     Toolbar() {}
