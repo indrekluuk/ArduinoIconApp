@@ -127,7 +127,6 @@ void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  showMainToolbar(0);
   UI->draw(true);
 }
 
