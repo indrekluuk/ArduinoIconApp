@@ -12,7 +12,17 @@ void DrawingGrid::init() {
 }
 
 
+
+void DrawingGrid::setActive(bool active) {
+  isActive = active;
+}
+
+
 bool DrawingGrid::tap(uint16_t x, uint16_t y, bool hold) {
+  if (!isActive) {
+    return false;
+  }
+
   if (!hold) {
     isColorSelected = false;
     UI->iconUpdated();
@@ -43,6 +53,10 @@ bool DrawingGrid::tap(uint16_t x, uint16_t y, bool hold) {
 
 
 void DrawingGrid::draw(bool redrawAll) {
+  if (!isActive) {
+    return;
+  }
+
   if (redrawAll) {
     drawGrid();
     for (uint8_t x=0; x<COUNT; x++) {

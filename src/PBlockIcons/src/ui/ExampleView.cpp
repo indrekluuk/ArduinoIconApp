@@ -25,14 +25,11 @@ void ExampleView::init() {
       .setCallback(this, &ExampleView::scaleDown)
       .init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH)
       .setIcon(&iconZoomOut);
-  toggle3DButton
-      .setCallback(this, &ExampleView::toggle3d)
+
+  showPaletteButton
+      .setCallback(this, &ExampleView::togglePalette)
       .init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH)
-      .setLabel("3D");
-  toggleBorderButton
-      .setCallback(this, &ExampleView::toggleBorder)
-      .init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH)
-      .setIcon(&iconBorder);
+      .setLabel("P");
 
   uint8_t pickerH = PICKERS_H / 3;
   bgColorPicker.init(PICKERS_X, PICKERS_Y + GAP, PICKERS_W, pickerH - GAP);
@@ -71,6 +68,19 @@ void ExampleView::nextBorderStyle() {
 
 
 
+void ExampleView::togglePalette() {
+  if (UI->palette.isActive()) {
+    UI->drawingGrid.setActive(true);
+    UI->palette.setActive(false);
+    UI->drawingGrid.draw(true);
+  } else {
+    UI->drawingGrid.setActive(false);
+    UI->palette.setActive(true);
+    UI->palette.draw(true);
+  }
+}
+
+
 void ExampleView::scaleUp() {
   if ((scale+1)*16 <= VIEW_W) {
     scale++;
@@ -87,25 +97,6 @@ void ExampleView::scaleDown() {
     printScale();
   };
 }
-
-
-void ExampleView::toggle3d() {
-  is3D = !is3D;
-  hasBorder = false;
-  bColorPicker.setActive(false);
-  bColorPicker.draw();
-  reDrawExamples();
-}
-
-
-void ExampleView::toggleBorder() {
-  hasBorder = !hasBorder;
-  is3D = false;
-  bColorPicker.setActive(hasBorder);
-  bColorPicker.draw();
-  reDrawExamples();
-}
-
 
 
 void ExampleView::setBackgroundColor(Palette c) {
@@ -132,8 +123,7 @@ void ExampleView::draw(bool redrawAll) {
     reDrawExamples();
     scaleUpButton.draw();
     scaleDownButton.draw();
-    toggle3DButton.draw();
-    toggleBorderButton.draw();
+    showPaletteButton.draw();
     bgColorPicker.draw();
     fgColorPicker.draw();
     bColorPicker.setActive(hasBorder);

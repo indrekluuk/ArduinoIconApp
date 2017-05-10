@@ -9,6 +9,7 @@
 #include "TouchHandler.h"
 #include "src/screen/TFT.h"
 #include "DrawingGrid.h"
+#include "ColorPalette.h"
 #include "ExampleView.h"
 #include "Tools.h"
 #include "src/icons/Icon.h"
@@ -20,6 +21,7 @@ public:
     TFT tft;
     TouchHandler touchHandler;
     DrawingGrid drawingGrid;
+    ColorPalette palette;
     ExampleView exampleView;
     Tools tools;
     IconBufferMem activeIcon;

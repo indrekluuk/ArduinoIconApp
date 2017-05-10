@@ -17,13 +17,11 @@ class ExampleView : public Touchable {
 
     IconBufferProgMem iconZoomIn = IconBufferProgMem(&ICON_ZOOM_IN);
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
-    IconBufferProgMem iconBorder = IconBufferProgMem(&ICON_BORDER);
 
     Button0<ExampleView> scaleUpButton;
     Button0<ExampleView> scaleDownButton;
-    Button0<ExampleView> toggle3DButton;
-    Button0<ExampleView> toggleBorderButton;
 
+    Button0<ExampleView> showPaletteButton;
     ColorPicker bgColorPicker;
     ColorPicker fgColorPicker;
     ColorPicker bColorPicker;
@@ -70,10 +68,9 @@ public:
     bool tap(uint16_t x, uint16_t y, bool hold);
 
     void nextBorderStyle();
+    void togglePalette();
     void scaleUp();
     void scaleDown();
-    void toggle3d();
-    void toggleBorder();
     void setBackgroundColor(Palette c);
     void setForegroundColor(Palette c);
     void setBorderColor(Palette c);

@@ -17,6 +17,7 @@ class DrawingGrid : public Touchable {
 
 
 
+    bool isActive = true;
     bool isColorSelected = false;
     bool selectedColor = false;
 
@@ -30,6 +31,7 @@ public:
     static const uint16_t GRID_H = COUNT * SIZE + 1;
 
     void init();
+    void setActive(bool active);
     bool tap(uint16_t x, uint16_t y, bool hold) override;
     void draw(bool redrawAll);
 
