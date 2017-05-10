@@ -26,16 +26,16 @@ void Tools::draw(bool redrawAll) {
 void Tools::showMainToolbar(uint8_t) {
   toolbar.reset();
   toolbar.addButton()
-      .setCallback(this, &Tools::showEditToolbar)
+      .setCallback(this, &Tools::showEditToolbar, 0)
       .setIcon(&iconEdit);
   toolbar.addButton()
-      .setCallback(this, &Tools::showSaveToolbar)
+      .setCallback(this, &Tools::showSaveToolbar, 0)
       .setIcon(&iconSave);
   toolbar.addButton()
-      .setCallback(this, &Tools::showLoadToolbar)
+      .setCallback(this, &Tools::showLoadToolbar, 0)
       .setIcon(&iconLoad);
   toolbar.addButton()
-      .setCallback(this, &Tools::showSendToolbar)
+      .setCallback(this, &Tools::showSendToolbar, 0)
       .setIcon(&iconSend);
   draw(true);
 }
@@ -44,27 +44,27 @@ void Tools::showMainToolbar(uint8_t) {
 void Tools::showEditToolbar(uint8_t) {
   toolbar.reset();
   toolbar.addButton()
-      .setCallback(this, &Tools::invertIcon)
+      .setCallback(this, &Tools::invertIcon, 0)
       .setIcon(&iconInvert);
 
   toolbar.addButton()
-      .setCallback(this, &Tools::moveIconUp)
+      .setCallback(this, &Tools::moveIconUp, 0)
       .setIcon(&iconUp);
   toolbar.addButton()
-      .setCallback(this, &Tools::moveIconDown)
+      .setCallback(this, &Tools::moveIconDown, 0)
       .setIcon(&iconDown);
   toolbar.addButton()
-      .setCallback(this, &Tools::moveIconLeft)
+      .setCallback(this, &Tools::moveIconLeft, 0)
       .setIcon(&iconLeft);
   toolbar.addButton()
-      .setCallback(this, &Tools::moveIconRight)
+      .setCallback(this, &Tools::moveIconRight, 0)
       .setIcon(&iconRight);
 
   toolbar.addButton()
-      .setCallback(this, &Tools::clearIcon)
+      .setCallback(this, &Tools::clearIcon, 0)
       .setIcon(&iconClear);
   toolbar.addButton()
-      .setCallback(this, &Tools::showMainToolbar)
+      .setCallback(this, &Tools::showMainToolbar, 0)
       .setIcon(&iconReturn);
   draw(true);
 }
@@ -80,7 +80,7 @@ void Tools::showSaveToolbar(uint8_t) {
         .showArrow(false, true);
   }
   toolbar.addButton()
-      .setCallback(this, &Tools::showMainToolbar)
+      .setCallback(this, &Tools::showMainToolbar, 0)
       .setIcon(&iconReturn);
   draw(true);
 }
@@ -95,7 +95,7 @@ void Tools::showLoadToolbar(uint8_t) {
         .showArrow(false, false);
   }
   toolbar.addButton()
-      .setCallback(this, &Tools::showMainToolbar)
+      .setCallback(this, &Tools::showMainToolbar, 0)
       .setIcon(&iconReturn);
   draw(true);
 }
@@ -110,7 +110,7 @@ void Tools::showSendToolbar(uint8_t) {
         .showArrow(true, true);
   }
   toolbar.addButton()
-      .setCallback(this, &Tools::showMainToolbar)
+      .setCallback(this, &Tools::showMainToolbar, 0)
       .setIcon(&iconReturn);
   draw(true);
 }

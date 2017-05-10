@@ -19,12 +19,10 @@ class ExampleView {
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
     IconBufferProgMem iconBorder = IconBufferProgMem(&ICON_BORDER);
 
-
-
-    Button<ExampleView> scaleUpButton;
-    Button<ExampleView> scaleDownButton;
-    Button<ExampleView> toggle3DButton;
-    Button<ExampleView> toggleBorderButton;
+    Button0<ExampleView> scaleUpButton;
+    Button0<ExampleView> scaleDownButton;
+    Button0<ExampleView> toggle3DButton;
+    Button0<ExampleView> toggleBorderButton;
 
     ColorPicker bgColorPicker;
     ColorPicker fgColorPicker;
@@ -58,10 +56,6 @@ public:
 
 
     ExampleView() :
-        scaleUpButton(this, &ExampleView::scaleUp),
-        scaleDownButton(this, &ExampleView::scaleDown),
-        toggle3DButton(this, &ExampleView::toggle3d),
-        toggleBorderButton(this, &ExampleView::toggleBorder),
         bgColorPicker(this, &ExampleView::setBackgroundColor),
         fgColorPicker(this, &ExampleView::setForegroundColor),
         bColorPicker(this, &ExampleView::setBorderColor)
@@ -69,10 +63,10 @@ public:
 
     void init();
 
-    void scaleUp(uint8_t);
-    void scaleDown(uint8_t);
-    void toggle3d(uint8_t);
-    void toggleBorder(uint8_t);
+    void scaleUp();
+    void scaleDown();
+    void toggle3d();
+    void toggleBorder();
     void setBackgroundColor(Palette c);
     void setForegroundColor(Palette c);
     void setBorderColor(Palette c);

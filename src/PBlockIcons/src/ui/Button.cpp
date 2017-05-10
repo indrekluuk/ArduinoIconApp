@@ -9,27 +9,12 @@
 
 
 
-void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+ButtonBase & ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
   buttonX = x;
   buttonY = y;
   buttonW = w;
   buttonH = h;
-}
-
-void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon) {
-  buttonX = x;
-  buttonY = y;
-  buttonW = w;
-  buttonH = h;
-  setIcon(icon);
-}
-
-void ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label) {
-  buttonX = x;
-  buttonY = y;
-  buttonW = w;
-  buttonH = h;
-  setLabel(label);
+  return *this;
 }
 
 

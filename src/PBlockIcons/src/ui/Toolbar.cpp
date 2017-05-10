@@ -30,7 +30,7 @@ void Toolbar::reset() {
 }
 
 
-Button<Tools> & Toolbar::addButton() {
+Button1<Tools, uint8_t> & Toolbar::addButton() {
   if (buttonCount < MAX_BUTTON_COUNT) {
     buttons[buttonCount].setActive(true);
     buttonCount++;

@@ -16,7 +16,7 @@ class Tools;
 
 class Toolbar {
     static const uint8_t MAX_BUTTON_COUNT = 7;
-    Button<Tools> buttons[MAX_BUTTON_COUNT];
+    Button1<Tools, uint8_t> buttons[MAX_BUTTON_COUNT];
     uint8_t buttonCount = 0;
 
 public:
@@ -32,7 +32,7 @@ public:
     void init();
     void reset();
 
-    Button<Tools> & addButton();
+    Button1<Tools, uint8_t> & addButton();
 
     void draw(bool redrawAll);
 

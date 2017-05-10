@@ -38,9 +38,7 @@ public:
     }
 
 
-    void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
-    void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
-    void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, const char * label);
+    ButtonBase & init(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
     ButtonBase & setIcon(Icon * icon);
     ButtonBase & setLabel(const char * label);
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
@@ -65,25 +63,43 @@ private:
 
 
 template<class TObj>
-class Button : public ButtonBase {
+class Button0 : public ButtonBase {
 
 public:
-    typedef void (TObj::*CallbackMethod)(uint8_t param);
+    using CallbackMethod = void (TObj::*)();
 
-    Button() :
-        object(nullptr),
-        callbackMethod(nullptr),
-        methodParam(0) {};
+    Button0 & setCallback(TObj * obj, CallbackMethod method) {
+      object = obj;
+      callbackMethod = method;
+      return *this;
+    }
 
-    Button(TObj* object, CallbackMethod callbackMethod) :
-        object(object),
-        callbackMethod(callbackMethod),
-        methodParam(0) {};
+    void action() override {
+      if (callbackMethod != nullptr) {
+        (object->*callbackMethod)();
+      }
+    }
 
-    Button(TObj* object, CallbackMethod callbackMethod, uint8_t param) :
-        object(object),
-        callbackMethod(callbackMethod),
-        methodParam(param) {};
+private:
+    TObj* object = nullptr;
+    CallbackMethod callbackMethod = nullptr;
+};
+
+
+
+
+template<class TObj, typename TParam>
+class Button1 : public ButtonBase {
+
+public:
+    using CallbackMethod = void (TObj::*)(TParam param);
+
+    Button1 & setCallback(TObj * obj, CallbackMethod method, TParam param) {
+      object = obj;
+      callbackMethod = method;
+      methodParam = param;
+      return *this;
+    }
 
     void action() override {
       if (callbackMethod != nullptr) {
@@ -91,26 +107,12 @@ public:
       }
     }
 
-    Button & setCallback(TObj * obj, CallbackMethod method) {
-      object = obj;
-      callbackMethod = method;
-      methodParam = 0;
-      return *this;
-    }
-
-    Button & setCallback(TObj * obj, CallbackMethod method, uint8_t param) {
-      object = obj;
-      callbackMethod = method;
-      methodParam = param;
-      return *this;
-    }
-
 private:
-    TObj* object;
-    CallbackMethod callbackMethod;
-    uint8_t methodParam;
-
+    TObj* object = nullptr;
+    CallbackMethod callbackMethod = nullptr;
+    TParam methodParam;
 };
+
 
 
 

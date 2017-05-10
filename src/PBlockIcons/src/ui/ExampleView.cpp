@@ -16,10 +16,23 @@ void ExampleView::init() {
 
   uint8_t buttonW = BUTTONS_W / 2;
   uint8_t buttonH = BUTTONS_H / 2;
-  scaleUpButton.init(BUTTONS_X, BUTTONS_Y, buttonW, buttonH, &iconZoomIn);
-  scaleDownButton.init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH, &iconZoomOut);
-  toggle3DButton.init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH, "3D");
-  toggleBorderButton.init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH, &iconBorder);
+
+  scaleUpButton
+      .setCallback(this, &ExampleView::scaleUp)
+      .init(BUTTONS_X, BUTTONS_Y, buttonW, buttonH)
+      .setIcon(&iconZoomIn);
+  scaleDownButton
+      .setCallback(this, &ExampleView::scaleDown)
+      .init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH)
+      .setIcon(&iconZoomOut);
+  toggle3DButton
+      .setCallback(this, &ExampleView::toggle3d)
+      .init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH)
+      .setLabel("3D");
+  toggleBorderButton
+      .setCallback(this, &ExampleView::toggleBorder)
+      .init(BUTTONS_X + buttonW, BUTTONS_Y + buttonH, buttonW, buttonH)
+      .setIcon(&iconBorder);
 
   uint8_t pickerH = PICKERS_H / 3;
   bgColorPicker.init(PICKERS_X, PICKERS_Y + GAP, PICKERS_W, pickerH - GAP);
@@ -29,7 +42,7 @@ void ExampleView::init() {
 
 
 
-void ExampleView::scaleUp(uint8_t) {
+void ExampleView::scaleUp() {
   if ((scale+1)*16 <= VIEW_W) {
     scale++;
     reDrawExamples();
@@ -38,7 +51,7 @@ void ExampleView::scaleUp(uint8_t) {
 }
 
 
-void ExampleView::scaleDown(uint8_t) {
+void ExampleView::scaleDown() {
   if (scale > 1) {
     scale--;
     reDrawExamples();
@@ -47,7 +60,7 @@ void ExampleView::scaleDown(uint8_t) {
 }
 
 
-void ExampleView::toggle3d(uint8_t) {
+void ExampleView::toggle3d() {
   is3D = !is3D;
   hasBorder = false;
   bColorPicker.setActive(false);
@@ -56,7 +69,7 @@ void ExampleView::toggle3d(uint8_t) {
 }
 
 
-void ExampleView::toggleBorder(uint8_t) {
+void ExampleView::toggleBorder() {
   hasBorder = !hasBorder;
   is3D = false;
   bColorPicker.setActive(hasBorder);
