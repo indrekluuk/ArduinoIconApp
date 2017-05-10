@@ -24,15 +24,13 @@ void Toolbar::init() {
 void Toolbar::reset() {
   buttonCount = 0;
   for (uint8_t i = 0; i<MAX_BUTTON_COUNT; i++) {
-    buttons[i].setActive(false);
-    buttons[i].removeArrow();
+    buttons[i].deactivate();
   }
 }
 
 
 Button1<Tools, uint8_t> & Toolbar::addButton() {
   if (buttonCount < MAX_BUTTON_COUNT) {
-    buttons[buttonCount].setActive(true);
     buttonCount++;
   }
   return buttons[buttonCount - 1];

@@ -21,14 +21,12 @@ ButtonBase & ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 ButtonBase & ButtonBase::setIcon(Icon * icon) {
   decoration = icon;
   isDecorationIcon = true;
-  isDecorationLabel = false;
   return *this;
 }
 
 
 ButtonBase & ButtonBase::setLabel(const char * label) {
   decoration = label;
-  isDecorationLabel = true;
   isDecorationIcon = false;
   return *this;
 }
@@ -42,19 +40,14 @@ ButtonBase & ButtonBase::showArrow(bool isPlacementRight, bool isDirectionRight)
 }
 
 
-ButtonBase & ButtonBase::removeArrow() {
+void ButtonBase::deactivate() {
+  decoration = nullptr;
   isShowArrow = false;
-  return *this;
-}
-
-
-void ButtonBase::setActive(bool active) {
-  isActive = active;
 }
 
 
 bool ButtonBase::tap(uint16_t x, uint16_t y, bool hold) {
-  if (!isActive) {
+  if (decoration == nullptr) {
     return false;
   }
 
@@ -95,10 +88,12 @@ void ButtonBase::draw() {
   uint8_t w = buttonW - 2;
   uint8_t h = buttonH - 2;
 
-  if (isDecorationIcon) {
-    drawIcon((Icon *)decoration, x, y, w, h);
-  } else if (isDecorationLabel) {
-    drawLabel((const char *)decoration, x, y, w, h);
+  if (decoration != nullptr) {
+    if (isDecorationIcon) {
+      drawIcon((Icon *)decoration, x, y, w, h);
+    } else {
+      drawLabel((const char *)decoration, x, y, w, h);
+    }
   } else {
     tft.fillRect(x, y, w, h, isPressed ? COLOR_GRAY66 : COLOR_GRAY85);
   }

@@ -15,13 +15,11 @@ class ButtonBase : public Touchable {
     const void * decoration = nullptr;
 
     uint8_t isPressed : 1;
-    uint8_t isActive : 1;
     uint8_t isDecorationIcon : 1;
-    uint8_t isDecorationLabel : 1;
     uint8_t isShowArrow : 1;
     uint8_t arrowPlacementRight : 1;
     uint8_t arrowDirectionRight : 1;
-    uint8_t reserve : 1;
+    uint8_t reserve : 3;
 
 public:
 
@@ -32,9 +30,7 @@ public:
 
     ButtonBase() {
       isPressed = false;
-      isActive = true;
-      isDecorationIcon = false;
-      isDecorationLabel = false;
+      isShowArrow = false;
     }
 
 
@@ -42,10 +38,7 @@ public:
     ButtonBase & setIcon(Icon * icon);
     ButtonBase & setLabel(const char * label);
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
-    ButtonBase & removeArrow();
-
-
-    void setActive(bool active);
+    void deactivate();
 
     bool tap(uint16_t x, uint16_t y, bool hold) override;
     virtual void action() = 0;
