@@ -28,9 +28,9 @@ class ExampleView {
     ColorPicker fgColorPicker;
     ColorPicker bColorPicker;
 
-    uint8_t scale = 2;
-    bool is3D = false;
-    bool hasBorder = false;
+    uint8_t scale : 6;
+    uint8_t is3D : 1;
+    uint8_t hasBorder : 1;
     Palette bgColor = Palette::GRAY33;
     Palette fgColor = Palette::GRAY85;
     Palette bColor = Palette::BLACK;
@@ -54,12 +54,16 @@ public:
     static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
 
 
-
     ExampleView() :
         bgColorPicker(this, &ExampleView::setBackgroundColor),
         fgColorPicker(this, &ExampleView::setForegroundColor),
         bColorPicker(this, &ExampleView::setBorderColor)
-    {}
+    {
+        scale = 2;
+        is3D = false;
+        hasBorder = false;
+    }
+
 
     void init();
 
