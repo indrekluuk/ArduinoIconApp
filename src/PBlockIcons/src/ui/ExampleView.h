@@ -13,7 +13,7 @@
 #include "src/icons/ProgMemIcons.h"
 
 
-class ExampleView {
+class ExampleView : public Touchable {
 
     IconBufferProgMem iconZoomIn = IconBufferProgMem(&ICON_ZOOM_IN);
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
@@ -67,6 +67,9 @@ public:
 
     void init();
 
+    bool tap(uint16_t x, uint16_t y, bool hold);
+
+    void nextBorderStyle();
     void scaleUp();
     void scaleDown();
     void toggle3d();

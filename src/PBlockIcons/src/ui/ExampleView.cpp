@@ -41,6 +41,35 @@ void ExampleView::init() {
 }
 
 
+bool ExampleView::tap(uint16_t x, uint16_t y, bool hold) {
+  if (isTapIn(x, VIEW_X, VIEW_W) && isTapIn(y, VIEW_Y, VIEW_H)) {
+    if (!hold) {
+      nextBorderStyle();
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+
+void ExampleView::nextBorderStyle() {
+  if (!is3D && !hasBorder) {
+    hasBorder = true;
+  } else if (hasBorder) {
+    hasBorder = false;
+    is3D = true;
+  } else {
+    hasBorder = false;
+    is3D = false;
+  }
+  bColorPicker.setActive(hasBorder);
+  bColorPicker.draw();
+  reDrawExamples();
+}
+
+
 
 void ExampleView::scaleUp() {
   if ((scale+1)*16 <= VIEW_W) {
