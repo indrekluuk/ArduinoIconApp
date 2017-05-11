@@ -49,7 +49,7 @@ void DrawingGrid::release(uint16_t x, uint16_t y) {
 
 
 bool DrawingGrid::isTouchOnGrid(uint16_t x, uint16_t y) {
-  return isTapIn(x, GRID_X, GRID_W) && isTapIn(y, GRID_Y, GRID_H);
+  return isTapIn(x, GRID_X, GRID_W - 1) && isTapIn(y, GRID_Y, GRID_H - 1);
 }
 
 
