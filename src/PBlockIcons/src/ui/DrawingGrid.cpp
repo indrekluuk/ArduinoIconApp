@@ -18,37 +18,40 @@ void DrawingGrid::setActive(bool active) {
 }
 
 
-bool DrawingGrid::tap(uint16_t x, uint16_t y, bool hold) {
-  if (!isActive) {
+bool DrawingGrid::touch(uint16_t x, uint16_t y) {
+  if (isActive && isTouchOnGrid(x, y)) {
+    uint8_t px = (x - GRID_X) / SIZE;
+    uint8_t py = (y - GRID_Y) / SIZE;
+    selectedColor = !getPixel(px, py);
+    isColorSelected = true;
+    return true;
+  } else {
     return false;
   }
+}
 
-  if (!hold) {
-    isColorSelected = false;
-    UI->iconUpdated();
-  } else {
-    if (isTapBetween(x, GRID_X, GRID_X + SIZE * COUNT) && isTapBetween(y, GRID_Y, GRID_Y + SIZE * COUNT)) {
-      uint8_t px = (x - GRID_X) / SIZE;
-      uint8_t py = (y - GRID_Y) / SIZE;
-
-      if (!isColorSelected) {
-        selectedColor = !getPixel(px, py);
-        isColorSelected = true;
-      }
-
-      boolean curColor = getPixel(px, py);
-      if (curColor != selectedColor) {
-        setPixel(px, py, selectedColor);
-        drawPixel(px, py);
-      }
-
-      return true;
+void DrawingGrid::hold(uint16_t x, uint16_t y) {
+  if (isTouchOnGrid(x, y)) {
+    uint8_t px = (x - GRID_X) / SIZE;
+    uint8_t py = (y - GRID_Y) / SIZE;
+    bool curColor = getPixel(px, py);
+    if (curColor != selectedColor) {
+      setPixel(px, py, selectedColor);
+      drawPixel(px, py);
     }
   }
-
-
-  return false;
 }
+
+void DrawingGrid::release(uint16_t x, uint16_t y) {
+  isColorSelected = false;
+  UI->iconUpdated();
+}
+
+
+bool DrawingGrid::isTouchOnGrid(uint16_t x, uint16_t y) {
+  return isTapIn(x, GRID_X, GRID_W) && isTapIn(y, GRID_Y, GRID_H);
+}
+
 
 
 

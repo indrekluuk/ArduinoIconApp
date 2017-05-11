@@ -38,15 +38,25 @@ void ExampleView::init() {
 }
 
 
-bool ExampleView::tap(uint16_t x, uint16_t y, bool hold) {
-  if (isTapIn(x, VIEW_X, VIEW_W) && isTapIn(y, VIEW_Y, VIEW_H)) {
-    if (!hold) {
-      nextBorderStyle();
-    }
+bool ExampleView::touch(uint16_t x, uint16_t y) {
+  if (isTouchOnView(x, y)) {
+    nextBorderStyle();
     return true;
   } else {
     return false;
   }
+}
+
+void ExampleView::hold(uint16_t x, uint16_t y) {
+
+}
+
+void ExampleView::release(uint16_t x, uint16_t y) {
+
+}
+
+bool ExampleView::isTouchOnView(uint16_t x, uint16_t y) {
+  return isTapIn(x, VIEW_X, VIEW_W) && isTapIn(y, VIEW_Y, VIEW_H);
 }
 
 

@@ -46,31 +46,47 @@ void ButtonBase::deactivate() {
 }
 
 
-bool ButtonBase::tap(uint16_t x, uint16_t y, bool hold) {
-  if (decoration == nullptr) {
+
+
+bool ButtonBase::touch(uint16_t x, uint16_t y) {
+  if (decoration != nullptr && isTouchOnButton(x, y)) {
+    isPressed = true;
+    draw();
+    return true;
+  } else {
     return false;
   }
+}
 
-  if (isTapBetween(x, buttonX, buttonX + buttonW) && isTapBetween(y, buttonY, buttonY + buttonH)) {
-    if (hold) {
-      if (!isPressed) {
-        isPressed = true;
-        draw();
-      }
-    } else {
-      isPressed = false;
+void ButtonBase::hold(uint16_t x, uint16_t y) {
+  if (isTouchOnButton(x, y)) {
+    if (!isPressed) {
+      isPressed = true;
       draw();
-      action();
     }
-    return true;
   } else {
     if (isPressed) {
       isPressed = false;
       draw();
     }
-    return false;
   }
 }
+
+void ButtonBase::release(uint16_t x, uint16_t y) {
+  if (isPressed) {
+    isPressed = false;
+    draw();
+  }
+  if (isTouchOnButton(x, y)) {
+    action();
+  }
+}
+
+
+bool ButtonBase::isTouchOnButton(uint16_t x, uint16_t y) {
+  return isTapIn(x, buttonX, buttonW) && isTapIn(y, buttonY, buttonH);
+}
+
 
 
 

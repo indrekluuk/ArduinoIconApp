@@ -14,14 +14,22 @@ bool ColorPalette::isActive() {
   return active;
 }
 
-
-bool ColorPalette::tap(uint16_t x, uint16_t y, bool hold) {
-  if (!active) {
+bool ColorPalette::touch(uint16_t x, uint16_t y) {
+  if (active) {
+    return false;
+  } else {
     return false;
   }
-
-  return false;
 }
+
+void ColorPalette::hold(uint16_t x, uint16_t y) {
+
+}
+
+void ColorPalette::release(uint16_t x, uint16_t y) {
+
+}
+
 
 
 void ColorPalette::draw(bool redrawAll) {

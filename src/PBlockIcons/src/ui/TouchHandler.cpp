@@ -71,7 +71,7 @@ uint8_t TouchHandler::getRegionCount() {
 
 
 #define TOUCH_Z_THRESHOLD 200
-#define TOUCH_SAMPLE_COUNT 3
+#define TOUCH_SAMPLE_COUNT 5
 
 #define TOUCH_LEFT 960
 #define TOUCH_RIGHT 125
@@ -86,7 +86,7 @@ void TouchHandler::check() {
     tapOnTouchable = nullptr;
     Touchable * touchable = firstTouchable;
     while(touchable != nullptr) {
-      if (touchable->tap(x, y, true)) {
+      if (touchable->touch(x, y)) {
         tapOnTouchable = touchable;
         break;
       } else {
@@ -101,7 +101,11 @@ void TouchHandler::check() {
       isHold = false;
     }
     if (tapOnTouchable) {
-      tapOnTouchable->tap(x, y, isHold);
+      if (isHold) {
+        tapOnTouchable->hold(x, y);
+      } else {
+        tapOnTouchable->release(x, y);
+      }
     }
     if (!isHold) {
       tapOnTouchable = nullptr;

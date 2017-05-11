@@ -24,7 +24,9 @@ class Touchable {
 public:
     Touchable();
     ~Touchable();
-    virtual bool tap(uint16_t x, uint16_t y, bool hold) = 0;
+    virtual bool touch(uint16_t x, uint16_t y) = 0;
+    virtual void hold(uint16_t x, uint16_t y) = 0;
+    virtual void release(uint16_t x, uint16_t y) = 0;
     Touchable * nextRegion = nullptr;
 protected:
     bool isTapIn(int16_t v, int16_t start, int16_t length);

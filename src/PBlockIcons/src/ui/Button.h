@@ -40,7 +40,11 @@ public:
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
     void deactivate();
 
-    bool tap(uint16_t x, uint16_t y, bool hold) override;
+    bool touch(uint16_t x, uint16_t y);
+    void hold(uint16_t x, uint16_t y);
+    void release(uint16_t x, uint16_t y);
+    bool isTouchOnButton(uint16_t x, uint16_t y);
+
     virtual void action() = 0;
 
     void draw();

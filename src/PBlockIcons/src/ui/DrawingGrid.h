@@ -32,7 +32,10 @@ public:
 
     void init();
     void setActive(bool active);
-    bool tap(uint16_t x, uint16_t y, bool hold) override;
+    bool touch(uint16_t x, uint16_t y) override;
+    void hold(uint16_t x, uint16_t y) override;
+    void release(uint16_t x, uint16_t y) override;
+    bool isTouchOnGrid(uint16_t x, uint16_t y);
     void draw(bool redrawAll);
 
 

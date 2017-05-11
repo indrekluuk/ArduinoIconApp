@@ -31,7 +31,12 @@ public:
         callbackMethod(callbackMethod) {};
 
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
-    bool tap(uint16_t x, uint16_t y, bool hold) override;
+
+    bool touch(uint16_t x, uint16_t y);
+    void hold(uint16_t x, uint16_t y);
+    void release(uint16_t x, uint16_t y);
+    bool isTouchOnColorPicker(uint16_t x, uint16_t y);
+
     void draw();
 
     void setActive(bool active);

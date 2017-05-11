@@ -15,15 +15,16 @@ void ColorPicker::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 
 
 
-
-
-
-bool ColorPicker::tap(uint16_t x, uint16_t y, bool hold) {
-  if (!isActive) {
+bool ColorPicker::touch(uint16_t x, uint16_t y) {
+  if (isActive && isTouchOnColorPicker(x, y)) {
+    return true;
+  } else {
     return false;
   }
+}
 
-  if (isTapBetween(x, pickerX, pickerX + pickerW) && isTapBetween(y, pickerY, pickerY + pickerH)) {
+void ColorPicker::hold(uint16_t x, uint16_t y) {
+  if (isTouchOnColorPicker(x, y)) {
     for (uint8_t c = 0; c<COLOR_COUNT; c++) {
       uint16_t cX = getColorX2(c);
       uint16_t cY = getColorY(c) + (pickerH / 2);
@@ -32,10 +33,18 @@ bool ColorPicker::tap(uint16_t x, uint16_t y, bool hold) {
         break;
       }
     }
-    return true;
   }
-  return false;
 }
+
+void ColorPicker::release(uint16_t x, uint16_t y) {
+}
+
+
+bool ColorPicker::isTouchOnColorPicker(uint16_t x, uint16_t y) {
+  return isTapIn(x, pickerX, pickerW) && isTapIn(y, pickerY, pickerH);
+}
+
+
 
 
 
