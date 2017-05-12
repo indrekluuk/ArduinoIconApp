@@ -272,10 +272,10 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
 
   float V = 1;
 
-  for (uint16_t paletteX=0; paletteX<w; paletteX++) {
-    for (uint16_t paletteY=0; paletteY<h; paletteY++) {
-      float H = (float)paletteY / ((float)h - 1.0) * 360.0;
-      float S = (float)paletteX / ((float)w - 1.0);
+  for (uint16_t paletteY=0; paletteY<h; paletteY++) {
+    float S = (float)paletteY / ((float)w - 1.0);
+    for (uint16_t paletteX=0; paletteX<w; paletteX++) {
+      float H = (float)paletteX / ((float)h - 1.0) * 360.0;
 
       float C = V * S;
       float hh = (H / 60);
