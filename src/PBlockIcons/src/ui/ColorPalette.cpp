@@ -39,7 +39,7 @@ void ColorPalette::draw(bool redrawAll) {
 
   if (redrawAll) {
     TFT & tft = UI->tft;
-    tft.fillRect(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W - 2, PALETTE_H - 2, COLOR_RED);
+    tft.drawPalette(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W - 2, PALETTE_H - 2);
   }
 }
 

@@ -47,7 +47,7 @@ extern uint8_t dummy;
 #define OCR2B dummy
 
 
-
+#define abs(x) ((x)>0?(x):-(x))
 
 void pinMode(int, int);
 void delay(int);

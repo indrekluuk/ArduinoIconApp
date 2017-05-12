@@ -262,6 +262,79 @@ void TFT::writeColorN(RgbColor color, uint16_t n) {
 }
 
 
+volatile uint16_t a;
+
+void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
+  setAddrWindow(x, y, x + w - 1, y + h - 1);
+  CS_ACTIVE;
+  WriteCmd(_MW);
+  CD_DATA;
+
+  float V = 1;
+
+  for (uint16_t paletteX=0; paletteX<w; paletteX++) {
+    for (uint16_t paletteY=0; paletteY<h; paletteY++) {
+      float H = (float)paletteY / ((float)h - 1.0) * 360.0;
+      float S = (float)paletteX / ((float)w - 1.0);
+
+      float C = V * S;
+      float hh = (H / 60);
+      int h1 = H / 60;
+      float hmod = h1 % 2 + (hh - h1);
+      float X = C * (1.0 - abs(hmod - 1));
+      float m = V - C;
+
+      float Rp;
+      float Gp;
+      float Bp;
+
+      if (H < 60) {
+        Rp = C;
+        Gp = X;
+        Bp = 0;
+      } else if (H < 120) {
+        Rp = X;
+        Gp = C;
+        Bp = 0;
+      } else if (H < 180) {
+        Rp = 0;
+        Gp = C;
+        Bp = X;
+      } else if (H < 240) {
+        Rp = 0;
+        Gp = X;
+        Bp = C;
+      } else if (H < 300) {
+        Rp = X;
+        Gp = 0;
+        Bp = C;
+      } else {
+        Rp = C;
+        Gp = 0;
+        Bp = X;
+      }
+
+      uint16_t R = (Rp + m) * 31;
+      uint16_t G = (Gp + m) * 63;
+      uint16_t B = (Bp + m) * 31;
+
+      uint16_t RGB = ((R << 11) & 0xF800)
+                     | ((G << 5) & 0x07E0)
+                     | (B & 0x001F);
+
+      a = RGB;
+
+      write8(((uint8_t *)(&RGB))[1]);
+      write8(((uint8_t *)(&RGB))[0]);
+
+    }
+  }
+
+  CS_IDLE;
+}
+
+
+
 
 
 
