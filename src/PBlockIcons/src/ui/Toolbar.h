@@ -34,7 +34,7 @@ public:
 
     Button1<Tools, uint8_t> & addButton();
 
-    void draw(bool redrawAll);
+    void draw();
 
 
 

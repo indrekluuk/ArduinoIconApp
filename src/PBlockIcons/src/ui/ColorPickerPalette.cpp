@@ -54,18 +54,16 @@ void ColorPickerPalette::release(uint16_t x, uint16_t y) {
 
 
 
-void ColorPickerPalette::draw(bool redrawAll) {
-  if (redrawAll) {
-    TFT & tft = UI->tft;
-    uint32_t time = millis();
+void ColorPickerPalette::draw() {
+  TFT & tft = UI->tft;
+  uint32_t time = millis();
 
-    tft.drawPalette(paletteX, paletteY, generator);
+  tft.drawPalette(paletteX, paletteY, generator);
 
-    tft.setCursor(paletteX, paletteY + generator.getHeight() + 4);
-    tft.setTextSize(1);
-    tft.print(millis() - time);
-    tft.print(" ms        ");
-  }
+  tft.setCursor(paletteX, paletteY + generator.getHeight() + 4);
+  tft.setTextSize(1);
+  tft.print(millis() - time);
+  tft.print(" ms        ");
 }
 
 

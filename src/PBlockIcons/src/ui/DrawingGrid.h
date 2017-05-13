@@ -36,7 +36,7 @@ public:
     void hold(uint16_t x, uint16_t y) override;
     void release(uint16_t x, uint16_t y) override;
     bool isTouchOnGrid(uint16_t x, uint16_t y);
-    void draw(bool redrawAll);
+    void draw();
 
 
 private:

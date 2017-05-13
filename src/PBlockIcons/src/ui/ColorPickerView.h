@@ -29,7 +29,7 @@ public:
     void setActive(bool active);
     bool isActive();
 
-    void draw(bool redrawAll);
+    void draw();
 
 };
 

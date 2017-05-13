@@ -17,21 +17,19 @@ bool ColorPickerView::isActive() {
 
 
 
-void ColorPickerView::draw(bool redrawAll) {
+void ColorPickerView::draw() {
   if (!active) {
     return;
   }
+  TFT & tft = UI->tft;
+
   uint32_t time = millis();
 
-  palette.draw(redrawAll);
+  palette.draw();
 
-  if (redrawAll) {
-    TFT & tft = UI->tft;
-
-    tft.setCursor(PICKER_X, PICKER_Y + PICKER_H + 2);
-    tft.setTextSize(1);
-    tft.print(millis() - time);
-    tft.print(" ms        ");
-  }
+  tft.setCursor(PICKER_X, PICKER_Y + PICKER_H + 2);
+  tft.setTextSize(1);
+  tft.print(millis() - time);
+  tft.print(" ms        ");
 }
 

@@ -8,7 +8,7 @@
 
 void PBlocksIconsEditor::init() {
   display.init();
-  display.draw(true);
+  display.draw();
 }
 
 

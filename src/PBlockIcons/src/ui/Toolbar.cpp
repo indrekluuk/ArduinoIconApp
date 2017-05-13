@@ -39,15 +39,13 @@ Button1<Tools, uint8_t> & Toolbar::addButton() {
 
 
 
-void Toolbar::draw(bool redrawAll) {
-  if (redrawAll) {
-    uint16_t bottom = TOOLBAR_Y;
-    for (uint8_t i=0; i<buttonCount; i++) {
-      buttons[i].draw();
-      bottom = buttons[i].buttonY + buttons[i].buttonH;
-    }
-    UI->tft.fillRect(TOOLBAR_X, bottom, TOOLBAR_W, TOOLBAR_Y + TOOLBAR_H - bottom, COLOR_BLACK);
+void Toolbar::draw() {
+  uint16_t bottom = TOOLBAR_Y;
+  for (uint8_t i=0; i<buttonCount; i++) {
+    buttons[i].draw();
+    bottom = buttons[i].buttonY + buttons[i].buttonH;
   }
+  UI->tft.fillRect(TOOLBAR_X, bottom, TOOLBAR_W, TOOLBAR_Y + TOOLBAR_H - bottom, COLOR_BLACK);
 }
 
 

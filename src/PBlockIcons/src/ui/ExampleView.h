@@ -78,7 +78,7 @@ public:
     void setForegroundColor(Palette c);
     void setBorderColor(Palette c);
 
-    void draw(bool redrawAll);
+    void draw();
     void reDrawExamples();
     void printScale();
 

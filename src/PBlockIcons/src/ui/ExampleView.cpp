@@ -6,10 +6,6 @@
 
 
 #include "PBlocksUserInterface.h"
-#include "src/icons/Icon.h"
-
-
-
 
 
 void ExampleView::init() {
@@ -82,11 +78,11 @@ void ExampleView::togglePalette() {
   if (UI->palette.isActive()) {
     UI->drawingGrid.setActive(true);
     UI->palette.setActive(false);
-    UI->drawingGrid.draw(true);
+    UI->drawingGrid.draw();
   } else {
     UI->drawingGrid.setActive(false);
     UI->palette.setActive(true);
-    UI->palette.draw(true);
+    UI->palette.draw();
   }
 }
 
@@ -128,18 +124,16 @@ void ExampleView::setBorderColor(Palette c) {
 
 
 
-void ExampleView::draw(bool redrawAll) {
-  if (redrawAll) {
-    reDrawExamples();
-    scaleUpButton.draw();
-    scaleDownButton.draw();
-    showPaletteButton.draw();
-    bgColorPicker.draw();
-    fgColorPicker.draw();
-    bColorPicker.setActive(hasBorder);
-    bColorPicker.draw();
-    printScale();
-  }
+void ExampleView::draw() {
+  reDrawExamples();
+  scaleUpButton.draw();
+  scaleDownButton.draw();
+  showPaletteButton.draw();
+  bgColorPicker.draw();
+  fgColorPicker.draw();
+  bColorPicker.setActive(hasBorder);
+  bColorPicker.draw();
+  printScale();
 }
 
 

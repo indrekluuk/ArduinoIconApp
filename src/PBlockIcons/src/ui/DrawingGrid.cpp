@@ -55,17 +55,15 @@ bool DrawingGrid::isTouchOnGrid(uint16_t x, uint16_t y) {
 
 
 
-void DrawingGrid::draw(bool redrawAll) {
+void DrawingGrid::draw() {
   if (!isActive) {
     return;
   }
 
-  if (redrawAll) {
-    drawGrid();
-    for (uint8_t x=0; x<COUNT; x++) {
-      for (uint8_t y=0; y<COUNT; y++) {
-        drawPixel(x, y);
-      }
+  drawGrid();
+  for (uint8_t x=0; x<COUNT; x++) {
+    for (uint8_t y=0; y<COUNT; y++) {
+      drawPixel(x, y);
     }
   }
 }

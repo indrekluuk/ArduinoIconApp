@@ -36,7 +36,7 @@ public:
     Tools() {}
 
     void init();
-    void draw(bool redrawAll);
+    void draw();
 
 private:
 

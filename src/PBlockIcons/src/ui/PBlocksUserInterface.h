@@ -32,7 +32,7 @@ public:
     PBlocksUserInterface();
     void init();
 
-    void draw(bool redrawAll);
+    void draw();
     void iconUpdated();
     void run();
 

@@ -30,11 +30,11 @@ void PBlocksUserInterface::init() {
 
 
 
-void PBlocksUserInterface::draw(bool redrawAll) {
-  drawingGrid.draw(redrawAll);
-  palette.draw(redrawAll);
-  exampleView.draw(redrawAll);
-  tools.draw(redrawAll);
+void PBlocksUserInterface::draw() {
+  drawingGrid.draw();
+  palette.draw();
+  exampleView.draw();
+  tools.draw();
 }
 
 
