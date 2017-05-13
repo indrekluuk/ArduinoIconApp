@@ -262,80 +262,25 @@ void TFT::writeColorN(RgbColor color, uint16_t n) {
 }
 
 
-void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h, float V) {
-  setAddrWindow(x, y, x + w - 1, y + h - 1);
+
+
+
+void TFT::drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator) {
+  setAddrWindow(x, y, x + generator.getWidth() - 1, y + generator.getHeight() - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
   CD_DATA;
 
-  float Hsection = (h-1) / 6.0f;
-  uint16_t H1 = Hsection * 1;
-  uint16_t H2 = Hsection * 2;
-  uint16_t H3 = Hsection * 3;
-  uint16_t H4 = Hsection * 4;
-  uint16_t H5 = Hsection * 5;
-  float dS = (1.0f / (w - 1.0f)) * V;
-
-  for (uint16_t H=0; H<h; H++) {
-    float Hdiv = (H / Hsection);
-    uint16_t HIntDiv = (uint16_t)Hdiv;
-    float Hmod = HIntDiv % 2 + (Hdiv - (HIntDiv + (uint16_t)1));
-    float Hmult = (1.0f - abs(Hmod));
-
-    float S = 0;
-    for (uint16_t Scnt=0; Scnt<w; Scnt++) {
-      S += dS;
-      if (S > 1) S = 1;
-      float X = S * Hmult;
-
-      float Rp;
-      float Gp;
-      float Bp;
-
-      if (H < H1) {
-        Rp = S;
-        Gp = X;
-        Bp = 0;
-      } else if (H < H2) {
-        Rp = X;
-        Gp = S;
-        Bp = 0;
-      } else if (H < H3) {
-        Rp = 0;
-        Gp = S;
-        Bp = X;
-      } else if (H < H4) {
-        Rp = 0;
-        Gp = X;
-        Bp = S;
-      } else if (H < H5) {
-        Rp = X;
-        Gp = 0;
-        Bp = S;
-      } else {
-        Rp = S;
-        Gp = 0;
-        Bp = X;
-      }
-
-      float m = V - S;
-      if (m < 0) m = 0;
-      uint16_t R = (Rp + m) * (uint16_t)31;
-      uint16_t G = (Gp + m) * (uint16_t)63;
-      uint16_t B = (Bp + m) * (uint16_t)31;
-
-      uint16_t RGB = ((R << 11) & 0xF800)
-                     | ((G << 5) & 0x07E0)
-                     | (B & 0x001F);
-
-      write8(((uint8_t *)(&RGB))[1]);
-      write8(((uint8_t *)(&RGB))[0]);
+  for (uint16_t y=0; y<generator.getHeight(); y++) {
+    for (uint16_t x=0; x<generator.getWidth(); x++) {
+      RgbColor color = generator.getNextPixel();
+      write8(color.colorH);
+      write8(color.colorL);
     }
   }
 
   CS_IDLE;
 }
-
 
 
 

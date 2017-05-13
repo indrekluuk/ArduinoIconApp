@@ -9,6 +9,7 @@
 #include <MCUFRIEND_kbv.h>
 #include <utility/mcufriend_shield.h>
 #include "src/icons/Icon.h"
+#include "src/palette/PaletteGenerator.h"
 
 
 class TFT : public MCUFRIEND_kbv {
@@ -27,7 +28,7 @@ public:
     void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
     void finishTextFillBox();
 
-    void drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h, float V);
+    void drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator);
 
     // Adafruit's "write" is terribly slow
     size_t write(uint8_t c) override;

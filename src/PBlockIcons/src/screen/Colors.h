@@ -6,6 +6,8 @@
 #define PBLOCKMAIN_COLORS_H_H
 
 
+#include <stdint.h>
+
 
 
 #define COLOR_WHITE       0xFFFF
@@ -53,6 +55,11 @@ enum Palette {
 struct RgbColor {
 
     RgbColor(uint16_t c) {colorCode = c;}
+    RgbColor(uint8_t r, uint8_t g, uint8_t b) {
+      colorR = r;
+      colorG = g;
+      colorB = b;
+    }
 
     RgbColor(Palette p) {
       switch (p) {
@@ -113,6 +120,11 @@ struct RgbColor {
         struct {
             uint8_t colorL;
             uint8_t colorH;
+        };
+        struct {
+            uint16_t colorB : 5;
+            uint16_t colorG : 6;
+            uint16_t colorR : 5;
         };
     };
 };
