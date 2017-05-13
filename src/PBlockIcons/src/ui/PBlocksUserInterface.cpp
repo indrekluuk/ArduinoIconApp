@@ -38,10 +38,6 @@ void PBlocksUserInterface::draw() {
 }
 
 
-void PBlocksUserInterface::iconUpdated() {
-  exampleView.reDrawExamples();
-}
-
 
 void PBlocksUserInterface::run() {
   touchHandler.check();

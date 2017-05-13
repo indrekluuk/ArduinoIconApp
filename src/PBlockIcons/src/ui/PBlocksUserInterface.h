@@ -33,7 +33,6 @@ public:
     void init();
 
     void draw();
-    void iconUpdated();
     void run();
 
 

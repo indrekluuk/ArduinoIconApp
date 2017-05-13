@@ -44,7 +44,7 @@ void DrawingGrid::hold(uint16_t x, uint16_t y) {
 
 void DrawingGrid::release(uint16_t x, uint16_t y) {
   isColorSelected = false;
-  UI->iconUpdated();
+  UI->exampleView.draw();
 }
 
 

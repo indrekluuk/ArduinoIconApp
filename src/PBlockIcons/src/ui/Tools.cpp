@@ -21,6 +21,12 @@ void Tools::draw() {
 }
 
 
+void Tools::updateIcon() {
+  UI->drawingGrid.draw();
+  UI->exampleView.reDrawExamples();
+}
+
+
 void Tools::showMainToolbar(uint8_t) {
   toolbar.reset();
   toolbar.addButton()
@@ -125,7 +131,7 @@ void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  UI->draw();
+  updateIcon();
 }
 
 void Tools::moveIconUp(uint8_t) {
@@ -133,7 +139,7 @@ void Tools::moveIconUp(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i+1];
   }
   UI->activeIcon.bitmap[Icon::BITMAP_HEIGHT-1] = 0;
-  UI->draw();
+  updateIcon();
 }
 
 void Tools::moveIconDown(uint8_t) {
@@ -141,21 +147,21 @@ void Tools::moveIconDown(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i-1];
   }
   UI->activeIcon.bitmap[0] = 0;
-  UI->draw();
+  updateIcon();
 }
 
 void Tools::moveIconLeft(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] <<= 1;
   }
-  UI->draw();
+  updateIcon();
 }
 
 void Tools::moveIconRight(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] >>= 1;
   }
-  UI->draw();
+  updateIcon();
 }
 
 void Tools::clearIcon(uint8_t) {
@@ -163,7 +169,7 @@ void Tools::clearIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = 0;
   }
   showMainToolbar(0);
-  UI->draw();
+  updateIcon();
 }
 
 
@@ -177,7 +183,7 @@ void Tools::saveIcon(uint8_t slotIndex) {
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   UI->iconStorage.loadIcon(slotIndex, UI->activeIcon);
-  UI->draw();
+  updateIcon();
 }
 
 
