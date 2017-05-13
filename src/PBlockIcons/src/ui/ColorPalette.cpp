@@ -40,7 +40,7 @@ void ColorPalette::draw(bool redrawAll) {
   if (redrawAll) {
     TFT & tft = UI->tft;
     uint32_t time = millis();
-    tft.drawPalette(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W - 2, PALETTE_H - 2);
+    tft.drawPalette(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W / 2 - 2 , PALETTE_H - 2);
 
     tft.setCursor(PALETTE_X, PALETTE_Y + PALETTE_H + 2);
     tft.setTextSize(1);

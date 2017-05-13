@@ -271,22 +271,22 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
   CD_DATA;
 
   float V = 1.0f;
-  float Hsection = (w-1) / 6.0f;
+  float Hsection = (h-1) / 6.0f;
   uint16_t H1 = Hsection * 1;
   uint16_t H2 = Hsection * 2;
   uint16_t H3 = Hsection * 3;
   uint16_t H4 = Hsection * 4;
   uint16_t H5 = Hsection * 5;
-  float dS = (1.0f / (h - 1.0f)) * V;
+  float dS = (1.0f / (w - 1.0f)) * V;
 
-  for (uint16_t H=0; H<w; H++) {
+  for (uint16_t H=0; H<h; H++) {
     float Hdiv = (H / Hsection);
     uint16_t HIntDiv = (uint16_t)Hdiv;
     float Hmod = HIntDiv % 2 + (Hdiv - (HIntDiv + (uint16_t)1));
     float Hmult = (1.0f - abs(Hmod));
 
     float S = 0;
-    for (uint16_t paletteY=0; paletteY<h; paletteY++) {
+    for (uint16_t Scnt=0; Scnt<w; Scnt++) {
       S += dS;
       float X = S * Hmult;
 
