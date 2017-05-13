@@ -54,6 +54,7 @@ enum Palette {
 
 struct RgbColor {
 
+    RgbColor() {colorCode = COLOR_BLACK;};
     RgbColor(uint16_t c) {colorCode = c;}
     RgbColor(uint8_t r, uint8_t g, uint8_t b) {
       colorR = r;

@@ -8,11 +8,14 @@
 
 #include "TouchHandler.h"
 #include "DrawingGrid.h"
+#include "src/palette/PaletteGenerator.h"
 
 
 
 class ColorPalette : public Touchable {
 
+    // 6*n+1
+    PaletteGenerator<10, 19> generator = PaletteGenerator<10, 19>(15, 15, 1);
 
     bool active = false;
 
