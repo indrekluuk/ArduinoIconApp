@@ -9,7 +9,7 @@
 #include "TouchHandler.h"
 #include "Button.h"
 #include "DrawingGrid.h"
-#include "ColorPicker.h"
+#include "ColorPickerButton.h"
 #include "src/icons/ProgMemIcons.h"
 
 
@@ -22,9 +22,9 @@ class ExampleView : public Touchable {
     Button0<ExampleView> scaleDownButton;
 
     Button0<ExampleView> showPaletteButton;
-    ColorPicker bgColorPicker;
-    ColorPicker fgColorPicker;
-    ColorPicker bColorPicker;
+    ColorPickerButton bgColorPicker;
+    ColorPickerButton fgColorPicker;
+    ColorPickerButton bColorPicker;
 
     uint8_t scale : 6;
     uint8_t is3D : 1;

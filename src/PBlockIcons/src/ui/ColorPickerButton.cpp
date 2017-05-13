@@ -2,11 +2,11 @@
 // Created by indrek on 6.05.2017.
 //
 
-#include "ColorPicker.h"
+#include "ColorPickerButton.h"
 #include "PBlocksUserInterface.h"
 
 
-void ColorPicker::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+void ColorPickerButton::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
   pickerX = x;
   pickerY = y;
   pickerW = w;
@@ -15,7 +15,7 @@ void ColorPicker::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 
 
 
-bool ColorPicker::touch(uint16_t x, uint16_t y) {
+bool ColorPickerButton::touch(uint16_t x, uint16_t y) {
   if (isActive && isTouchOnColorPicker(x, y)) {
     return true;
   } else {
@@ -23,7 +23,7 @@ bool ColorPicker::touch(uint16_t x, uint16_t y) {
   }
 }
 
-void ColorPicker::hold(uint16_t x, uint16_t y) {
+void ColorPickerButton::hold(uint16_t x, uint16_t y) {
   if (isTouchOnColorPicker(x, y)) {
     for (uint8_t c = 0; c<COLOR_COUNT; c++) {
       uint16_t cX = getColorX2(c);
@@ -36,11 +36,11 @@ void ColorPicker::hold(uint16_t x, uint16_t y) {
   }
 }
 
-void ColorPicker::release(uint16_t x, uint16_t y) {
+void ColorPickerButton::release(uint16_t x, uint16_t y) {
 }
 
 
-bool ColorPicker::isTouchOnColorPicker(uint16_t x, uint16_t y) {
+bool ColorPickerButton::isTouchOnColorPicker(uint16_t x, uint16_t y) {
   return isTapIn(x, pickerX, pickerW) && isTapIn(y, pickerY, pickerH);
 }
 
@@ -48,7 +48,7 @@ bool ColorPicker::isTouchOnColorPicker(uint16_t x, uint16_t y) {
 
 
 
-void ColorPicker::draw() {
+void ColorPickerButton::draw() {
   if (isActive) {
     for (uint8_t c=0; c<COLOR_COUNT; c++) {
       uint16_t cx = getColorX1(c);
@@ -63,24 +63,24 @@ void ColorPicker::draw() {
 
 
 
-uint16_t ColorPicker::getColorX(uint8_t c) {
+uint16_t ColorPickerButton::getColorX(uint8_t c) {
   return pickerX + ((uint16_t)pickerW) * ((uint16_t)c) / ((uint16_t)COLOR_COUNT / 2);
 }
 
-uint16_t ColorPicker::getColorX1(uint8_t c) {
+uint16_t ColorPickerButton::getColorX1(uint8_t c) {
   return getColorX(c & 0x07);
 }
 
-uint16_t ColorPicker::getColorX2(uint8_t c) {
+uint16_t ColorPickerButton::getColorX2(uint8_t c) {
   return getColorX((c & 0x07) + 1);
 }
 
 
-uint16_t ColorPicker::getColorY(uint8_t c) {
+uint16_t ColorPickerButton::getColorY(uint8_t c) {
   return pickerY + (c >= (COLOR_COUNT / 2) ? pickerH / 2 : 0);
 }
 
 
-void ColorPicker::setActive(bool active) {
+void ColorPickerButton::setActive(bool active) {
   isActive = active;
 }

@@ -2,8 +2,8 @@
 // Created by indrek on 6.05.2017.
 //
 
-#ifndef PBLOCKICONS_COLORPICKER_H
-#define PBLOCKICONS_COLORPICKER_H
+#ifndef PBLOCKICONS_COLORPICKERBUTTON_H
+#define PBLOCKICONS_COLORPICKERBUTTON_H
 
 
 #include "TouchHandler.h"
@@ -12,7 +12,7 @@
 class ExampleView;
 
 
-class ColorPicker : public Touchable {
+class ColorPickerButton : public Touchable {
 
     static const uint8_t COLOR_COUNT = 16;
 
@@ -26,7 +26,7 @@ class ColorPicker : public Touchable {
 public:
     typedef void (ExampleView::*CallbackMethod)(Palette c);
 
-    ColorPicker(ExampleView* view, CallbackMethod callbackMethod) :
+    ColorPickerButton(ExampleView* view, CallbackMethod callbackMethod) :
         view(view),
         callbackMethod(callbackMethod) {};
 
@@ -57,4 +57,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_COLORPICKER_H
+#endif //PBLOCKICONS_COLORPICKERBUTTON_H
