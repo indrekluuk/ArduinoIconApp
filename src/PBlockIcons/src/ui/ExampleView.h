@@ -18,11 +18,15 @@ class ExampleView : public Touchable {
     IconBufferProgMem iconZoomIn = IconBufferProgMem(&ICON_ZOOM_IN);
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
     IconBufferProgMem iconForeground = IconBufferProgMem(&ICON_FOREGOUND);
+    IconBufferProgMem iconBackground = IconBufferProgMem(&ICON_BACKGROUND);
+    IconBufferProgMem iconBorder = IconBufferProgMem(&ICON_BORDER);
 
     Button0<ExampleView> scaleUpButton;
     Button0<ExampleView> scaleDownButton;
 
-    Button0<ExampleView> showPaletteButton;
+    Button0<ExampleView> foregroundColorButton;
+    Button0<ExampleView> backgroundColorButton;
+    Button0<ExampleView> borderColorButton;
 
     uint8_t scale : 6;
     uint8_t is3D : 1;

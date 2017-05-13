@@ -22,10 +22,18 @@ void ExampleView::init() {
       .init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH)
       .setIcon(&iconZoomOut);
 
-  showPaletteButton
+  foregroundColorButton
       .setCallback(this, &ExampleView::togglePalette)
       .init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH)
       .setIcon(&iconForeground);
+  backgroundColorButton
+      .setCallback(this, &ExampleView::togglePalette)
+      .init(BUTTONS_X, BUTTONS_Y + buttonH * 2, buttonW, buttonH)
+      .setIcon(&iconBackground);
+  borderColorButton
+      .setCallback(this, &ExampleView::togglePalette)
+      .init(BUTTONS_X, BUTTONS_Y + buttonH * 3, buttonW, buttonH)
+      .setIcon(&iconBorder);
 
 }
 
@@ -104,7 +112,9 @@ void ExampleView::draw() {
   reDrawExamples();
   scaleUpButton.draw();
   scaleDownButton.draw();
-  showPaletteButton.draw();
+  foregroundColorButton.draw();
+  backgroundColorButton.draw();
+  borderColorButton.draw();
   printScale();
 }
 
