@@ -270,58 +270,60 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
   WriteCmd(_MW);
   CD_DATA;
 
-  float V = 1;
-  float dS = 1.0 / (h - 1.0);
+  float V = 1.0f;
+  float Hsection = (w-1) / 6.0f;
+  uint16_t H1 = Hsection * 1;
+  uint16_t H2 = Hsection * 2;
+  uint16_t H3 = Hsection * 3;
+  uint16_t H4 = Hsection * 4;
+  uint16_t H5 = Hsection * 5;
+  float dS = (1.0f / (h - 1.0f)) * V;
 
-  for (uint16_t paletteX=0; paletteX<w; paletteX++) {
-    float H = (float)paletteX / ((float)w - 1.0) * 360.0;
-
-    float hh = (H / 60);
-    int h1 = H / 60;
-    float Hmod = h1 % 2 + (hh - h1);
-    float Hmult = (1.0 - abs(Hmod - 1));
+  for (uint16_t H=0; H<w; H++) {
+    float Hdiv = (H / Hsection);
+    uint16_t HIntDiv = (uint16_t)Hdiv;
+    float Hmod = HIntDiv % 2 + (Hdiv - (HIntDiv + (uint16_t)1));
+    float Hmult = (1.0f - abs(Hmod));
 
     float S = 0;
     for (uint16_t paletteY=0; paletteY<h; paletteY++) {
       S += dS;
-      float C = V * S;
-
-      float X = C * Hmult;
-      volatile float m = 1 - C;
+      float X = S * Hmult;
 
       float Rp;
       float Gp;
       float Bp;
 
-      if (H < 60) {
-        Rp = C;
+      if (H < H1) {
+        Rp = S;
         Gp = X;
         Bp = 0;
-      } else if (H < 120) {
+      } else if (H < H2) {
         Rp = X;
-        Gp = C;
+        Gp = S;
         Bp = 0;
-      } else if (H < 180) {
+      } else if (H < H3) {
         Rp = 0;
-        Gp = C;
+        Gp = S;
         Bp = X;
-      } else if (H < 240) {
+      } else if (H < H4) {
         Rp = 0;
         Gp = X;
-        Bp = C;
-      } else if (H < 300) {
+        Bp = S;
+      } else if (H < H5) {
         Rp = X;
         Gp = 0;
-        Bp = C;
+        Bp = S;
       } else {
-        Rp = C;
+        Rp = S;
         Gp = 0;
         Bp = X;
       }
 
-      uint16_t R = (Rp + m) * 31;
-      uint16_t G = (Gp + m) * 63;
-      uint16_t B = (Bp + m) * 31;
+      float m = 1.0f - S;
+      uint16_t R = (Rp + m) * (uint16_t)31;
+      uint16_t G = (Gp + m) * (uint16_t)63;
+      uint16_t B = (Bp + m) * (uint16_t)31;
 
       uint16_t RGB = ((R << 11) & 0xF800)
                      | ((G << 5) & 0x07E0)
