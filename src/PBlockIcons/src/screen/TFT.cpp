@@ -262,15 +262,12 @@ void TFT::writeColorN(RgbColor color, uint16_t n) {
 }
 
 
-volatile uint16_t a;
-
-void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
+void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h, float V) {
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
   CD_DATA;
 
-  float V = 1.0f;
   float Hsection = (h-1) / 6.0f;
   uint16_t H1 = Hsection * 1;
   uint16_t H2 = Hsection * 2;
@@ -288,6 +285,7 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
     float S = 0;
     for (uint16_t Scnt=0; Scnt<w; Scnt++) {
       S += dS;
+      if (S > 1) S = 1;
       float X = S * Hmult;
 
       float Rp;
@@ -320,7 +318,8 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
         Bp = X;
       }
 
-      float m = 1.0f - S;
+      float m = V - S;
+      if (m < 0) m = 0;
       uint16_t R = (Rp + m) * (uint16_t)31;
       uint16_t G = (Gp + m) * (uint16_t)63;
       uint16_t B = (Bp + m) * (uint16_t)31;
@@ -328,8 +327,6 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
       uint16_t RGB = ((R << 11) & 0xF800)
                      | ((G << 5) & 0x07E0)
                      | (B & 0x001F);
-
-      a = RGB;
 
       write8(((uint8_t *)(&RGB))[1]);
       write8(((uint8_t *)(&RGB))[0]);

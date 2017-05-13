@@ -40,7 +40,22 @@ void ColorPalette::draw(bool redrawAll) {
   if (redrawAll) {
     TFT & tft = UI->tft;
     uint32_t time = millis();
-    tft.drawPalette(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W / 2 - 2 , PALETTE_H - 2);
+    //tft.drawPalette(PALETTE_X + 1, PALETTE_Y + 1, PALETTE_W / 4 - 2 , PALETTE_H - 2, 1);
+
+    uint16_t w = 40;
+    uint16_t x = PALETTE_X + 1;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 0);
+    x += w;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 0.2);
+    x += w;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 0.3);
+    x += w;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 0.4);
+    x += w;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 0.8);
+    x += w;
+    tft.drawPalette(x, PALETTE_Y + 1, w, PALETTE_H - 2, 1.0);
+    x += w;
 
     tft.setCursor(PALETTE_X, PALETTE_Y + PALETTE_H + 2);
     tft.setTextSize(1);
