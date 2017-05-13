@@ -25,7 +25,9 @@ void ColorPickerView::draw() {
 
   uint32_t time = millis();
 
+  tft.fillRect(PICKER_X, PICKER_Y, PICKER_W, PICKER_H, COLOR_BLACK);
   palette.draw();
+
 
   tft.setCursor(PICKER_X, PICKER_Y + PICKER_H + 2);
   tft.setTextSize(1);

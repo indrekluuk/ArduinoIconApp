@@ -17,13 +17,13 @@ class ColorPickerView {
 
     bool active = false;
 public:
-    static const uint16_t PICKER_X = DrawingGrid::GRID_X;
-    static const uint16_t PICKER_Y = DrawingGrid::GRID_Y;
-    static const uint16_t PICKER_W = DrawingGrid::GRID_W;
-    static const uint16_t PICKER_H = DrawingGrid::GRID_H;
+    static const uint16_t PICKER_X = DrawingGrid::GRID_X + 1;
+    static const uint16_t PICKER_Y = DrawingGrid::GRID_Y + 1;
+    static const uint16_t PICKER_W = DrawingGrid::GRID_W - 2;
+    static const uint16_t PICKER_H = DrawingGrid::GRID_H - 2;
 
 
-    ColorPickerView() : palette(PICKER_X + 2, PICKER_Y + 2) {}
+    ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1) {}
 
 
     void setActive(bool active);

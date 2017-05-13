@@ -13,15 +13,14 @@
 
 class ColorPickerPalette : public Touchable {
 
-    // 6*n+1
-    PaletteGenerator<10, 19> generator = PaletteGenerator<10, 19>(15, 15, 1);
-
-    uint16_t paletteX;
-    uint16_t paletteY;
-
     bool active = false;
 
 public:
+    // 6*n+1
+    PaletteGenerator<10, 19> generator = PaletteGenerator<10, 19>(15, 15, 1);
+    uint16_t paletteX;
+    uint16_t paletteY;
+
     ColorPickerPalette(uint16_t x, uint16_t y) : paletteX(x), paletteY(y) {};
 
     void setActive(bool active);
