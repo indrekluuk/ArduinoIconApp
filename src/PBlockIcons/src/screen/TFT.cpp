@@ -270,7 +270,7 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
   WriteCmd(_MW);
   CD_DATA;
 
-  float V = 0.7;
+  float V = 1;
   float dS = 1.0 / (h - 1.0);
 
   for (uint16_t paletteX=0; paletteX<w; paletteX++) {
@@ -278,16 +278,16 @@ void TFT::drawPalette(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
 
     float hh = (H / 60);
     int h1 = H / 60;
-    float hmod = h1 % 2 + (hh - h1);
+    float Hmod = h1 % 2 + (hh - h1);
+    float Hmult = (1.0 - abs(Hmod - 1));
 
     float S = 0;
     for (uint16_t paletteY=0; paletteY<h; paletteY++) {
       S += dS;
-      //float S = (float)paletteY / ((float)h - 1.0);
       float C = V * S;
 
-      float X = C * (1.0 - abs(hmod - 1));
-      float m = V - C;
+      float X = C * Hmult;
+      volatile float m = 1 - C;
 
       float Rp;
       float Gp;
