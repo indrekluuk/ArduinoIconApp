@@ -43,13 +43,15 @@ enum Palette {
     DARK_GREEN = 10,
     DARK_BLUE = 11,
     YELLOW = 12,
-    CYAN = 13,
-    MAGENTA = 14,
-    ORANGE = 15
+    ICON_COLOR_FOREGROUND = 13,
+    ICON_COLOR_BACKGROUND = 14,
+    ICON_COLOR_BORDER = 15
 };
 
 
-
+extern uint16_t COLOR_foreground;
+extern uint16_t COLOR_background;
+extern uint16_t COLOR_border;
 
 
 struct RgbColor {
@@ -104,14 +106,14 @@ struct RgbColor {
         case Palette::YELLOW:
           colorCode = COLOR_YELLOW;
           break;
-        case Palette::MAGENTA:
-          colorCode = COLOR_MAGENTA;
+        case Palette::ICON_COLOR_FOREGROUND:
+          colorCode = COLOR_foreground;
           break;
-        case Palette::CYAN:
-          colorCode = COLOR_CYAN;
+        case Palette::ICON_COLOR_BACKGROUND:
+          colorCode = COLOR_background;
           break;
-        case Palette::ORANGE:
-          colorCode = COLOR_YELLOW; // todo
+        case Palette::ICON_COLOR_BORDER:
+          colorCode = COLOR_border;
           break;
       }
     }

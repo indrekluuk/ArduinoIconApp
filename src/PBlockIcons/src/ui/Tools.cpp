@@ -182,7 +182,9 @@ void Tools::saveIcon(uint8_t slotIndex) {
 
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
+  IconColor color = UI->activeIcon.color;
   UI->iconStorage.loadIcon(slotIndex, UI->activeIcon);
+  UI->activeIcon.color = color;
   updateIcon();
 }
 

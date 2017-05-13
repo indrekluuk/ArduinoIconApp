@@ -40,6 +40,7 @@ add_executable(runTests
         src/PBlockIcons/src/ui/Toolbar.cpp
         src/PBlockIcons/src/screen/TFT.cpp
         src/PBlockIcons/src/screen/Font.cpp
+        src/PBlockIcons/src/screen/Colors.cpp
         src/PBlockIcons/src/icons/ProgMemIcons.cpp
         src/PBlockIcons/src/storage/IconStorage.cpp
         src/PBlockIcons/src/storage/IconMem.cpp

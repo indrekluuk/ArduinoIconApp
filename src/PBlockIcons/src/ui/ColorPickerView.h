@@ -11,6 +11,8 @@
 
 
 
+
+
 class ColorPickerView {
 
     ColorPickerPalette palette;
@@ -23,13 +25,15 @@ public:
     static const uint16_t PICKER_H = DrawingGrid::GRID_H - 2;
 
 
-    ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1) {}
-
+    ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1, *this) {}
 
     void setActive(bool active);
     bool isActive();
 
     void draw();
+
+    void colorSelected(RgbColor color);
+
 
 };
 

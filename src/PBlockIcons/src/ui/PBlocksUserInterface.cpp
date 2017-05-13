@@ -13,6 +13,10 @@ PBlocksUserInterface * UI;
 
 PBlocksUserInterface::PBlocksUserInterface() {
   UI = this;
+  activeIcon.color.setForegroundColor(Palette::ICON_COLOR_FOREGROUND);
+  activeIcon.color.setBackgroundColor(Palette::ICON_COLOR_BACKGROUND);
+  activeIcon.color.setBorderColor(Palette::ICON_COLOR_BORDER);
+  activeIcon.color.setNoBorder();
 }
 
 

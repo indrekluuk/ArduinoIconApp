@@ -23,6 +23,8 @@ extern const IconBufferProgMem::IconData ICON_RIGHT;
 extern const IconBufferProgMem::IconData ICON_CLEAR;
 extern const IconBufferProgMem::IconData ICON_ZOOM_IN;
 extern const IconBufferProgMem::IconData ICON_ZOOM_OUT;
+extern const IconBufferProgMem::IconData ICON_FOREGOUND;
+extern const IconBufferProgMem::IconData ICON_BACKGROUND;
 extern const IconBufferProgMem::IconData ICON_BORDER;
 
 

@@ -11,9 +11,13 @@
 
 
 
+class ColorPickerView;
+
+
 class ColorPickerPalette : public Touchable {
 
     bool active = false;
+    ColorPickerView & pickerView;
 
 public:
     // 6*n+1
@@ -21,7 +25,10 @@ public:
     uint16_t paletteX;
     uint16_t paletteY;
 
-    ColorPickerPalette(uint16_t x, uint16_t y) : paletteX(x), paletteY(y) {};
+    ColorPickerPalette(uint16_t x, uint16_t y, ColorPickerView & pickerView) :
+        pickerView(pickerView),
+        paletteX(x),
+        paletteY(y) {};
 
     void setActive(bool active);
     bool isActive();

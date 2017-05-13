@@ -3,6 +3,7 @@
 //
 
 #include "ColorPickerPalette.h"
+#include "ColorPickerView.h"
 #include "PBlocksUserInterface.h"
 
 
@@ -35,15 +36,7 @@ void ColorPickerPalette::hold(uint16_t x, uint16_t y) {
   generator.reset(pickerX, pickerY);
   RgbColor color = generator.nextPixel();
 
-  TFT & tft = UI->tft;
-  tft.setCursor(paletteX+100, paletteY + generator.getHeight() + 4);
-  tft.setTextSize(1);
-  tft.print((int)color.colorR);
-  tft.print(" ");
-  tft.print((int)color.colorG);
-  tft.print(" ");
-  tft.print((int)color.colorB);
-  tft.print("                     ");
+  pickerView.colorSelected(color);
 }
 
 void ColorPickerPalette::release(uint16_t x, uint16_t y) {

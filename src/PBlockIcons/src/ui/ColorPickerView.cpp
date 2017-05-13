@@ -35,3 +35,22 @@ void ColorPickerView::draw() {
   tft.print(" ms        ");
 }
 
+
+
+
+void ColorPickerView::colorSelected(RgbColor color) {
+
+  TFT & tft = UI->tft;
+  tft.setCursor(PICKER_X + 100, PICKER_Y + PICKER_H + 2);
+  tft.setTextSize(1);
+  tft.print((int)color.colorR);
+  tft.print(" ");
+  tft.print((int)color.colorG);
+  tft.print(" ");
+  tft.print((int)color.colorB);
+  tft.print("                     ");
+
+  COLOR_foreground = color.colorCode;
+  UI->exampleView.reDrawExamples();
+}
+

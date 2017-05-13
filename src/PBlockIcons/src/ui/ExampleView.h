@@ -17,21 +17,16 @@ class ExampleView : public Touchable {
 
     IconBufferProgMem iconZoomIn = IconBufferProgMem(&ICON_ZOOM_IN);
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
+    IconBufferProgMem iconForeground = IconBufferProgMem(&ICON_FOREGOUND);
 
     Button0<ExampleView> scaleUpButton;
     Button0<ExampleView> scaleDownButton;
 
     Button0<ExampleView> showPaletteButton;
-    ColorPickerButton bgColorPicker;
-    ColorPickerButton fgColorPicker;
-    ColorPickerButton bColorPicker;
 
     uint8_t scale : 6;
     uint8_t is3D : 1;
     uint8_t hasBorder : 1;
-    Palette bgColor = Palette::GRAY33;
-    Palette fgColor = Palette::GRAY85;
-    Palette bColor = Palette::BLACK;
 
 public:
     static const uint16_t GAP = 2;
@@ -52,10 +47,7 @@ public:
     static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
 
 
-    ExampleView() :
-        bgColorPicker(this, &ExampleView::setBackgroundColor),
-        fgColorPicker(this, &ExampleView::setForegroundColor),
-        bColorPicker(this, &ExampleView::setBorderColor)
+    ExampleView()
     {
         scale = 2;
         is3D = false;
@@ -74,9 +66,6 @@ public:
     void togglePalette();
     void scaleUp();
     void scaleDown();
-    void setBackgroundColor(Palette c);
-    void setForegroundColor(Palette c);
-    void setBorderColor(Palette c);
 
     void draw();
     void reDrawExamples();

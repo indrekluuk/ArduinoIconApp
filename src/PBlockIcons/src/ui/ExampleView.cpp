@@ -25,12 +25,8 @@ void ExampleView::init() {
   showPaletteButton
       .setCallback(this, &ExampleView::togglePalette)
       .init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH)
-      .setLabel("P");
+      .setIcon(&iconForeground);
 
-  uint8_t pickerH = PICKERS_H / 3;
-  bgColorPicker.init(PICKERS_X, PICKERS_Y + GAP, PICKERS_W, pickerH - GAP);
-  fgColorPicker.init(PICKERS_X, PICKERS_Y + pickerH + GAP, PICKERS_W, pickerH - GAP);
-  bColorPicker.init(PICKERS_X, PICKERS_Y + PICKERS_H - pickerH + GAP, PICKERS_W, pickerH - GAP);
 }
 
 
@@ -67,8 +63,6 @@ void ExampleView::nextBorderStyle() {
     hasBorder = false;
     is3D = false;
   }
-  bColorPicker.setActive(hasBorder);
-  bColorPicker.draw();
   reDrawExamples();
 }
 
@@ -105,34 +99,12 @@ void ExampleView::scaleDown() {
 }
 
 
-void ExampleView::setBackgroundColor(Palette c) {
-  bgColor = c;
-  reDrawExamples();
-}
-
-
-void ExampleView::setForegroundColor(Palette c) {
-  fgColor = c;
-  reDrawExamples();
-}
-
-
-void ExampleView::setBorderColor(Palette c) {
-  bColor = c;
-  reDrawExamples();
-}
-
-
 
 void ExampleView::draw() {
   reDrawExamples();
   scaleUpButton.draw();
   scaleDownButton.draw();
   showPaletteButton.draw();
-  bgColorPicker.draw();
-  fgColorPicker.draw();
-  bColorPicker.setActive(hasBorder);
-  bColorPicker.draw();
   printScale();
 }
 
@@ -140,14 +112,11 @@ void ExampleView::draw() {
 
 void ExampleView::reDrawExamples() {
   IconColor color = UI->activeIcon.getColor();
-  color.setBackgroundColor(Palette::DARK_GREEN);
   if (is3D) {
     color.setBorder3d();
   } else if (hasBorder) {
-    color.setBorderColor(bColor);
+    color.setBorderColor(Palette::ICON_COLOR_BORDER);
   }
-  color.setBackgroundColor(bgColor);
-  color.setForegroundColor(fgColor);
   UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
 }
 
