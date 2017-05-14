@@ -36,7 +36,7 @@ void PBlocksUserInterface::init() {
 
 void PBlocksUserInterface::draw() {
   drawingGrid.draw();
-  palette.draw();
+  pickerView.draw();
   exampleView.draw();
   tools.draw();
 }

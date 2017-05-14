@@ -21,7 +21,7 @@ public:
     TFT tft;
     TouchHandler touchHandler;
     DrawingGrid drawingGrid;
-    ColorPickerView palette;
+    ColorPickerView pickerView;
     ExampleView exampleView;
     Tools tools;
     IconBufferMem activeIcon;

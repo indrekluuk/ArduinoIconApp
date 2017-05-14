@@ -27,17 +27,15 @@ public:
 private:
     ColorPickerPalette palette;
 
-    ColorPickerButton * activeButton;
+    ColorPickerButton * activeButton = nullptr;
     CallbackMethod activeButtonCallback;
-
-
-    bool active = false;
 public:
 
     ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1, *this) {}
 
-    void setActive(bool active, ColorPickerButton * button, CallbackMethod callback);
-    bool isActive();
+    void setActive(ColorPickerButton * button, CallbackMethod callback);
+    void deactivate();
+    bool isActive(ColorPickerButton * button);
 
     void draw();
 

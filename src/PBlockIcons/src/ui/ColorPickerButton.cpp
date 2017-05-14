@@ -45,14 +45,17 @@ void ColorPickerButton::release(uint16_t x, uint16_t y) {
 
 
 void ColorPickerButton::togglePalette() {
-  if (UI->palette.isActive()) {
-    UI->drawingGrid.setActive(true);
-    UI->palette.setActive(false, nullptr, nullptr);
-    UI->drawingGrid.draw();
+  ColorPickerView & pickerView = UI->pickerView;
+  DrawingGrid & drawingGrid = UI->drawingGrid;
+
+  if (pickerView.isActive(this)) {
+    drawingGrid.setActive(true);
+    pickerView.deactivate();
+    drawingGrid.draw();
   } else {
-    UI->drawingGrid.setActive(false);
-    UI->palette.setActive(true, this, &ColorPickerButton::colorSelected);
-    UI->palette.draw();
+    drawingGrid.setActive(false);
+    pickerView.setActive(this, &ColorPickerButton::colorSelected);
+    pickerView.draw();
   }
 }
 

@@ -6,21 +6,25 @@
 #include "PBlocksUserInterface.h"
 
 
-void ColorPickerView::setActive(bool active, ColorPickerButton * button, CallbackMethod callback) {
-  palette.setActive(active);
+void ColorPickerView::setActive(ColorPickerButton * button, CallbackMethod callback) {
+  palette.setActive(true);
   activeButton = button;
   activeButtonCallback = callback;
-  this->active = active;
 }
 
-bool ColorPickerView::isActive() {
-  return active;
+void ColorPickerView::deactivate() {
+  palette.setActive(false);
+  activeButton = nullptr;
+}
+
+bool ColorPickerView::isActive(ColorPickerButton * button) {
+  return button == activeButton;
 }
 
 
 
 void ColorPickerView::draw() {
-  if (!active) {
+  if (activeButton == nullptr) {
     return;
   }
   TFT & tft = UI->tft;
