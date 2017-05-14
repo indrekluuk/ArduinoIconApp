@@ -24,9 +24,9 @@ class ExampleView : public Touchable {
     Button0<ExampleView> scaleUpButton;
     Button0<ExampleView> scaleDownButton;
 
-    Button0<ExampleView> foregroundColorButton;
-    Button0<ExampleView> backgroundColorButton;
-    Button0<ExampleView> borderColorButton;
+    ColorPickerButton foregroundColorButton;
+    ColorPickerButton backgroundColorButton;
+    ColorPickerButton borderColorButton;
 
     uint8_t scale : 6;
     uint8_t is3D : 1;
@@ -51,7 +51,10 @@ public:
     static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
 
 
-    ExampleView()
+    ExampleView() :
+        foregroundColorButton(this, &ExampleView::setForegroundColor),
+        backgroundColorButton(this, &ExampleView::setBackgroundColor),
+        borderColorButton(this, &ExampleView::setBorderColor)
     {
         scale = 2;
         is3D = false;
@@ -67,9 +70,11 @@ public:
     bool isTouchOnView(uint16_t x, uint16_t y);
 
     void nextBorderStyle();
-    void togglePalette();
     void scaleUp();
     void scaleDown();
+    void setForegroundColor(RgbColor color);
+    void setBackgroundColor(RgbColor color);
+    void setBorderColor(RgbColor color);
 
     void draw();
     void reDrawExamples();

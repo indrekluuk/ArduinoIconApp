@@ -6,8 +6,10 @@
 #include "PBlocksUserInterface.h"
 
 
-void ColorPickerView::setActive(bool active) {
+void ColorPickerView::setActive(bool active, ColorPickerButton * button, CallbackMethod callback) {
   palette.setActive(active);
+  activeButton = button;
+  activeButtonCallback = callback;
   this->active = active;
 }
 
@@ -50,7 +52,8 @@ void ColorPickerView::colorSelected(RgbColor color) {
   tft.print((int)color.colorB);
   tft.print("                     ");
 
-  COLOR_foreground = color.colorCode;
-  UI->exampleView.reDrawExamples();
+  if (activeButton != nullptr) {
+    (activeButton->*activeButtonCallback)(color);
+  }
 }
 

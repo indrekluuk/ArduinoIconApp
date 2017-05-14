@@ -11,7 +11,7 @@
 void ExampleView::init() {
 
   uint8_t buttonW = BUTTONS_W / 2;
-  uint8_t buttonH = BUTTONS_H / 2;
+  uint8_t buttonH = BUTTONS_H / 2; //todo
 
   scaleUpButton
       .setCallback(this, &ExampleView::scaleUp)
@@ -23,17 +23,11 @@ void ExampleView::init() {
       .setIcon(&iconZoomOut);
 
   foregroundColorButton
-      .setCallback(this, &ExampleView::togglePalette)
-      .init(BUTTONS_X, BUTTONS_Y + buttonH, buttonW, buttonH)
-      .setIcon(&iconForeground);
+      .init(BUTTONS_X, BUTTONS_Y + buttonH, BUTTONS_W, buttonH, &iconForeground);
   backgroundColorButton
-      .setCallback(this, &ExampleView::togglePalette)
-      .init(BUTTONS_X, BUTTONS_Y + buttonH * 2, buttonW, buttonH)
-      .setIcon(&iconBackground);
+      .init(BUTTONS_X, BUTTONS_Y + buttonH * 2, BUTTONS_W, buttonH, &iconBackground);
   borderColorButton
-      .setCallback(this, &ExampleView::togglePalette)
-      .init(BUTTONS_X, BUTTONS_Y + buttonH * 3, buttonW, buttonH)
-      .setIcon(&iconBorder);
+      .init(BUTTONS_X, BUTTONS_Y + buttonH * 3, BUTTONS_W, buttonH, &iconBorder);
 
 }
 
@@ -76,17 +70,6 @@ void ExampleView::nextBorderStyle() {
 
 
 
-void ExampleView::togglePalette() {
-  if (UI->palette.isActive()) {
-    UI->drawingGrid.setActive(true);
-    UI->palette.setActive(false);
-    UI->drawingGrid.draw();
-  } else {
-    UI->drawingGrid.setActive(false);
-    UI->palette.setActive(true);
-    UI->palette.draw();
-  }
-}
 
 
 void ExampleView::scaleUp() {
@@ -108,10 +91,33 @@ void ExampleView::scaleDown() {
 
 
 
+void ExampleView::setForegroundColor(RgbColor color) {
+  COLOR_foreground = color.colorCode;
+  UI->exampleView.draw();
+}
+
+
+void ExampleView::setBackgroundColor(RgbColor color) {
+  COLOR_background = color.colorCode;
+  UI->exampleView.draw();
+}
+
+
+void ExampleView::setBorderColor(RgbColor color) {
+  COLOR_border = color.colorCode;
+  UI->exampleView.draw();
+}
+
+
+
+
 void ExampleView::draw() {
   reDrawExamples();
   scaleUpButton.draw();
   scaleDownButton.draw();
+  foregroundColorButton.draw();
+  backgroundColorButton.draw();
+  borderColorButton.draw();
   foregroundColorButton.draw();
   backgroundColorButton.draw();
   borderColorButton.draw();

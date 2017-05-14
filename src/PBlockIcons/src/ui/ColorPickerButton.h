@@ -8,51 +8,48 @@
 
 #include "TouchHandler.h"
 #include "src/screen/Colors.h"
+#include "Button.h"
+
 
 class ExampleView;
 
 
 class ColorPickerButton : public Touchable {
-
-    static const uint8_t COLOR_COUNT = 16;
-
-    uint16_t pickerX;
-    uint16_t pickerY;
-    uint8_t pickerW;
-    uint8_t pickerH;
-
-    bool isActive = true;
-
 public:
-    typedef void (ExampleView::*CallbackMethod)(Palette c);
-
-    ColorPickerButton(ExampleView* view, CallbackMethod callbackMethod) :
-        view(view),
-        callbackMethod(callbackMethod) {};
-
-    void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
-
-    bool touch(uint16_t x, uint16_t y);
-    void hold(uint16_t x, uint16_t y);
-    void release(uint16_t x, uint16_t y);
-    bool isTouchOnColorPicker(uint16_t x, uint16_t y);
-
-    void draw();
-
-    void setActive(bool active);
+    typedef void (ExampleView::*CallbackMethod)(RgbColor color);
 
 private:
 
 
-    uint16_t getColorX(uint8_t c);
-    uint16_t getColorX1(uint8_t c);
-    uint16_t getColorX2(uint8_t c);
-    uint16_t getColorY(uint8_t c);
+    uint16_t pickerButtonX;
+    uint16_t pickerButtonY;
+    uint8_t pickerButtonW;
+    uint8_t pickerButtonH;
 
     ExampleView* view;
     CallbackMethod callbackMethod;
+    bool isActive = true;
+    Button0<ColorPickerButton> button;
 
+public:
 
+    ColorPickerButton(ExampleView* view, CallbackMethod callbackMethod) :
+        view(view),
+        callbackMethod(callbackMethod)
+    {};
+
+    void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
+
+    void setActive(bool active);
+
+    bool touch(uint16_t x, uint16_t y);
+    void hold(uint16_t x, uint16_t y);
+    void release(uint16_t x, uint16_t y);
+
+    void togglePalette();
+    void colorSelected(RgbColor color);
+
+    void draw();
 
 };
 
