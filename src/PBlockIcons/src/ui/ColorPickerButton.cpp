@@ -46,7 +46,7 @@ void ColorPickerButton::hold(uint16_t x, uint16_t y) {
 
 void ColorPickerButton::release(uint16_t x, uint16_t y) {
   if (isInPickedColor(x, y)) {
-    UI->pickerView.colorSelected(selectedColor);
+    UI->pickerView.colorSelected(selectedColor, true);
   }
 }
 
@@ -61,22 +61,27 @@ void ColorPickerButton::togglePalette() {
   ColorPickerView & pickerView = UI->pickerView;
   DrawingGrid & drawingGrid = UI->drawingGrid;
 
-  if (pickerView.isActive(this)) {
+  if (pickerView.getActiveButton() == this) {
     drawingGrid.setActive(true);
     pickerView.deactivate();
     drawingGrid.draw();
   } else {
+    bool isRedraw = pickerView.getActiveButton() == nullptr;
     drawingGrid.setActive(false);
     pickerView.setActive(this, &ColorPickerButton::colorSelected);
-    pickerView.draw();
+    if (isRedraw) {
+      pickerView.draw();
+    }
   }
 }
 
 
-void ColorPickerButton::colorSelected(RgbColor color) {
+void ColorPickerButton::colorSelected(RgbColor color, bool isFinal) {
   selectedColor = color;
   drawPickedColor();
-  (view->*callbackMethod)(color);
+  if (isFinal) {
+    (view->*callbackMethod)(color);
+  }
 }
 
 

@@ -21,8 +21,8 @@ void ColorPickerView::deactivate() {
   activeButton = nullptr;
 }
 
-bool ColorPickerView::isActive(ColorPickerButton * button) {
-  return button == activeButton;
+ColorPickerButton * ColorPickerView::getActiveButton() {
+  return activeButton;
 }
 
 
@@ -48,7 +48,7 @@ void ColorPickerView::draw() {
 
 
 
-void ColorPickerView::colorSelected(RgbColor color) {
+void ColorPickerView::colorSelected(RgbColor color, bool isFinal) {
 
   TFT & tft = UI->tft;
   tft.setCursor(PICKER_X + 100, PICKER_Y + PICKER_H + 2);
@@ -61,7 +61,7 @@ void ColorPickerView::colorSelected(RgbColor color) {
   tft.print("                     ");
 
   if (activeButton != nullptr) {
-    (activeButton->*activeButtonCallback)(color);
+    (activeButton->*activeButtonCallback)(color, isFinal);
   }
 }
 
