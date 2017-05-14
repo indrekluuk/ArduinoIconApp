@@ -14,7 +14,9 @@
 
 struct IconsSlots {
     int16_t memIndex = -1;
-    IconBufferMem icon;
+    IconStorageData storedData;
+
+    IconsSlots(uint8_t slotIndex) : storedData(slotIndex) {}
 };
 
 
@@ -25,13 +27,12 @@ class IconStorage {
 public:
     IconMem iconMem;
     static const uint8_t SLOT_COUNT = 6;
-    IconsSlots slots[SLOT_COUNT];
+    IconsSlots slots[SLOT_COUNT] = {0, 1, 2, 3, 4, 5};
 
 
     IconStorage();
+    IconStorageData & getStoredIconData(uint8_t slotIndex);
     void saveIcon(uint8_t slotIndex, IconBufferMem & icon);
-    void loadIcon(uint8_t slotIndex, IconBufferMem & icon);
-
 
 private:
     void initSlot(uint8_t slotIndex);

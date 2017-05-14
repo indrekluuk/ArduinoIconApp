@@ -15,7 +15,7 @@
 class Tools {
 
     static const uint8_t SAVED_ICON_COUNT = IconStorage::SLOT_COUNT;
-    IconBufferMem buttonIcons[SAVED_ICON_COUNT];
+    IconBufferMem * buttonIcons[SAVED_ICON_COUNT];
 
     IconBufferProgMem iconReturn = IconBufferProgMem(&ICON_RETURN);
     IconBufferProgMem iconEdit = IconBufferProgMem(&ICON_EDIT);
@@ -46,7 +46,6 @@ private:
     void showSaveToolbar(uint8_t);
     void showLoadToolbar(uint8_t);
     void showSendToolbar(uint8_t);
-    void reloadButtonIcons();
 
     void invertIcon(uint8_t);
     void moveIconUp(uint8_t);

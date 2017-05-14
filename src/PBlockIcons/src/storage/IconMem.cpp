@@ -7,25 +7,27 @@
 
 
 uint8_t IconMem::getSlotNumber(uint16_t memIndex) {
-  IconStorageData * mem = getMemAddress(memIndex);
-  return readMemByte(&mem->slotIndex);
+  IconStorageData * addr = getMemAddress(memIndex);
+  return readMemByte(&addr->slotIndex);
 }
 
-void IconMem::setSlotNumber(uint16_t memIndex, uint8_t slotNumber) {
-  IconStorageData * mem = getMemAddress(memIndex);
-  writeMemByte(&mem->slotIndex, slotNumber);
+void IconMem::clearSlotNumber(uint16_t memIndex) {
+  IconStorageData * addr = getMemAddress(memIndex);
+  writeMemByte(&addr->slotIndex, 0xFF);
 }
 
-IconBufferMem IconMem::readIconData(uint16_t memIndex) {
-  IconBufferMem icon;
-  IconStorageData * mem = getMemAddress(memIndex);
-  readMemBytes(&mem->icon, sizeof(mem->icon), &icon);
-  return icon;
+
+IconStorageData IconMem::readIconData(uint16_t memIndex) {
+  IconStorageData data(0xFF);
+  IconStorageData * addr = getMemAddress(memIndex);
+  readMemBytes(addr, sizeof(IconStorageData), &data);
+  return data;
 }
 
-void IconMem::writeIconData(uint16_t memIndex, IconBufferMem & icon) {
-  IconStorageData * mem = getMemAddress(memIndex);
-  writeMemBytes(&mem->icon, sizeof(mem->icon), &icon);
+
+void IconMem::writeIconData(uint16_t memIndex, IconStorageData & data) {
+  IconStorageData * addr = getMemAddress(memIndex);
+  writeMemBytes(addr, sizeof(IconStorageData), &data);
 }
 
 

@@ -14,13 +14,15 @@ IconStorage::IconStorage() {
 
 
 void IconStorage::initSlot(uint8_t slotIndex) {
+  slots[slotIndex].storedData.slotIndex = slotIndex;
+
   for (uint16_t i=0; i<iconMem.MEM_COUNT; i++) {
     if (iconMem.getSlotNumber(i) == slotIndex) {
       if (slots[slotIndex].memIndex < 0) {
         slots[slotIndex].memIndex = i;
-        slots[slotIndex].icon = iconMem.readIconData(i);
+        slots[slotIndex].storedData = iconMem.readIconData(i);
       } else {
-        iconMem.setSlotNumber(i, 0xFF);
+        iconMem.clearSlotNumber(i);
       }
     }
   }
@@ -28,16 +30,16 @@ void IconStorage::initSlot(uint8_t slotIndex) {
 
 
 
+IconStorageData & IconStorage::getStoredIconData(uint8_t slotIndex) {
+  return slots[slotIndex].storedData;
+}
+
+
 void IconStorage::saveIcon(uint8_t slotIndex, IconBufferMem & icon) {
-  slots[slotIndex].icon = icon;
+  slots[slotIndex].storedData.icon = icon;
+  slots[slotIndex].storedData.icon.color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
   saveSlot(slotIndex);
 }
-
-
-void IconStorage::loadIcon(uint8_t slotIndex, IconBufferMem & icon) {
-  icon = slots[slotIndex].icon;
-}
-
 
 
 
@@ -47,13 +49,12 @@ void IconStorage::saveSlot(uint8_t slotIndex) {
 
   int16_t currentMemIndex = slots[slotIndex].memIndex;
   if (currentMemIndex >= 0) {
-    iconMem.setSlotNumber(currentMemIndex, 0xFF);
+    iconMem.clearSlotNumber(currentMemIndex);
   }
   for (uint16_t i=0; i<iconMem.MEM_COUNT; i++) {
     uint16_t memIndex = (currentMemIndex + 1 + i) % iconMem.MEM_COUNT;
     if (iconMem.getSlotNumber(memIndex) >= SLOT_COUNT) {
-      iconMem.setSlotNumber(memIndex, slotIndex);
-      iconMem.writeIconData(memIndex, slots[slotIndex].icon);
+      iconMem.writeIconData(memIndex, slots[slotIndex].storedData);
       slots[slotIndex].memIndex = memIndex;
       break;
     }

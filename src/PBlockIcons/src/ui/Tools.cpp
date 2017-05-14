@@ -10,6 +10,11 @@
 
 
 void Tools::init() {
+
+  for (uint8_t i = 0; i < SAVED_ICON_COUNT; i++) {
+    buttonIcons[i] = &UI->iconStorage.getStoredIconData(i).icon;
+  }
+
   toolbar.init();
   showMainToolbar(0);
 }
@@ -86,13 +91,12 @@ void Tools::showEditToolbar(uint8_t) {
 
 
 void Tools::showSaveToolbar(uint8_t) {
-  reloadButtonIcons();
   toolbar.reset();
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::saveIcon, i)
         .reset()
-        .setIcon(&buttonIcons[i])
+        .setIcon(buttonIcons[i])
         .showArrow(false, true);
   }
   toolbar.addButton()
@@ -103,13 +107,12 @@ void Tools::showSaveToolbar(uint8_t) {
 }
 
 void Tools::showLoadToolbar(uint8_t) {
-  reloadButtonIcons();
   toolbar.reset();
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::loadIcon, i)
         .reset()
-        .setIcon(&buttonIcons[i])
+        .setIcon(buttonIcons[i])
         .showArrow(false, false);
   }
   toolbar.addButton()
@@ -120,13 +123,12 @@ void Tools::showLoadToolbar(uint8_t) {
 }
 
 void Tools::showSendToolbar(uint8_t) {
-  reloadButtonIcons();
   toolbar.reset();
   for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
     toolbar.addButton()
         .setCallback(this, &Tools::sendIcon, i)
         .reset()
-        .setIcon(&buttonIcons[i])
+        .setIcon(buttonIcons[i])
         .showArrow(true, true);
   }
   toolbar.addButton()
@@ -136,12 +138,6 @@ void Tools::showSendToolbar(uint8_t) {
   draw();
 }
 
-
-void Tools::reloadButtonIcons() {
-  for (uint8_t i = 0; i < SAVED_ICON_COUNT; i++) {
-    UI->iconStorage.loadIcon(i, buttonIcons[i]);
-  }
-}
 
 
 void Tools::invertIcon(uint8_t) {
@@ -200,15 +196,14 @@ void Tools::saveIcon(uint8_t slotIndex) {
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconColor color = UI->activeIcon.color;
-  UI->iconStorage.loadIcon(slotIndex, UI->activeIcon);
+  UI->activeIcon = UI->iconStorage.getStoredIconData(slotIndex).icon;
   UI->activeIcon.color = color;
   updateIcon();
 }
 
 
 void Tools::sendIcon(uint8_t slotIndex) {
-  IconBufferMem icon;
-  UI->iconStorage.loadIcon(slotIndex, icon);
+  IconBufferMem & icon = UI->iconStorage.getStoredIconData(slotIndex).icon;
   Serial.println();
   for (uint8_t row = 0; row < Icon::BITMAP_HEIGHT; row++) {
     Serial.print("(uint16_t) 0b");

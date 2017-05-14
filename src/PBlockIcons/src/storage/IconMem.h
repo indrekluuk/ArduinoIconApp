@@ -16,7 +16,13 @@
 
 struct IconStorageData {
     uint8_t slotIndex;
-    IconBufferMem icon;
+    IconBufferMem icon;/*
+    uint16_t foregroundColor;
+    uint16_t backgroundColor;
+    uint16_t borderColor;
+    uint8_t isBorder : 1;
+    uint8_t is3d : 1;
+    uint8_t reserve : 6;*/
     IconStorageData(uint8_t slotIndex) : slotIndex(slotIndex) {};
 };
 
@@ -30,9 +36,10 @@ public:
 
 
     uint8_t getSlotNumber(uint16_t memIndex);
-    void setSlotNumber(uint16_t memIndex, uint8_t slotNumber);
-    IconBufferMem readIconData(uint16_t memIndex);
-    void writeIconData(uint16_t memIndex, IconBufferMem & icon);
+    void clearSlotNumber(uint16_t memIndex);
+
+    IconStorageData readIconData(uint16_t memIndex);
+    void writeIconData(uint16_t memIndex, IconStorageData & data);
 
 
 private:
