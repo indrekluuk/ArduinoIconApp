@@ -41,6 +41,7 @@ public:
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
 
     void setActive(bool active);
+    void setOff();
 
     bool touch(uint16_t x, uint16_t y);
     void hold(uint16_t x, uint16_t y);

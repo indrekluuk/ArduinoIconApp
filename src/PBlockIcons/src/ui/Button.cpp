@@ -22,7 +22,14 @@ ButtonBase & ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
 ButtonBase & ButtonBase::reset() {
   decoration = nullptr;
   isShowArrow = false;
+  isPressed = false;
   setActive(true);
+  return *this;
+}
+
+
+ButtonBase & ButtonBase::setToggle(bool isToggle) {
+  isToggleButton = isToggle;
   return *this;
 }
 
@@ -55,6 +62,12 @@ void ButtonBase::setActive(bool active) {
 
 
 
+void ButtonBase::setOff() {
+  isToggleOn = false;
+  isPressed = false;
+  draw();
+}
+
 
 bool ButtonBase::touch(uint16_t x, uint16_t y) {
   if (isActive && isTouchOnButton(x, y)) {
@@ -74,18 +87,30 @@ void ButtonBase::hold(uint16_t x, uint16_t y) {
     }
   } else {
     if (isPressed) {
-      isPressed = false;
-      draw();
+      if (!isToggleOn) {
+        isPressed = false;
+        draw();
+      }
     }
   }
 }
 
 void ButtonBase::release(uint16_t x, uint16_t y) {
+  bool isOnButton = isTouchOnButton(x, y);
+
   if (isPressed) {
-    isPressed = false;
+    if (isToggleButton) {
+      if (isOnButton) {
+        isToggleOn = !isToggleOn;
+      }
+    } else {
+      isToggleOn = false;
+    }
+    isPressed = isToggleOn;
     draw();
   }
-  if (isTouchOnButton(x, y)) {
+
+  if (isOnButton) {
     action();
   }
 }

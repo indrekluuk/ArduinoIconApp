@@ -7,12 +7,16 @@
 
 
 void ColorPickerView::setActive(ColorPickerButton * button, CallbackMethod callback) {
+  deactivate();
   palette.setActive(true);
   activeButton = button;
   activeButtonCallback = callback;
 }
 
 void ColorPickerView::deactivate() {
+  if (activeButton) {
+    activeButton->setOff();
+  }
   palette.setActive(false);
   activeButton = nullptr;
 }

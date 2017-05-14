@@ -11,6 +11,7 @@ void ColorPickerButton::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon 
   button
       .setCallback(this, &ColorPickerButton::togglePalette)
       .init(x, y, w/2, h)
+      .setToggle(true)
       .setIcon(icon);
 
   pickerButtonX = x;
@@ -26,6 +27,10 @@ void ColorPickerButton::setActive(bool active) {
   isActive = active;
 }
 
+
+void ColorPickerButton::setOff() {
+  button.setOff();
+}
 
 
 bool ColorPickerButton::touch(uint16_t x, uint16_t y) {
