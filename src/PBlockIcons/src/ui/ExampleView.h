@@ -43,7 +43,7 @@ public:
     static const uint16_t BUTTONS_X = VIEW_X;
     static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H + GAP;
     static const uint8_t BUTTONS_W = VIEW_W;
-    static const uint8_t BUTTONS_H = 80;
+    static const uint8_t BUTTONS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - BUTTONS_Y;
 
     static const uint16_t PICKERS_X = VIEW_X;
     static const uint16_t PICKERS_Y = BUTTONS_Y + BUTTONS_H;

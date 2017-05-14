@@ -11,23 +11,30 @@
 void ExampleView::init() {
 
   uint8_t buttonW = BUTTONS_W / 2;
-  uint8_t buttonH = BUTTONS_H / 2; //todo
 
+  uint16_t buttonY1 = BUTTONS_Y;
+  uint16_t buttonY2 = BUTTONS_Y + BUTTONS_H * 1 / 4;
   scaleUpButton
       .setCallback(this, &ExampleView::scaleUp)
-      .init(BUTTONS_X, BUTTONS_Y, buttonW, buttonH)
+      .init(BUTTONS_X, buttonY1, buttonW, buttonY2 - buttonY1)
       .setIcon(&iconZoomIn);
   scaleDownButton
       .setCallback(this, &ExampleView::scaleDown)
-      .init(BUTTONS_X + buttonW, BUTTONS_Y, buttonW, buttonH)
+      .init(BUTTONS_X + buttonW, buttonY1, buttonW, buttonY2 - buttonY1)
       .setIcon(&iconZoomOut);
 
+  buttonY1 = buttonY2;
+  buttonY2 = BUTTONS_Y + BUTTONS_H * 2 / 4;
   foregroundColorButton
-      .init(BUTTONS_X, BUTTONS_Y + buttonH, BUTTONS_W, buttonH, &iconForeground);
+      .init(BUTTONS_X, buttonY1, BUTTONS_W, buttonY2 - buttonY1, &iconForeground);
+  buttonY1 = buttonY2;
+  buttonY2 = BUTTONS_Y + BUTTONS_H * 3 / 4;
   backgroundColorButton
-      .init(BUTTONS_X, BUTTONS_Y + buttonH * 2, BUTTONS_W, buttonH, &iconBackground);
+      .init(BUTTONS_X, buttonY1, BUTTONS_W, buttonY2 - buttonY1, &iconBackground);
+  buttonY1 = buttonY2;
+  buttonY2 = BUTTONS_Y + BUTTONS_H * 4 / 4;
   borderColorButton
-      .init(BUTTONS_X, BUTTONS_Y + buttonH * 3, BUTTONS_W, buttonH, &iconBorder);
+      .init(BUTTONS_X, buttonY1, BUTTONS_W, buttonY2 - buttonY1, &iconBorder);
 
   borderColorButton.setActive(hasBorder);
 
