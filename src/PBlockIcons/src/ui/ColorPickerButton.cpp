@@ -34,8 +34,8 @@ void ColorPickerButton::setOff() {
 
 
 bool ColorPickerButton::touch(uint16_t x, uint16_t y) {
-  if (isActive) {
-    return false;
+  if (isActive && isInPickedColor(x, y)) {
+    return true;
   } else {
     return false;
   }
@@ -45,8 +45,16 @@ void ColorPickerButton::hold(uint16_t x, uint16_t y) {
 }
 
 void ColorPickerButton::release(uint16_t x, uint16_t y) {
+  if (isInPickedColor(x, y)) {
+    UI->pickerView.colorSelected(selectedColor);
+  }
 }
 
+
+bool ColorPickerButton::isInPickedColor(uint16_t x, uint16_t y) {
+  uint8_t length = pickerButtonW / 2;
+  return isTapIn(x, pickerButtonX + length, length) && isTapIn(y, pickerButtonY, pickerButtonH);
+}
 
 
 void ColorPickerButton::togglePalette() {
