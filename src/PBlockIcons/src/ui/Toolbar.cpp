@@ -24,7 +24,7 @@ void Toolbar::init() {
 void Toolbar::reset() {
   buttonCount = 0;
   for (uint8_t i = 0; i<MAX_BUTTON_COUNT; i++) {
-    buttons[i].deactivate();
+    buttons[i].setActive(false);
   }
 }
 
@@ -33,6 +33,7 @@ Button1<Tools, uint8_t> & Toolbar::addButton() {
   if (buttonCount < MAX_BUTTON_COUNT) {
     buttonCount++;
   }
+  buttons[buttonCount - 1].setActive(true);
   return buttons[buttonCount - 1];
 }
 

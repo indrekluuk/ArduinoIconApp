@@ -14,6 +14,15 @@ ButtonBase & ButtonBase::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
   buttonY = y;
   buttonW = w;
   buttonH = h;
+  reset();
+  return *this;
+}
+
+
+ButtonBase & ButtonBase::reset() {
+  decoration = nullptr;
+  isShowArrow = false;
+  setActive(true);
   return *this;
 }
 
@@ -40,16 +49,15 @@ ButtonBase & ButtonBase::showArrow(bool isPlacementRight, bool isDirectionRight)
 }
 
 
-void ButtonBase::deactivate() {
-  decoration = nullptr;
-  isShowArrow = false;
+void ButtonBase::setActive(bool active) {
+  isActive = active;
 }
 
 
 
 
 bool ButtonBase::touch(uint16_t x, uint16_t y) {
-  if (decoration != nullptr && isTouchOnButton(x, y)) {
+  if (isActive && isTouchOnButton(x, y)) {
     isPressed = true;
     draw();
     return true;

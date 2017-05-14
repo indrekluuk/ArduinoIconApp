@@ -22,6 +22,7 @@ void ColorPickerButton::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon 
 
 
 void ColorPickerButton::setActive(bool active) {
+  button.setActive(active);
   isActive = active;
 }
 
@@ -62,7 +63,11 @@ void ColorPickerButton::colorSelected(RgbColor color) {
 
 
 void ColorPickerButton::draw() {
-  button.draw();
+  if (isActive) {
+    button.draw();
+  } else {
+    UI->tft.fillRect(pickerButtonX, pickerButtonY, pickerButtonW, pickerButtonH, COLOR_BLACK);
+  }
 }
 
 

@@ -14,12 +14,13 @@ class ButtonBase : public Touchable {
 
     const void * decoration = nullptr;
 
+    uint8_t isActive : 1;
     uint8_t isPressed : 1;
     uint8_t isDecorationIcon : 1;
     uint8_t isShowArrow : 1;
     uint8_t arrowPlacementRight : 1;
     uint8_t arrowDirectionRight : 1;
-    uint8_t reserve : 3;
+    uint8_t reserve : 2;
 
 public:
 
@@ -29,16 +30,18 @@ public:
     uint8_t buttonH;
 
     ButtonBase() {
+      isActive = true;
       isPressed = false;
       isShowArrow = false;
     }
 
 
     ButtonBase & init(uint16_t x, uint16_t y, uint8_t w, uint8_t h);
+    ButtonBase & reset();
     ButtonBase & setIcon(Icon * icon);
     ButtonBase & setLabel(const char * label);
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
-    void deactivate();
+    void setActive(bool active);
 
     bool touch(uint16_t x, uint16_t y);
     void hold(uint16_t x, uint16_t y);

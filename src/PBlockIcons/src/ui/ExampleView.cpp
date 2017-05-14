@@ -29,6 +29,8 @@ void ExampleView::init() {
   borderColorButton
       .init(BUTTONS_X, BUTTONS_Y + buttonH * 3, BUTTONS_W, buttonH, &iconBorder);
 
+  borderColorButton.setActive(hasBorder);
+
 }
 
 
@@ -65,6 +67,8 @@ void ExampleView::nextBorderStyle() {
     hasBorder = false;
     is3D = false;
   }
+  borderColorButton.setActive(hasBorder);
+  borderColorButton.draw();
   reDrawExamples();
 }
 
