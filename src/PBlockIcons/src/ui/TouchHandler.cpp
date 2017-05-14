@@ -3,7 +3,6 @@
 //
 
 #include "TouchHandler.h"
-#include "PBlocksUserInterface.h"
 
 
 Touchable * firstTouchable = nullptr;
@@ -102,7 +101,9 @@ void TouchHandler::check() {
     }
     if (tapOnTouchable) {
       if (isHold) {
-        tapOnTouchable->hold(x, y);
+        if (holdCounter == TOUCH_SAMPLE_COUNT) {
+          tapOnTouchable->hold(x, y);
+        }
       } else {
         tapOnTouchable->release(x, y);
       }

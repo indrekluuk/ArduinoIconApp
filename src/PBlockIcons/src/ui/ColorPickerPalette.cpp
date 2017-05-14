@@ -27,13 +27,11 @@ bool ColorPickerPalette::touch(uint16_t x, uint16_t y) {
 }
 
 void ColorPickerPalette::hold(uint16_t x, uint16_t y) {
-
-
   pickerView.colorSelected(getSelectedColor(x, y), false);
 }
 
 void ColorPickerPalette::release(uint16_t x, uint16_t y) {
-  pickerView.colorSelected(getSelectedColor(x, y), true);
+  //pickerView.colorSelected(getSelectedColor(x, y), true);
 }
 
 

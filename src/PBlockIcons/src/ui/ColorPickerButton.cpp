@@ -79,9 +79,7 @@ void ColorPickerButton::togglePalette() {
 void ColorPickerButton::colorSelected(RgbColor color, bool isFinal) {
   selectedColor = color;
   drawPickedColor();
-  if (isFinal) {
-    (view->*callbackMethod)(color);
-  }
+  (view->*callbackMethod)(color);
 }
 
 
