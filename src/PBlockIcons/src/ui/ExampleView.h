@@ -28,9 +28,7 @@ class ExampleView : public Touchable {
     ColorPickerButton backgroundColorButton;
     ColorPickerButton borderColorButton;
 
-    uint8_t scale : 6;
-    uint8_t is3D : 1;
-    uint8_t hasBorder : 1;
+    uint8_t scale;
 
 public:
     static const uint16_t GAP = 2;
@@ -57,12 +55,11 @@ public:
         borderColorButton(COLOR_border, this, &ExampleView::setBorderColor)
     {
         scale = 2;
-        is3D = false;
-        hasBorder = false;
     }
 
 
     void init();
+    void evaluateIconData();
 
     bool touch(uint16_t x, uint16_t y);
     void hold(uint16_t x, uint16_t y);

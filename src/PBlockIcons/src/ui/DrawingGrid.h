@@ -17,7 +17,6 @@ class DrawingGrid : public Touchable {
 
 
 
-    bool isActive = true;
     bool isColorSelected = false;
     bool selectedColor = false;
 
@@ -25,6 +24,8 @@ class DrawingGrid : public Touchable {
     static const uint8_t SIZE = 18;
 
 public:
+    bool isActive = true;
+
     static const uint16_t GRID_X = 130;
     static const uint16_t GRID_Y = (SCREEN_HEIGHT - COUNT * SIZE) / 2;
     static const uint16_t GRID_W = COUNT * SIZE + 1;

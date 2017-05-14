@@ -35,9 +35,22 @@ IconStorageData & IconStorage::getStoredIconData(uint8_t slotIndex) {
 }
 
 
-void IconStorage::saveIcon(uint8_t slotIndex, IconBufferMem & icon) {
-  slots[slotIndex].storedData.icon = icon;
-  slots[slotIndex].storedData.icon.color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
+void IconStorage::saveIcon(
+    uint8_t slotIndex,
+    IconBufferMem & icon,
+    uint16_t foregroundColor,
+    uint16_t backgroundColor,
+    uint16_t borderColor
+) {
+  IconStorageData & data = slots[slotIndex].storedData;
+  data.foregroundColor = foregroundColor;
+  data.backgroundColor = backgroundColor;
+  data.borderColor = borderColor;
+  data.hasBorder = icon.color.hasBorder;
+  data.is3d = icon.color.hasBorder3d;
+  data.reserve = 0;
+  data.icon = icon;
+  data.icon.color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
   saveSlot(slotIndex);
 }
 

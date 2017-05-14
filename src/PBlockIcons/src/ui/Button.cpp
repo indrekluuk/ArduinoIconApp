@@ -65,7 +65,9 @@ void ButtonBase::setActive(bool active) {
 void ButtonBase::setOff() {
   isToggleOn = false;
   isPressed = false;
-  draw();
+  if (isActive) {
+    draw();
+  }
 }
 
 

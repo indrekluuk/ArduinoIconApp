@@ -16,13 +16,13 @@
 
 struct IconStorageData {
     uint8_t slotIndex;
-    IconBufferMem icon;/*
+    IconBufferMem icon;
     uint16_t foregroundColor;
     uint16_t backgroundColor;
     uint16_t borderColor;
-    uint8_t isBorder : 1;
+    uint8_t hasBorder : 1;
     uint8_t is3d : 1;
-    uint8_t reserve : 6;*/
+    uint8_t reserve : 6;
     IconStorageData(uint8_t slotIndex) : slotIndex(slotIndex) {};
 };
 

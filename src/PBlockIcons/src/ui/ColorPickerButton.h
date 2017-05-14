@@ -41,6 +41,7 @@ public:
     {};
 
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);
+    void setSelectedColor(RgbColor color);
 
     void setActive(bool active);
     void setOff();

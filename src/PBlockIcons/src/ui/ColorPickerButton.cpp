@@ -21,6 +21,10 @@ void ColorPickerButton::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon 
 }
 
 
+void ColorPickerButton::setSelectedColor(RgbColor color) {
+  selectedColor = color;
+}
+
 
 void ColorPickerButton::setActive(bool active) {
   button.setActive(active);

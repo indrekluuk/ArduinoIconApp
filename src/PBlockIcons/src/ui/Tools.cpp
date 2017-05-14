@@ -27,8 +27,11 @@ void Tools::draw() {
 
 
 void Tools::updateIcon() {
+  UI->pickerView.deactivate();
+  UI->drawingGrid.setActive(true);
+  UI->exampleView.evaluateIconData();
+  UI->exampleView.draw();
   UI->drawingGrid.draw();
-  UI->exampleView.reDrawExamples();
 }
 
 
@@ -189,15 +192,26 @@ void Tools::clearIcon(uint8_t) {
 
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
-  UI->iconStorage.saveIcon(slotIndex, UI->activeIcon);
+  UI->iconStorage.saveIcon(
+      slotIndex,
+      UI->activeIcon,
+      COLOR_foreground,
+      COLOR_background,
+      COLOR_border);
 }
 
 
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconColor color = UI->activeIcon.color;
-  UI->activeIcon = UI->iconStorage.getStoredIconData(slotIndex).icon;
+  IconStorageData & data = UI->iconStorage.getStoredIconData(slotIndex);
+  UI->activeIcon =data.icon;
   UI->activeIcon.color = color;
+  UI->activeIcon.color.hasBorder = data.hasBorder;
+  UI->activeIcon.color.hasBorder3d = data.is3d;
+  COLOR_foreground = data.foregroundColor;
+  COLOR_background = data.backgroundColor;
+  COLOR_border = data.borderColor;
   updateIcon();
 }
 

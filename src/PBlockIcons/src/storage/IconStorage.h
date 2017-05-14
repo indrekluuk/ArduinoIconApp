@@ -32,7 +32,12 @@ public:
 
     IconStorage();
     IconStorageData & getStoredIconData(uint8_t slotIndex);
-    void saveIcon(uint8_t slotIndex, IconBufferMem & icon);
+    void saveIcon(
+        uint8_t slotIndex,
+        IconBufferMem & icon,
+        uint16_t foregroundColor,
+        uint16_t backgroundColor,
+        uint16_t borderColor);
 
 private:
     void initSlot(uint8_t slotIndex);

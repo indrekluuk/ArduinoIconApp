@@ -36,8 +36,15 @@ void ExampleView::init() {
   borderColorButton
       .init(BUTTONS_X, buttonY1, BUTTONS_W, buttonY2 - buttonY1, &iconBorder);
 
-  borderColorButton.setActive(hasBorder);
+  evaluateIconData();
+}
 
+
+void ExampleView::evaluateIconData() {
+  borderColorButton.setActive(UI->activeIcon.color.hasBorder && !UI->activeIcon.color.hasBorder3d);
+  foregroundColorButton.setSelectedColor(COLOR_foreground);
+  backgroundColorButton.setSelectedColor(COLOR_background);
+  borderColorButton.setSelectedColor(COLOR_border);
 }
 
 
@@ -65,18 +72,23 @@ bool ExampleView::isTouchOnView(uint16_t x, uint16_t y) {
 
 
 void ExampleView::nextBorderStyle() {
-  if (!is3D && !hasBorder) {
-    hasBorder = true;
-  } else if (hasBorder) {
-    hasBorder = false;
-    is3D = true;
+  if (!UI->activeIcon.color.hasBorder) {
+    UI->activeIcon.color.hasBorder = true;
+    UI->activeIcon.color.hasBorder3d = false;
+  } else if (!UI->activeIcon.color.hasBorder3d) {
+    UI->activeIcon.color.hasBorder3d = true;
   } else {
-    hasBorder = false;
-    is3D = false;
+    UI->activeIcon.color.hasBorder = false;
+    UI->activeIcon.color.hasBorder3d = false;
   }
-  borderColorButton.setActive(hasBorder);
+  evaluateIconData();
   borderColorButton.draw();
   reDrawExamples();
+  if (!UI->drawingGrid.isActive) {
+    UI->pickerView.deactivate();
+    UI->drawingGrid.setActive(true);
+    UI->drawingGrid.draw();
+  }
 }
 
 
@@ -139,11 +151,6 @@ void ExampleView::draw() {
 
 void ExampleView::reDrawExamples() {
   IconColor color = UI->activeIcon.getColor();
-  if (is3D) {
-    color.setBorder3d();
-  } else if (hasBorder) {
-    color.setBorderColor(Palette::ICON_COLOR_BORDER);
-  }
   UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
 }
 
