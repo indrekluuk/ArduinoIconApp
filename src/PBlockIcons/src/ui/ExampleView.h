@@ -52,9 +52,9 @@ public:
 
 
     ExampleView() :
-        foregroundColorButton(this, &ExampleView::setForegroundColor),
-        backgroundColorButton(this, &ExampleView::setBackgroundColor),
-        borderColorButton(this, &ExampleView::setBorderColor)
+        foregroundColorButton(COLOR_foreground, this, &ExampleView::setForegroundColor),
+        backgroundColorButton(COLOR_background, this, &ExampleView::setBackgroundColor),
+        borderColorButton(COLOR_border, this, &ExampleView::setBorderColor)
     {
         scale = 2;
         is3D = false;

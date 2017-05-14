@@ -66,6 +66,8 @@ void ColorPickerButton::togglePalette() {
 
 
 void ColorPickerButton::colorSelected(RgbColor color) {
+  selectedColor = color;
+  drawPickedColor();
   (view->*callbackMethod)(color);
 }
 
@@ -73,10 +75,19 @@ void ColorPickerButton::colorSelected(RgbColor color) {
 void ColorPickerButton::draw() {
   if (isActive) {
     button.draw();
+    drawPickedColor();
   } else {
     UI->tft.fillRect(pickerButtonX, pickerButtonY, pickerButtonW, pickerButtonH, COLOR_BLACK);
   }
 }
+
+
+void ColorPickerButton::drawPickedColor() {
+  uint8_t length = pickerButtonW / 2;
+  UI->tft.fillRect(pickerButtonX + length, pickerButtonY, length, pickerButtonH, selectedColor.colorCode);
+}
+
+
 
 
 
