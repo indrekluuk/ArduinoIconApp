@@ -43,6 +43,41 @@ void PBlocksUserInterface::draw() {
 
 
 
+void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors) {
+  bool isReDrawGrid = false;
+  bool isReDrawExampleView = false;
+  bool isUpdatePreview = false;
+
+  if (pixels || border) {
+    if (!drawingGrid.isActive) {
+      pickerView.deactivate();
+      drawingGrid.setActive(true);
+      isReDrawGrid = true;
+    }
+  }
+  if (pixels) {
+    isReDrawGrid = true;
+  }
+
+  if (border) {
+    exampleView.evaluateIconData();
+    isReDrawExampleView = true;
+  } else if (pixels || colors) {
+    isUpdatePreview = true;
+  }
+
+  if (isReDrawGrid) {
+    drawingGrid.draw();
+  }
+  if (isReDrawExampleView) {
+    exampleView.draw();
+  } else if (isUpdatePreview) {
+    exampleView.updatePreview();
+  }
+}
+
+
+
 void PBlocksUserInterface::run() {
   touchHandler.check();
 }

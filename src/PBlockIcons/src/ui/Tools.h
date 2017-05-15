@@ -37,7 +37,6 @@ public:
 
     void init();
     void draw();
-    void updateIcon();
 
 private:
 

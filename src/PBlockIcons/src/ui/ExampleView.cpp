@@ -81,14 +81,7 @@ void ExampleView::nextBorderStyle() {
     UI->activeIcon.color.hasBorder = false;
     UI->activeIcon.color.hasBorder3d = false;
   }
-  evaluateIconData();
-  borderColorButton.draw();
-  reDrawExamples();
-  if (!UI->drawingGrid.isActive) {
-    UI->pickerView.deactivate();
-    UI->drawingGrid.setActive(true);
-    UI->drawingGrid.draw();
-  }
+  UI->iconUpdated(false, true, false);
 }
 
 
@@ -98,7 +91,7 @@ void ExampleView::nextBorderStyle() {
 void ExampleView::scaleUp() {
   if ((scale+1)*16 <= VIEW_W) {
     scale++;
-    reDrawExamples();
+    updatePreview();
     printScale();
   };
 }
@@ -107,7 +100,7 @@ void ExampleView::scaleUp() {
 void ExampleView::scaleDown() {
   if (scale > 1) {
     scale--;
-    reDrawExamples();
+    updatePreview();
     printScale();
   };
 }
@@ -116,26 +109,26 @@ void ExampleView::scaleDown() {
 
 void ExampleView::setForegroundColor(RgbColor color) {
   COLOR_foreground = color.colorCode;
-  UI->exampleView.draw();
+  UI->iconUpdated(false, false, true);
 }
 
 
 void ExampleView::setBackgroundColor(RgbColor color) {
   COLOR_background = color.colorCode;
-  UI->exampleView.draw();
+  UI->iconUpdated(false, false, true);
 }
 
 
 void ExampleView::setBorderColor(RgbColor color) {
   COLOR_border = color.colorCode;
-  UI->exampleView.draw();
+  UI->iconUpdated(false, false, true);
 }
 
 
 
 
 void ExampleView::draw() {
-  reDrawExamples();
+  updatePreview();
   scaleUpButton.draw();
   scaleDownButton.draw();
   foregroundColorButton.draw();
@@ -149,7 +142,7 @@ void ExampleView::draw() {
 
 
 
-void ExampleView::reDrawExamples() {
+void ExampleView::updatePreview() {
   IconColor color = UI->activeIcon.getColor();
   UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
 }

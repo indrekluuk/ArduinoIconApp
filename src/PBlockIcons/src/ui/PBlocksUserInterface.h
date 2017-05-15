@@ -33,6 +33,7 @@ public:
     void init();
 
     void draw();
+    void iconUpdated(bool pixels, bool border, bool colors);
     void run();
 
 

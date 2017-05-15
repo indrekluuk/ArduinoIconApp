@@ -26,15 +26,6 @@ void Tools::draw() {
 }
 
 
-void Tools::updateIcon() {
-  UI->pickerView.deactivate();
-  UI->drawingGrid.setActive(true);
-  UI->exampleView.evaluateIconData();
-  UI->exampleView.draw();
-  UI->drawingGrid.draw();
-}
-
-
 void Tools::showMainToolbar(uint8_t) {
   toolbar.reset();
   toolbar.addButton()
@@ -147,7 +138,7 @@ void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 void Tools::moveIconUp(uint8_t) {
@@ -155,7 +146,7 @@ void Tools::moveIconUp(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i+1];
   }
   UI->activeIcon.bitmap[Icon::BITMAP_HEIGHT-1] = 0;
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 void Tools::moveIconDown(uint8_t) {
@@ -163,21 +154,21 @@ void Tools::moveIconDown(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i-1];
   }
   UI->activeIcon.bitmap[0] = 0;
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 void Tools::moveIconLeft(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] <<= 1;
   }
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 void Tools::moveIconRight(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] >>= 1;
   }
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 void Tools::clearIcon(uint8_t) {
@@ -185,7 +176,7 @@ void Tools::clearIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = 0;
   }
   showMainToolbar(0);
-  updateIcon();
+  UI->iconUpdated(true, false, false);
 }
 
 
@@ -205,14 +196,14 @@ void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconColor color = UI->activeIcon.color;
   IconStorageData & data = UI->iconStorage.getStoredIconData(slotIndex);
-  UI->activeIcon =data.icon;
+  UI->activeIcon = data.icon;
   UI->activeIcon.color = color;
   UI->activeIcon.color.hasBorder = data.hasBorder;
   UI->activeIcon.color.hasBorder3d = data.is3d;
   COLOR_foreground = data.foregroundColor;
   COLOR_background = data.backgroundColor;
   COLOR_border = data.borderColor;
-  updateIcon();
+  UI->iconUpdated(true, true, true);
 }
 
 

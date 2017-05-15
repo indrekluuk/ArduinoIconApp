@@ -74,7 +74,7 @@ public:
     void setBorderColor(RgbColor color);
 
     void draw();
-    void reDrawExamples();
+    void updatePreview();
     void printScale();
 
 };
