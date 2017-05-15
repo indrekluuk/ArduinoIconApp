@@ -62,20 +62,10 @@ bool ColorPickerButton::isInPickedColor(uint16_t x, uint16_t y) {
 
 
 void ColorPickerButton::togglePalette() {
-  ColorPickerView & pickerView = UI->pickerView;
-  DrawingGrid & drawingGrid = UI->drawingGrid;
-
-  if (pickerView.getActiveButton() == this) {
-    drawingGrid.setActive(true);
-    pickerView.deactivate();
-    drawingGrid.draw();
+  if (UI->pickerView.getActiveButton() == this) {
+    UI->showDrawingGrid();
   } else {
-    bool isRedraw = pickerView.getActiveButton() == nullptr;
-    drawingGrid.setActive(false);
-    pickerView.setActive(this, &ColorPickerButton::colorSelected);
-    if (isRedraw) {
-      pickerView.draw();
-    }
+    UI->showColorPicker(this);
   }
 }
 

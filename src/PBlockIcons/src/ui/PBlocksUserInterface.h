@@ -34,6 +34,8 @@ public:
 
     void draw();
     void iconUpdated(bool pixels, bool border, bool colors);
+    void showDrawingGrid();
+    void showColorPicker(ColorPickerButton * button);
     void run();
 
 

@@ -22,18 +22,15 @@ public:
     static const uint16_t PICKER_W = DrawingGrid::GRID_W - 2;
     static const uint16_t PICKER_H = DrawingGrid::GRID_H - 2;
 
-    using CallbackMethod = void (ColorPickerButton::*)(RgbColor color, bool isFinal);
-
 private:
     ColorPickerPalette palette;
 
     ColorPickerButton * activeButton = nullptr;
-    CallbackMethod activeButtonCallback;
 public:
 
     ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1, *this) {}
 
-    void setActive(ColorPickerButton * button, CallbackMethod callback);
+    void setActive(ColorPickerButton * button);
     void deactivate();
     ColorPickerButton * getActiveButton();
 

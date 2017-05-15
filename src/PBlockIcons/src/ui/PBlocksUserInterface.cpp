@@ -44,35 +44,35 @@ void PBlocksUserInterface::draw() {
 
 
 void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors) {
-  bool isReDrawGrid = false;
-  bool isReDrawExampleView = false;
-  bool isUpdatePreview = false;
 
-  if (pixels || border) {
-    if (!drawingGrid.isActive) {
-      pickerView.deactivate();
-      drawingGrid.setActive(true);
-      isReDrawGrid = true;
-    }
-  }
-  if (pixels) {
-    isReDrawGrid = true;
+  if (!drawingGrid.isActive && (pixels || border)) {
+    showDrawingGrid();
+  } else if (pixels) {
+    drawingGrid.draw();
   }
 
   if (border) {
     exampleView.evaluateIconData();
-    isReDrawExampleView = true;
-  } else if (pixels || colors) {
-    isUpdatePreview = true;
-  }
-
-  if (isReDrawGrid) {
-    drawingGrid.draw();
-  }
-  if (isReDrawExampleView) {
     exampleView.draw();
-  } else if (isUpdatePreview) {
+  } else if (pixels || colors) {
     exampleView.updatePreview();
+  }
+}
+
+
+void PBlocksUserInterface::showDrawingGrid() {
+  drawingGrid.setActive(true);
+  pickerView.deactivate();
+  drawingGrid.draw();
+}
+
+
+void PBlocksUserInterface::showColorPicker(ColorPickerButton * button) {
+  bool isRedraw = pickerView.getActiveButton() == nullptr;
+  drawingGrid.setActive(false);
+  pickerView.setActive(button);
+  if (isRedraw) {
+    pickerView.draw();
   }
 }
 

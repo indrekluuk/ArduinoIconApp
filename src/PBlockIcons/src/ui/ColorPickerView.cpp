@@ -6,11 +6,10 @@
 #include "PBlocksUserInterface.h"
 
 
-void ColorPickerView::setActive(ColorPickerButton * button, CallbackMethod callback) {
+void ColorPickerView::setActive(ColorPickerButton * button) {
   deactivate();
   palette.setActive(true);
   activeButton = button;
-  activeButtonCallback = callback;
 }
 
 void ColorPickerView::deactivate() {
@@ -61,7 +60,7 @@ void ColorPickerView::colorSelected(RgbColor color, bool isFinal) {
   tft.print("                     ");
 
   if (activeButton != nullptr) {
-    (activeButton->*activeButtonCallback)(color, isFinal);
+    activeButton->colorSelected(color, isFinal);
   }
 }
 
