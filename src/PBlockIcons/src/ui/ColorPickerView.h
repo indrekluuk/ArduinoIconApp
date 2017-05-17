@@ -8,6 +8,7 @@
 
 #include "DrawingGrid.h"
 #include "ColorPickerPalette.h"
+#include "ColorPickerBrightnessBar.h"
 
 
 
@@ -24,11 +25,15 @@ public:
 
 private:
     ColorPickerPalette palette;
+    ColorPickerBrightnessBar brightnessBar;
 
     ColorPickerButton * activeButton = nullptr;
 public:
 
-    ColorPickerView() : palette(PICKER_X + 1, PICKER_Y + 1, *this) {}
+    ColorPickerView() :
+        palette(PICKER_X + 1, PICKER_Y + 1, *this),
+        brightnessBar(PICKER_X + 160, PICKER_Y + 1, *this)
+    {}
 
     void setActive(ColorPickerButton * button);
     void deactivate();

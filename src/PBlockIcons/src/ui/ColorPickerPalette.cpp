@@ -42,8 +42,8 @@ RgbColor ColorPickerPalette::getSelectedColor(uint16_t x, uint16_t y) {
   if (pickerY < 0) pickerY = 0;
   if (pickerX >= PALETTE_W * PALETTE_SCALE_W) pickerX = PALETTE_W * PALETTE_SCALE_W - 1;
   if (pickerY >= PALETTE_H * PALETTE_SCALE_H) pickerY = PALETTE_H * PALETTE_SCALE_H - 1;
-  generator.reset(pickerY / PALETTE_SCALE_H);
-  return generator.getPixel(pickerX / PALETTE_SCALE_W);
+  paletteGenerator.loadLine(pickerY / PALETTE_SCALE_H);
+  return paletteGenerator.getPixel(pickerX / PALETTE_SCALE_W);
 }
 
 
@@ -53,7 +53,7 @@ void ColorPickerPalette::draw() {
   TFT & tft = UI->tft;
   uint32_t time = millis();
 
-  tft.drawPalette(paletteX, paletteY, generator, PALETTE_SCALE_W, PALETTE_SCALE_H);
+  tft.drawPalette(paletteX, paletteY, paletteGenerator, PALETTE_SCALE_W, PALETTE_SCALE_H);
 
   tft.setCursor(paletteX, paletteY + PALETTE_H * PALETTE_SCALE_H + 4);
   tft.setTextSize(1);

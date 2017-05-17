@@ -18,8 +18,7 @@ public:
 
     virtual uint8_t getWidth() = 0;
     virtual uint8_t getHeight() = 0;
-    virtual void reset(uint8_t y) = 0;
-    virtual void nextLine() = 0;
+    virtual void loadLine(uint8_t y) = 0;
     virtual RgbColor getPixel(uint8_t x) = 0;
 
 };
@@ -29,23 +28,21 @@ public:
 template <uint8_t w, uint8_t h>
 class PaletteGenerator : public PaletteGeneratorBase {
 
-    uint8_t curHue;
+    static constexpr float hueSection = (h-1) / 6.0f;
+    static constexpr uint16_t hueSection1 = hueSection * 1;
+    static constexpr uint16_t hueSection2 = hueSection * 2;
+    static constexpr uint16_t hueSection3 = hueSection * 3;
+    static constexpr uint16_t hueSection4 = hueSection * 4;
+    static constexpr uint16_t hueSection5 = hueSection * 5;
 
-    float hueSection = (h-1) / 6.0f;
-    uint16_t hueSection1 = hueSection * 1;
-    uint16_t hueSection2 = hueSection * 2;
-    uint16_t hueSection3 = hueSection * 3;
-    uint16_t hueSection4 = hueSection * 4;
-    uint16_t hueSection5 = hueSection * 5;
-    float V;
+    uint8_t curHue;
+    bool isHV; // true = HV (hue/value); false = HS (hue/saturation)
     RgbColor line[w];
 
 public:
 
-    PaletteGenerator(float V) :
-        V(V)
-    {
-      reset(0);
+    PaletteGenerator(bool isHV) : isHV(isHV) {
+      loadLine(0);
     }
 
 
@@ -53,15 +50,14 @@ public:
     uint8_t getHeight() { return h; };
 
 
-    void reset(uint8_t y) {
+    void loadLine(uint8_t y) {
       curHue = y;
-      initLineHS(curHue, V);
+      if (isHV) {
+        initLineHV(curHue);
+      } else {
+        initLineHS(curHue);
+      }
     }
-
-    void nextLine() {
-      curHue++;
-      initLineHS(curHue, V);
-    };
 
     RgbColor getPixel(uint8_t x) {
       return line[x];
@@ -71,7 +67,13 @@ public:
 private:
 
 
-    void initLineHS(uint8_t hue, float value) {
+    void initLineHV(uint8_t hue) {
+      initLineHS(hue);
+    }
+
+
+    void initLineHS(uint8_t hue) {
+      float value = 1; // max brightness
       float hueMultiplier = calculateHueMultiplier(hue);
       float saturation = 0;
       float dS = (1.0f / (w - 1.0f)) * value;
@@ -127,7 +129,7 @@ private:
         Bp = X;
       }
 
-      float m = V - saturation;
+      float m = value - saturation;
       if (m < 0) m = 0;
 
       return RgbColor(

@@ -266,15 +266,15 @@ void TFT::drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator, 
   WriteCmd(_MW);
   CD_DATA;
 
-  generator.reset(0);
+
   for (uint8_t y=0; y<generator.getHeight(); y++) {
+    generator.loadLine(y);
     for (uint8_t s = 0; s<scaleH; s++) {
       for (uint8_t x=0; x<generator.getWidth(); x++) {
         RgbColor color = generator.getPixel(x);
         writeColorN(color, scaleW);
       }
     }
-    generator.nextLine();
   }
 
   CS_IDLE;

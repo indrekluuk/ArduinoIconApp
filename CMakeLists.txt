@@ -35,6 +35,7 @@ add_executable(runTests
         src/PBlockIcons/src/ui/ExampleView.cpp
         src/PBlockIcons/src/ui/ColorPickerButton.cpp
         src/PBlockIcons/src/ui/ColorPickerPalette.cpp
+        src/PBlockIcons/src/ui/ColorPickerBrightnessBar.cpp
         src/PBlockIcons/src/ui/Button.cpp
         src/PBlockIcons/src/ui/Tools.cpp
         src/PBlockIcons/src/ui/Toolbar.cpp

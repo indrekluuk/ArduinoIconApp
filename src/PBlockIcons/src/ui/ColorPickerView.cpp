@@ -9,6 +9,7 @@
 void ColorPickerView::setActive(ColorPickerButton * button) {
   deactivate();
   palette.setActive(true);
+  brightnessBar.setActive(true);
   activeButton = button;
 }
 
@@ -17,6 +18,7 @@ void ColorPickerView::deactivate() {
     activeButton->setOff();
   }
   palette.setActive(false);
+  brightnessBar.setActive(false);
   activeButton = nullptr;
 }
 
@@ -36,6 +38,7 @@ void ColorPickerView::draw() {
 
   tft.fillRect(PICKER_X, PICKER_Y, PICKER_W, PICKER_H, COLOR_BLACK);
   palette.draw();
+  brightnessBar.draw();
 
 
   tft.setCursor(PICKER_X, PICKER_Y + PICKER_H + 2);
