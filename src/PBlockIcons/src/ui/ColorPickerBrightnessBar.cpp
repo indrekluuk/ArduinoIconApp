@@ -41,7 +41,7 @@ RgbColor ColorPickerBrightnessBar::getSelectedColor(uint16_t x, uint16_t y) {
   if (pickerY < 0) pickerY = 0;
   if (pickerX >= BAR_W * BAR_SCALE_W) pickerX = BAR_W * BAR_SCALE_W - 1;
   if (pickerY >= BAR_H * BAR_SCALE_H) pickerY = BAR_H * BAR_SCALE_H - 1;
-  brightnessBarGenerator.loadLine(pickerY / BAR_SCALE_H);
+  brightnessBarGenerator.generateLine(pickerY / BAR_SCALE_H);
   return brightnessBarGenerator.getPixel(pickerX / BAR_SCALE_W);
 }
 

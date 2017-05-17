@@ -268,7 +268,7 @@ void TFT::drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator, 
 
 
   for (uint8_t y=0; y<generator.getHeight(); y++) {
-    generator.loadLine(y);
+    generator.generateLine(y);
     for (uint8_t s = 0; s<scaleH; s++) {
       for (uint8_t x=0; x<generator.getWidth(); x++) {
         RgbColor color = generator.getPixel(x);

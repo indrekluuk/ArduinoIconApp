@@ -42,7 +42,7 @@ RgbColor ColorPickerPalette::getSelectedColor(uint16_t x, uint16_t y) {
   if (pickerY < 0) pickerY = 0;
   if (pickerX >= PALETTE_W * PALETTE_SCALE_W) pickerX = PALETTE_W * PALETTE_SCALE_W - 1;
   if (pickerY >= PALETTE_H * PALETTE_SCALE_H) pickerY = PALETTE_H * PALETTE_SCALE_H - 1;
-  paletteGenerator.loadLine(pickerY / PALETTE_SCALE_H);
+  paletteGenerator.generateLine(pickerY / PALETTE_SCALE_H);
   return paletteGenerator.getPixel(pickerX / PALETTE_SCALE_W);
 }
 

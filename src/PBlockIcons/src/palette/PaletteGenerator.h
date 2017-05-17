@@ -18,7 +18,7 @@ public:
 
     virtual uint8_t getWidth() = 0;
     virtual uint8_t getHeight() = 0;
-    virtual void loadLine(uint8_t y) = 0;
+    virtual void generateLine(uint8_t y) = 0;
     virtual RgbColor getPixel(uint8_t x) = 0;
 
 };
@@ -35,14 +35,13 @@ class PaletteGenerator : public PaletteGeneratorBase {
     static constexpr uint16_t hueSection4 = hueSection * 4;
     static constexpr uint16_t hueSection5 = hueSection * 5;
 
-    uint8_t curHue;
+    uint8_t curY = 0;
     bool isHV; // true = HV (hue/value); false = HS (hue/saturation)
     RgbColor line[w];
 
 public:
 
     PaletteGenerator(bool isHV) : isHV(isHV) {
-      loadLine(0);
     }
 
 
@@ -50,12 +49,12 @@ public:
     uint8_t getHeight() { return h; };
 
 
-    void loadLine(uint8_t y) {
-      curHue = y;
+    void generateLine(uint8_t y) {
+      curY = y;
       if (isHV) {
-        initLineHV(curHue);
+        initLineSV(curY);
       } else {
-        initLineHS(curHue);
+        initLineSH(curY);
       }
     }
 
@@ -67,16 +66,30 @@ public:
 private:
 
 
-    void initLineHV(uint8_t hue) {
-      initLineHS(hue);
+    void initLineSV(uint8_t y) {
+      float hue = 0;
+      float value = ((float)y)/(h-1);
+      float hueMultiplier = calculateHueMultiplier(hue);
+
+      float saturation = value;
+      float dS = 0;
+      if (w > 1) {
+        saturation = 0;
+        dS = (1.0f / (w - 1)) * value;
+      }
+
+      for (uint8_t saturationCnt = 0; saturationCnt < w; saturationCnt++) {
+        line[saturationCnt] = calculateRGB(hue, hueMultiplier, saturation, value);
+        saturation+=dS;
+      }
     }
 
 
-    void initLineHS(uint8_t hue) {
+    void initLineSH(uint8_t hue) {
       float value = 1; // max brightness
       float hueMultiplier = calculateHueMultiplier(hue);
       float saturation = 0;
-      float dS = (1.0f / (w - 1.0f)) * value;
+      float dS = (1.0f / (w - 1)) * value;
 
       for (uint8_t saturationCnt = 0; saturationCnt < w; saturationCnt++) {
         line[saturationCnt] = calculateRGB(hue, hueMultiplier, saturation, value);
