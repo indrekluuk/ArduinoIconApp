@@ -28,7 +28,7 @@ public:
     void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
     void finishTextFillBox();
 
-    void drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator);
+    void drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator, uint8_t scaleW, uint8_t scaleH);
 
     // Adafruit's "write" is terribly slow
     size_t write(uint8_t c) override;

@@ -19,7 +19,7 @@ bool ColorPickerPalette::isActive() {
 
 
 bool ColorPickerPalette::touch(uint16_t x, uint16_t y) {
-  if (active && isTapIn(x, paletteX, generator.getWidth()) && isTapIn(y, paletteY, generator.getHeight())) {
+  if (active && isTapIn(x, paletteX, PALETTE_W * PALETTE_SCALE_W) && isTapIn(y, paletteY, PALETTE_H * PALETTE_SCALE_H)) {
     return true;
   } else {
     return false;
@@ -40,10 +40,10 @@ RgbColor ColorPickerPalette::getSelectedColor(uint16_t x, uint16_t y) {
   int16_t pickerY = (int16_t)y - paletteY;
   if (pickerX < 0) pickerX = 0;
   if (pickerY < 0) pickerY = 0;
-  if (pickerX >= (int16_t)generator.getWidth()) pickerX = generator.getWidth() - 1;
-  if (pickerY >= (int16_t)generator.getHeight()) pickerY = generator.getHeight() - 1;
-  generator.reset(pickerX, pickerY);
-  return generator.nextPixel();
+  if (pickerX >= PALETTE_W * PALETTE_SCALE_W) pickerX = PALETTE_W * PALETTE_SCALE_W - 1;
+  if (pickerY >= PALETTE_H * PALETTE_SCALE_H) pickerY = PALETTE_H * PALETTE_SCALE_H - 1;
+  generator.reset(pickerY / PALETTE_SCALE_H);
+  return generator.getPixel(pickerX / PALETTE_SCALE_W);
 }
 
 
@@ -53,9 +53,9 @@ void ColorPickerPalette::draw() {
   TFT & tft = UI->tft;
   uint32_t time = millis();
 
-  tft.drawPalette(paletteX, paletteY, generator);
+  tft.drawPalette(paletteX, paletteY, generator, PALETTE_SCALE_W, PALETTE_SCALE_H);
 
-  tft.setCursor(paletteX, paletteY + generator.getHeight() + 4);
+  tft.setCursor(paletteX, paletteY + PALETTE_H * PALETTE_SCALE_H + 4);
   tft.setTextSize(1);
   tft.print(millis() - time);
   tft.print(" ms        ");

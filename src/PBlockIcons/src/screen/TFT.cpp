@@ -4,11 +4,6 @@
 
 #include "TFT.h"
 #include "Font.h"
-#include "Arduino.h"
-
-
-
-
 
 
 void TFT::startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY) {
@@ -265,18 +260,19 @@ void TFT::writeColorN(RgbColor color, uint16_t n) {
 
 
 
-void TFT::drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator) {
-  setAddrWindow(x, y, x + generator.getWidth() - 1, y + generator.getHeight() - 1);
+void TFT::drawPalette(uint16_t x, uint16_t y, PaletteGeneratorBase & generator, uint8_t scaleW, uint8_t scaleH) {
+  setAddrWindow(x, y, x + generator.getWidth()*scaleW - 1, y + generator.getHeight()*scaleH - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
   CD_DATA;
 
-  generator.reset(0, 0);
-  for (uint16_t y=0; y<generator.getHeight(); y++) {
-    for (uint16_t x=0; x<generator.getWidth(); x++) {
-      RgbColor color = generator.nextPixel();
-      write8(color.colorH);
-      write8(color.colorL);
+  generator.reset(0);
+  for (uint8_t y=0; y<generator.getHeight(); y++) {
+    for (uint8_t s = 0; s<scaleH; s++) {
+      for (uint8_t x=0; x<generator.getWidth(); x++) {
+        RgbColor color = generator.getPixel(x);
+        writeColorN(color, scaleW);
+      }
     }
     generator.nextLine();
   }

@@ -16,11 +16,11 @@ class PaletteGeneratorBase {
 
 public:
 
-    virtual uint16_t getWidth() = 0;
-    virtual uint16_t getHeight() = 0;
-    virtual void reset(uint16_t x, uint16_t y) = 0;
+    virtual uint8_t getWidth() = 0;
+    virtual uint8_t getHeight() = 0;
+    virtual void reset(uint8_t y) = 0;
     virtual void nextLine() = 0;
-    virtual RgbColor nextPixel() = 0;
+    virtual RgbColor getPixel(uint8_t x) = 0;
 
 };
 
@@ -29,12 +29,6 @@ public:
 template <uint8_t w, uint8_t h>
 class PaletteGenerator : public PaletteGeneratorBase {
 
-    uint8_t scaleW;
-    uint8_t scaleH;
-
-    uint8_t xCnt;
-    uint8_t curSaturation;
-    uint8_t yCnt;
     uint8_t curHue;
 
     float hueSection = (h-1) / 6.0f;
@@ -48,54 +42,33 @@ class PaletteGenerator : public PaletteGeneratorBase {
 
 public:
 
-    PaletteGenerator(uint8_t scaleW, uint8_t scaleH, float V) :
-        scaleW(scaleW),
-        scaleH(scaleH),
+    PaletteGenerator(float V) :
         V(V)
     {
-      reset(0, 0);
+      reset(0);
     }
 
 
-    uint16_t getWidth() { return (uint16_t)w * (uint16_t)scaleW; };
-    uint16_t getHeight() { return (uint16_t)h * (uint16_t)scaleH; };
+    uint8_t getWidth() { return w; };
+    uint8_t getHeight() { return h; };
 
 
-    void reset(uint16_t x, uint16_t y) {
-      xCnt = x % scaleW;
-      curSaturation = x / scaleW;
-      yCnt = y % scaleH;
-      curHue = y / scaleH;
+    void reset(uint8_t y) {
+      curHue = y;
       initLineHS(curHue, V);
     }
 
     void nextLine() {
-      xCnt = 0;
-      curSaturation = 0;
-      if (yCnt == scaleH) {
-        yCnt = 0;
-        curHue++;
-        initLineHS(curHue, V);
-      }
-      yCnt++;
+      curHue++;
+      initLineHS(curHue, V);
     };
 
-    RgbColor nextPixel() {
-      if (xCnt == scaleW) {
-        xCnt = 0;
-        curSaturation++;
-      }
-      xCnt++;
-      return getPixel(curSaturation);
+    RgbColor getPixel(uint8_t x) {
+      return line[x];
     };
 
 
 private:
-
-    RgbColor getPixel(uint8_t saturation) {
-      return line[saturation];
-    };
-
 
 
     void initLineHS(uint8_t hue, float value) {
