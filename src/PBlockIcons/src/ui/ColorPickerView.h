@@ -24,15 +24,16 @@ public:
     static const uint16_t PICKER_H = DrawingGrid::GRID_H - 2;
 
 private:
-    ColorPickerPalette palette;
-    ColorPickerBrightnessBar brightnessBar;
 
     ColorPickerButton * activeButton = nullptr;
 public:
+    ColorPickerPalette palette;
+    ColorPickerBrightnessBar brightnessBar;
+
 
     ColorPickerView() :
-        palette(PICKER_X + 1, PICKER_Y + 1, *this),
-        brightnessBar(PICKER_X + 160, PICKER_Y + 1, *this)
+        palette(PICKER_X + 50, PICKER_Y + 1, *this),
+        brightnessBar(PICKER_X + 1, PICKER_Y + 1, *this)
     {}
 
     void setActive(ColorPickerButton * button);
@@ -41,7 +42,6 @@ public:
 
     void draw();
 
-    void hueAndSaturationSelected(float hue, float saturation);
     void colorSelected(RgbColor color);
 
 

@@ -48,14 +48,6 @@ void ColorPickerView::draw() {
 }
 
 
-
-void ColorPickerView::hueAndSaturationSelected(float hue, float saturation) {
-  brightnessBar.brightnessBarGenerator.setHue(hue);
-  brightnessBar.brightnessBarGenerator.setSaturation(saturation);
-  brightnessBar.draw();
-}
-
-
 void ColorPickerView::colorSelected(RgbColor color) {
 
   TFT & tft = UI->tft;

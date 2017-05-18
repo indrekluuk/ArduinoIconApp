@@ -44,9 +44,14 @@ void ColorPickerPalette::colorSelected(uint16_t x, uint16_t y) {
   if (pickerX >= PALETTE_W * PALETTE_SCALE_W) pickerX = PALETTE_W * PALETTE_SCALE_W - 1;
   if (pickerY >= PALETTE_H * PALETTE_SCALE_H) pickerY = PALETTE_H * PALETTE_SCALE_H - 1;
 
-  pickerView.hueAndSaturationSelected(
-      paletteGenerator.getHue(pickerY / PALETTE_SCALE_H),
+  pickerView.brightnessBar.brightnessBarGenerator.setHue(
+      paletteGenerator.getHue(pickerY / PALETTE_SCALE_H));
+  pickerView.brightnessBar.brightnessBarGenerator.setSaturation(
       paletteGenerator.getSaturation(pickerX / PALETTE_SCALE_W));
+  pickerView.brightnessBar.draw();
+
+  paletteGenerator.generateLine(pickerY / PALETTE_SCALE_H);
+  pickerView.colorSelected(paletteGenerator.getPixel(pickerX / PALETTE_SCALE_W));
 }
 
 

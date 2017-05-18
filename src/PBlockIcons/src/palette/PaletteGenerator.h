@@ -51,8 +51,13 @@ protected:
 template <uint8_t w, uint8_t h>
 class PaletteGeneratorSH : public PaletteGeneratorBase {
     RgbColor line[w];
+    float value = 1; // max brightness
 public:
     PaletteGeneratorSH() : PaletteGeneratorBase(line, w, h) {};
+
+    void setValue(float value) {
+      this->value = value;
+    }
 
     float getHue(uint8_t y) {
       return ((float)y) / (h - 1);
@@ -64,7 +69,6 @@ public:
 
     void generateLine(uint8_t y) {
       float hue = ((float)y) / (h - 1);
-      float value = 1; // max brightness
       initSaturationLine(0, 1, hue, value);
     }
 
@@ -87,6 +91,10 @@ public:
     void setSaturation(float saturation) {
       satFrom = saturation;
       satTo = saturation;
+    }
+
+    float getValue(uint8_t y) {
+      return ((float)y) / (h - 1);
     }
 
     void generateLine(uint8_t y) {
