@@ -7,17 +7,12 @@
 
 
 
-void PaletteGeneratorBase::initLinePixels(float hue, float value) {
+void PaletteGeneratorBase::initSaturationLine(float saturationFrom, float saturationTo, float hue, float value) {
   float hueMultiplier = calculateHueMultiplier(hue);
-  float saturation;
-  float dS;
-  if (width > 1) {
-    saturation = 0;
-    dS = (1.0f / (width - 1)) * value;
-  } else {
-    saturation = value;
-    dS = 0;
-  }
+  float saturation = saturationFrom * value;
+  float dS = (width > 1) ?
+             ((saturationTo - saturationFrom) / (width - 1)) * value :
+             0;
 
   for (uint8_t i = 0; i < width; i++) {
     line[i] = calculateRGB(hue, hueMultiplier, saturation, value);

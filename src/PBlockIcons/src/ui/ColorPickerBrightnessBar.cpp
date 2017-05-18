@@ -26,15 +26,14 @@ bool ColorPickerBrightnessBar::touch(uint16_t x, uint16_t y) {
 }
 
 void ColorPickerBrightnessBar::hold(uint16_t x, uint16_t y) {
-  //pickerView.colorSelected(getSelectedColor(x, y), false);
+  colorSelected(x, y);
 }
 
 void ColorPickerBrightnessBar::release(uint16_t x, uint16_t y) {
-  //pickerView.colorSelected(getSelectedColor(x, y), true);
 }
 
 
-RgbColor ColorPickerBrightnessBar::getSelectedColor(uint16_t x, uint16_t y) {
+void ColorPickerBrightnessBar::colorSelected(uint16_t x, uint16_t y) {
   int16_t pickerX = (int16_t)x - barX;
   int16_t pickerY = (int16_t)y - barY;
   if (pickerX < 0) pickerX = 0;
@@ -42,7 +41,7 @@ RgbColor ColorPickerBrightnessBar::getSelectedColor(uint16_t x, uint16_t y) {
   if (pickerX >= BAR_W * BAR_SCALE_W) pickerX = BAR_W * BAR_SCALE_W - 1;
   if (pickerY >= BAR_H * BAR_SCALE_H) pickerY = BAR_H * BAR_SCALE_H - 1;
   brightnessBarGenerator.generateLine(pickerY / BAR_SCALE_H);
-  return brightnessBarGenerator.getPixel(pickerX / BAR_SCALE_W);
+  pickerView.colorSelected(brightnessBarGenerator.getPixel(pickerX / BAR_SCALE_W));
 }
 
 

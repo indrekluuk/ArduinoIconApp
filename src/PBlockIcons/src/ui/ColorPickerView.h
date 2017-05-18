@@ -41,7 +41,8 @@ public:
 
     void draw();
 
-    void colorSelected(RgbColor color, bool isFinal);
+    void hueAndSaturationSelected(float hue, float saturation);
+    void colorSelected(RgbColor color);
 
 
 };

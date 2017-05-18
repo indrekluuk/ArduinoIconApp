@@ -40,7 +40,7 @@ protected:
       return hueSectionSize * index;
     };
 
-    void initLinePixels(float hue, float value);
+    void initSaturationLine(float saturationFrom, float saturationTo, float hue, float value);
     float calculateHueMultiplier(float hue);
     RgbColor calculateRGB(float hue, float hueMultiplier, float saturation, float value);
 
@@ -54,10 +54,18 @@ class PaletteGeneratorSH : public PaletteGeneratorBase {
 public:
     PaletteGeneratorSH() : PaletteGeneratorBase(line, w, h) {};
 
+    float getHue(uint8_t y) {
+      return ((float)y) / (h - 1);
+    }
+
+    float getSaturation(uint8_t x) {
+      return ((float)x) / (w - 1);
+    }
+
     void generateLine(uint8_t y) {
       float hue = ((float)y) / (h - 1);
       float value = 1; // max brightness
-      initLinePixels(hue, value);
+      initSaturationLine(0, 1, hue, value);
     }
 
 };
@@ -66,13 +74,24 @@ public:
 template <uint8_t w, uint8_t h>
 class PaletteGeneratorSV : public PaletteGeneratorBase {
     RgbColor line[w];
+    float hue = 0.5;
+    float satFrom = 1;
+    float satTo = 1;
 public:
     PaletteGeneratorSV() : PaletteGeneratorBase(line, w, h) {};
 
+    void setHue(float hue) {
+      this->hue = hue;
+    }
+
+    void setSaturation(float saturation) {
+      satFrom = saturation;
+      satTo = saturation;
+    }
+
     void generateLine(uint8_t y) {
-      float hue = 0;
       float value = ((float)y)/(h-1);
-      initLinePixels(hue, value);
+      initSaturationLine(satFrom, satTo, hue, value);
     }
 
 };

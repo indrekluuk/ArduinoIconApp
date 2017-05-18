@@ -52,7 +52,7 @@ public:
     bool isInPickedColor(uint16_t x, uint16_t y);
 
     void togglePalette();
-    void colorSelected(RgbColor color, bool isFinal);
+    void colorSelected(RgbColor color);
 
     void draw();
     void drawPickedColor();

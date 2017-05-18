@@ -50,7 +50,7 @@ void ColorPickerButton::hold(uint16_t x, uint16_t y) {
 
 void ColorPickerButton::release(uint16_t x, uint16_t y) {
   if (isInPickedColor(x, y)) {
-    UI->pickerView.colorSelected(selectedColor, true);
+    UI->pickerView.colorSelected(selectedColor);
   }
 }
 
@@ -70,7 +70,7 @@ void ColorPickerButton::togglePalette() {
 }
 
 
-void ColorPickerButton::colorSelected(RgbColor color, bool isFinal) {
+void ColorPickerButton::colorSelected(RgbColor color) {
   selectedColor = color;
   drawPickedColor();
   (view->*callbackMethod)(color);

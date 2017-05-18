@@ -49,8 +49,14 @@ void ColorPickerView::draw() {
 
 
 
+void ColorPickerView::hueAndSaturationSelected(float hue, float saturation) {
+  brightnessBar.brightnessBarGenerator.setHue(hue);
+  brightnessBar.brightnessBarGenerator.setSaturation(saturation);
+  brightnessBar.draw();
+}
 
-void ColorPickerView::colorSelected(RgbColor color, bool isFinal) {
+
+void ColorPickerView::colorSelected(RgbColor color) {
 
   TFT & tft = UI->tft;
   tft.setCursor(PICKER_X + 100, PICKER_Y + PICKER_H + 2);
@@ -63,7 +69,7 @@ void ColorPickerView::colorSelected(RgbColor color, bool isFinal) {
   tft.print("                     ");
 
   if (activeButton != nullptr) {
-    activeButton->colorSelected(color, isFinal);
+    activeButton->colorSelected(color);
   }
 }
 
