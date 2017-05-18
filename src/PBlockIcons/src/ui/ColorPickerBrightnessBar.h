@@ -27,13 +27,12 @@ public:
     static const uint8_t BAR_SCALE_W = 30;
     static const uint8_t BAR_SCALE_H = ColorPickerPalette::PALETTE_SCALE_H;
 
-    PaletteGenerator<BAR_W, BAR_H> brightnessBarGenerator;
+    PaletteGeneratorSV<BAR_W, BAR_H> brightnessBarGenerator;
     uint16_t barX;
     uint16_t barY;
 
     ColorPickerBrightnessBar(uint16_t x, uint16_t y, ColorPickerView & pickerView) :
     pickerView(pickerView),
-    brightnessBarGenerator(PaletteGenerator<BAR_W, BAR_H>(true)),
     barX(x),
     barY(y) {};
 

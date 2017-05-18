@@ -45,6 +45,7 @@ add_executable(runTests
         src/PBlockIcons/src/icons/ProgMemIcons.cpp
         src/PBlockIcons/src/storage/IconStorage.cpp
         src/PBlockIcons/src/storage/IconMem.cpp
+        src/PBlockIcons/src/palette/PaletteGenerator.cpp
 
         test/src/PBlocksDisplay/TestTouchRegion.cpp
         )

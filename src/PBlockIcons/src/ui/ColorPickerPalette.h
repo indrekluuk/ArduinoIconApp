@@ -26,13 +26,12 @@ public:
     static const uint8_t PALETTE_SCALE_H = 15;
 
     // 6*n+1
-    PaletteGenerator<PALETTE_W, PALETTE_H> paletteGenerator;
+    PaletteGeneratorSH<PALETTE_W, PALETTE_H> paletteGenerator;
     uint16_t paletteX;
     uint16_t paletteY;
 
     ColorPickerPalette(uint16_t x, uint16_t y, ColorPickerView & pickerView) :
         pickerView(pickerView),
-        paletteGenerator(PaletteGenerator<PALETTE_W, PALETTE_H>(false)),
         paletteX(x),
         paletteY(y) {};
 
