@@ -22,12 +22,14 @@ class ColorPickerBrightnessBar : public Touchable {
     ColorPickerView & pickerView;
 
 public:
-    static const uint8_t BAR_W = 1;
-    static const uint8_t BAR_H = ColorPickerPalette::PALETTE_H;
+    static const uint8_t BAR_COLOR_W = 1;
+    static const uint8_t BAR_COLOR_H = ColorPickerPalette::PALETTE_COLOR_H;
     static const uint8_t BAR_SCALE_W = 30;
     static const uint8_t BAR_SCALE_H = ColorPickerPalette::PALETTE_SCALE_H;
+    static const uint16_t BAR_W = BAR_COLOR_W * BAR_SCALE_W;
+    static const uint16_t BAR_H = BAR_COLOR_H * BAR_SCALE_H;
 
-    PaletteGeneratorSV<BAR_W, BAR_H> brightnessBarGenerator;
+    PaletteGeneratorSV<BAR_COLOR_W, BAR_COLOR_H> brightnessBarGenerator;
     uint16_t barX;
     uint16_t barY;
 

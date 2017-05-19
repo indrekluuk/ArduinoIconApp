@@ -41,17 +41,15 @@ void ColorPickerView::draw() {
   }
   TFT & tft = UI->tft;
 
-  uint32_t time = millis();
-
-  tft.fillRect(PICKER_X, PICKER_Y, PICKER_W, PICKER_H, COLOR_BLACK);
-  palette.draw();
+  tft.drawRect(PICKER_X, PICKER_Y, PICKER_W, PICKER_H, COLOR_BLACK);
   brightnessBar.draw();
-
-
-  tft.setCursor(PICKER_X, PICKER_Y + PICKER_H + 2);
-  tft.setTextSize(1);
-  tft.print(millis() - time);
-  tft.print(" ms        ");
+  tft.fillRect(
+      BAR_X + ColorPickerBrightnessBar::BAR_W,
+      PICKER_Y + 1,
+      PALETTE_X - BAR_X - ColorPickerBrightnessBar::BAR_W,
+      PICKER_H - 2,
+      COLOR_BLACK);
+  palette.draw();
 }
 
 

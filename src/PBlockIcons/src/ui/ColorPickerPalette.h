@@ -20,13 +20,16 @@ class ColorPickerPalette : public Touchable {
     ColorPickerView & pickerView;
 
 public:
-    static const uint8_t PALETTE_W = 10;
-    static const uint8_t PALETTE_H = 19;
+    static const uint8_t PALETTE_COLOR_W = 16;
+    static const uint8_t PALETTE_COLOR_H = 19;
     static const uint8_t PALETTE_SCALE_W = 15;
     static const uint8_t PALETTE_SCALE_H = 15;
+    static const uint16_t PALETTE_W = PALETTE_COLOR_W * PALETTE_SCALE_W;
+    static const uint16_t PALETTE_H = PALETTE_COLOR_H * PALETTE_SCALE_H;
+
 
     // 6*n+1
-    PaletteGeneratorSH<PALETTE_W, PALETTE_H> paletteGenerator;
+    PaletteGeneratorSH<PALETTE_COLOR_W, PALETTE_COLOR_H> paletteGenerator;
     uint16_t paletteX;
     uint16_t paletteY;
 
