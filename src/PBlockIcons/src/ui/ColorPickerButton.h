@@ -26,18 +26,18 @@ private:
     uint8_t pickerButtonW;
     uint8_t pickerButtonH;
 
-    RgbColor selectedColor;
     ExampleView* view;
     CallbackMethod callbackMethod;
     bool isActive = true;
     Button0<ColorPickerButton> button;
 
 public:
+    RgbColor selectedColor;
 
     ColorPickerButton(RgbColor color, ExampleView* view, CallbackMethod callbackMethod) :
-        selectedColor(color),
         view(view),
-        callbackMethod(callbackMethod)
+        callbackMethod(callbackMethod),
+        selectedColor(color)
     {};
 
     void init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon);

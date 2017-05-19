@@ -4,12 +4,19 @@
 
 #include "ColorPickerView.h"
 #include "PBlocksUserInterface.h"
+#include "src/palette/RgbToHsv.h"
 
 
 void ColorPickerView::setActive(ColorPickerButton * button) {
   deactivate();
   palette.setActive(true);
   brightnessBar.setActive(true);
+
+  RgbToHsv hsv(button->selectedColor);
+  brightnessBar.brightnessBarGenerator.setHue(hsv.H);
+  brightnessBar.brightnessBarGenerator.setSaturation(hsv.S);
+  palette.paletteGenerator.setValue(hsv.V);
+
   activeButton = button;
 }
 

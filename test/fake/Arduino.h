@@ -7,6 +7,7 @@
 
 
 #include <stdint.h>
+#include "string.h"
 
 
 extern uint8_t dummy;
@@ -55,6 +56,7 @@ uint8_t pgm_read_byte(const uint8_t * pByte);
 void digitalWrite(int, int);
 int analogRead(int);
 int map(int, int, int, int, int);
+
 
 unsigned long millis();
 

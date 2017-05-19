@@ -4,10 +4,10 @@
 
 
 #include "Arduino.h"
-
+#include "EEPROM.h"
 
 FakeSerial Serial;
-
+FakeEEPROM EEPROM;
 
 
 
@@ -39,6 +39,7 @@ int analogRead(int) {
 
 int map(int, int, int, int, int) {
 }
+
 
 
 unsigned long millis() {

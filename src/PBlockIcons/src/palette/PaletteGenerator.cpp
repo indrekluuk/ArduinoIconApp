@@ -69,8 +69,9 @@ RgbColor PaletteGeneratorBase::calculateRGB(float hue, float hueMultiplier, floa
 
 float PaletteGeneratorBase::calculateHueMultiplier(float hue) {
   float hueDiv = (hue / hueSectionSize);
-  uint16_t hueIntDiv = (uint16_t)hueDiv;
-  float hueMod = hueIntDiv % 2 + (hueDiv - (hueIntDiv + (uint16_t)1));
+  uint8_t hueIntDiv = (uint8_t)hueDiv;
+  float hueMod = (hueIntDiv & 0x01) + (hueDiv - (hueIntDiv + (uint16_t)1));
   return (1.0f - abs(hueMod));
 }
+
 

@@ -46,8 +46,10 @@ add_executable(runTests
         src/PBlockIcons/src/storage/IconStorage.cpp
         src/PBlockIcons/src/storage/IconMem.cpp
         src/PBlockIcons/src/palette/PaletteGenerator.cpp
+        src/PBlockIcons/src/palette/RgbToHsv.cpp
 
-        test/src/PBlocksDisplay/TestTouchRegion.cpp
+        test/src/ui/TestTouchRegion.cpp
+        test/src/palette/TestRgbToHsv.cpp
         )
 
 # link

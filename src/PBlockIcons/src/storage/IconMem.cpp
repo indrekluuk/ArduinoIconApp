@@ -5,7 +5,6 @@
 #include "IconMem.h"
 
 
-
 uint8_t IconMem::getSlotNumber(uint16_t memIndex) {
   IconStorageData * addr = getMemAddress(memIndex);
   return readMemByte(&addr->slotIndex);
@@ -36,7 +35,7 @@ IconStorageData * IconMem::getMemAddress(uint16_t memIndex) {
 }
 
 uint8_t IconMem::readMemByte(void * addr) {
-  return EEPROM.read((int)(addr));
+  return EEPROM.read((uint64_t)(addr));
 }
 
 void IconMem::readMemBytes(void * addr, uint16_t cnt, void * toAddr) {
@@ -46,7 +45,7 @@ void IconMem::readMemBytes(void * addr, uint16_t cnt, void * toAddr) {
 }
 
 void IconMem::writeMemByte(void * addr, uint8_t byte) {
-  EEPROM.write((int)(addr), byte);
+  EEPROM.write((uint64_t)(addr), byte);
 }
 
 void IconMem::writeMemBytes(void * addr, uint16_t cnt, void * fromAddr) {

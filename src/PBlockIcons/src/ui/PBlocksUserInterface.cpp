@@ -68,12 +68,9 @@ void PBlocksUserInterface::showDrawingGrid() {
 
 
 void PBlocksUserInterface::showColorPicker(ColorPickerButton * button) {
-  bool isRedraw = pickerView.getActiveButton() == nullptr;
   drawingGrid.setActive(false);
   pickerView.setActive(button);
-  if (isRedraw) {
-    pickerView.draw();
-  }
+  pickerView.draw();
 }
 
 
