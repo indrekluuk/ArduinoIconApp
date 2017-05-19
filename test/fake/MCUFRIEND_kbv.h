@@ -47,6 +47,7 @@ public:
     void setTextColor(int, int) {};
     void setTextSize(int) {};
     void print(int) {};
+    void print(int, int) {};
     void print(const char *) {};
     void write8(int) {};
 

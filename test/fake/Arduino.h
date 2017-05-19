@@ -33,6 +33,7 @@ extern uint8_t dummy;
 #define HIGH 1
 #define LOW 0
 
+#define HEX 0
 
 #define PROGMEM
 #define TCCR2A dummy

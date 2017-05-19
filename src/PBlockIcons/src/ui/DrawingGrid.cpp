@@ -60,6 +60,7 @@ void DrawingGrid::draw() {
     return;
   }
 
+  UI->tft.fillRect(GRID_X, GRID_Y + GRID_H, GRID_W, SCREEN_HEIGHT - GRID_H - GRID_Y, COLOR_BLACK);
   drawGrid();
   for (uint8_t x=0; x<COUNT; x++) {
     for (uint8_t y=0; y<COUNT; y++) {

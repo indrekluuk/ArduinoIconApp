@@ -50,7 +50,8 @@ void ColorPickerButton::hold(uint16_t x, uint16_t y) {
 
 void ColorPickerButton::release(uint16_t x, uint16_t y) {
   if (isInPickedColor(x, y)) {
-    UI->pickerView.colorSelected(selectedColor);
+    UI->pickerView.resetColor(selectedColor);
+    UI->pickerView.draw();
   }
 }
 

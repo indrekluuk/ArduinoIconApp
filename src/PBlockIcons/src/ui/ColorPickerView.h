@@ -45,7 +45,12 @@ public:
 
     void draw();
 
+    void resetColor(RgbColor color);
     void colorSelected(RgbColor color);
+
+private:
+    void setCursor(uint8_t at);
+    void printColorCode(uint8_t at, uint8_t cnt, uint32_t code);
 
 
 };
