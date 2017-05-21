@@ -133,8 +133,8 @@ void ButtonBase::draw() {
 
   TFT &tft = UI->tft;
 
-  tft.drawFastHLine(buttonX, buttonY, buttonW, isPressed ? COLOR_GRAY33 : COLOR_WHITE);
-  tft.drawFastVLine(buttonX, buttonY, buttonH, isPressed ? COLOR_GRAY33 : COLOR_WHITE);
+  tft.drawFastHLine(buttonX, buttonY, buttonW, isPressed ? COLOR_GRAY33 : COLOR_GRAY66);
+  tft.drawFastVLine(buttonX, buttonY, buttonH, isPressed ? COLOR_GRAY33 : COLOR_GRAY66);
   tft.drawFastHLine(buttonX, buttonY + buttonH - 1, buttonW, isPressed ? COLOR_WHITE : COLOR_GRAY33);
   tft.drawFastVLine(buttonX + buttonW - 1, buttonY, buttonH, isPressed ? COLOR_WHITE : COLOR_GRAY33);
 
