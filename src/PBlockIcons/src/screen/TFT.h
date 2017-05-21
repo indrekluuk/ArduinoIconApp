@@ -6,8 +6,8 @@
 #define PBLOCKMAIN_TFT_H
 
 
-#include <MCUFRIEND_kbv.h>
-#include <utility/mcufriend_shield.h>
+#include "src/lib/MCUFRIEND_kbv_mod/MCUFRIEND_kbv.h"
+#include "src/lib/MCUFRIEND_kbv_mod/utility/mcufriend_shield.h"
 #include "src/icons/Icon.h"
 #include "src/palette/PaletteGenerator.h"
 
@@ -15,7 +15,7 @@
 class TFT : public MCUFRIEND_kbv {
 
 private:
-    // _MW is private in MCUFRIEND_kbv.h
+    // _MW is private in MCUFRIEND_kbv_mod.h
     uint16_t _MW = 0x2C;
 
     int16_t textFillBoxX = 0;

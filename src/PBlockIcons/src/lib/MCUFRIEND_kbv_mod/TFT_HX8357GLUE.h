@@ -10,7 +10,7 @@
 #define HX8357_WHITE   0xFFFF
 
 //#include <Adafruit_GFX.h>    // Core graphics library
-#include <MCUFRIEND_kbv.h> // Hardware-specific library
+#include "MCUFRIEND_kbv.h" // Hardware-specific library
 
 #include <Fonts/FreeSans9pt7b.h>
 #include <Fonts/FreeSans12pt7b.h>
@@ -103,7 +103,7 @@ class TFT_HX8357GLUE : public MCUFRIEND_kbv
             
             const GFXfont *f = Fonts[idx];
             MCUFRIEND_kbv::setFont(f);
-//            MCUFRIEND_kbv::setCursor(x, y + f->glyph->height);
+//            MCUFRIEND_kbv_mod::setCursor(x, y + f->glyph->height);
 
             MCUFRIEND_kbv::setCursor(x, y);
         }

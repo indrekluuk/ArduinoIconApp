@@ -16,7 +16,7 @@
 #define PORTRAIT 0
 #define LANDSCAPE 1
 
-#include <MCUFRIEND_kbv.h>
+#include "MCUFRIEND_kbv.h"
 
 #include <Adafruit_GFX.h>
 
@@ -44,11 +44,11 @@ struct _current_font
 class UTFTGLUE : public MCUFRIEND_kbv
 {
 	public:
-//	UTFTGLUE() : MCUFRIEND_kbv() {}
+//	UTFTGLUE() : MCUFRIEND_kbv_mod() {}
 	UTFTGLUE(byte model, int RS, int WR,int CS, int RST, int RD = A0) : MCUFRIEND_kbv(CS, RS, WR, RD, RST) {}
 	void InitLCD(byte orientation=LANDSCAPE) {
 	     MCUFRIEND_kbv::reset();
-		 uint16_t ID = 0x9488;//MCUFRIEND_kbv::readID();
+		 uint16_t ID = 0x9488;//MCUFRIEND_kbv_mod::readID();
 		 if (ID == 0) ID = 0x9341;        //DealExtreme with EXTC=0
 //		 if (ID == 0x0089 || ID == 0x8989) ID = 0x1289;
 		 if (ID == 0x00D3 || ID == 0xD3D3) ID = 0x9481;   //write-only controller
@@ -136,9 +136,9 @@ class UTFTGLUE : public MCUFRIEND_kbv
 		int16_t pos, x1, y1;
 		uint16_t len, w, h;
 #if defined(_GFXFONT_H_)
-		if (MCUFRIEND_kbv::gfxFont != NULL) y += pgm_read_byte(&gfxFont->yAdvance);
+		if (MCUFRIEND_kbv_mod::gfxFont != NULL) y += pgm_read_byte(&gfxFont->yAdvance);
 		if (x == CENTER || x == RIGHT) {
-		    if (MCUFRIEND_kbv::gfxFont != NULL) {
+		    if (MCUFRIEND_kbv_mod::gfxFont != NULL) {
 			    getTextBounds(st, 0, 0, &x1, &y1, &w, &h);
 				len = x1 - 0 + w;    // misses the final right padding.
 		    } else 
