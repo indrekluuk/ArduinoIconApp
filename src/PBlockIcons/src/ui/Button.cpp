@@ -127,6 +127,10 @@ bool ButtonBase::isTouchOnButton(uint16_t x, uint16_t y) {
 
 
 void ButtonBase::draw() {
+  if (!isActive) {
+    return;
+  }
+
   TFT &tft = UI->tft;
 
   tft.drawFastHLine(buttonX, buttonY, buttonW, isPressed ? COLOR_GRAY33 : COLOR_WHITE);
@@ -163,6 +167,7 @@ void ButtonBase::draw() {
 
 
 void ButtonBase::drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
+  uint8_t scale = (buttonW < (uint8_t)34) || (buttonH < (uint8_t)34) ? (uint8_t)1 : (uint8_t)2;
 
   if (isPressed) {
     IconColor color = buttonIcon->getColor();
@@ -170,14 +175,14 @@ void ButtonBase::drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, 
     color.setBackgroundColor(Palette::GRAY85);
     color.setNoBorder();
 
-    UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 2, 2, 2, 2);
+    UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 2, 2, scale, scale);
   } else {
     IconColor color = buttonIcon->getColor();
 
     color.setBackgroundColor(Palette::GRAY66);
     color.setNoBorder();
 
-    UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 0, 0, 2, 2);
+    UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 0, 0, scale, scale);
   }
 }
 
