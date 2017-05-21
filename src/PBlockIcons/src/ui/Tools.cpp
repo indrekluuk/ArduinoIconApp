@@ -270,7 +270,9 @@ void Tools::saveIcon(uint8_t slotIndex) {
       UI->activeIcon,
       COLOR_foreground,
       COLOR_background,
-      COLOR_border);
+      COLOR_border,
+      UI->exampleView.scale
+  );
 }
 
 
@@ -282,6 +284,7 @@ void Tools::loadIcon(uint8_t slotIndex) {
   UI->activeIcon.color = color;
   UI->activeIcon.color.hasBorder = data.hasBorder;
   UI->activeIcon.color.hasBorder3d = data.is3d;
+  UI->exampleView.setScale(data.scale);
   COLOR_foreground = data.foregroundColor;
   COLOR_background = data.backgroundColor;
   COLOR_border = data.borderColor;

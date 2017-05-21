@@ -72,22 +72,28 @@ bool ExampleView::isTouchOnView(uint16_t x, uint16_t y) {
 
 
 void ExampleView::scaleUp() {
-  if ((scale+1)*16 <= VIEW_W) {
-    scale++;
-    updatePreview();
-    printScale();
-  };
+  setScale(scale + 1);
+
 }
 
 
 void ExampleView::scaleDown() {
-  if (scale > 1) {
-    scale--;
-    updatePreview();
-    printScale();
-  };
+  setScale(scale - 1);
+
 }
 
+
+void ExampleView::setScale(uint8_t newScale) {
+  if (newScale > MAX_SCALE) {
+    scale = MAX_SCALE;
+  } else if (newScale < 1) {
+    scale = 1;
+  } else {
+    scale = newScale;
+  }
+  updatePreview();
+  printScale();
+}
 
 
 void ExampleView::setForegroundColor(RgbColor color) {

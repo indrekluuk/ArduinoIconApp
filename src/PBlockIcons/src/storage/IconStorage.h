@@ -37,7 +37,9 @@ public:
         IconBufferMem & icon,
         uint16_t foregroundColor,
         uint16_t backgroundColor,
-        uint16_t borderColor);
+        uint16_t borderColor,
+        uint8_t scale
+    );
 
 private:
     void initSlot(uint8_t slotIndex);

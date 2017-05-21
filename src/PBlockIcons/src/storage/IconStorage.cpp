@@ -40,7 +40,8 @@ void IconStorage::saveIcon(
     IconBufferMem & icon,
     uint16_t foregroundColor,
     uint16_t backgroundColor,
-    uint16_t borderColor
+    uint16_t borderColor,
+    uint8_t scale
 ) {
   IconStorageData & data = slots[slotIndex].storedData;
   data.foregroundColor = foregroundColor;
@@ -48,7 +49,7 @@ void IconStorage::saveIcon(
   data.borderColor = borderColor;
   data.hasBorder = icon.color.hasBorder;
   data.is3d = icon.color.hasBorder3d;
-  data.reserve = 0;
+  data.scale = scale;
   data.icon = icon;
   data.icon.color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
   saveSlot(slotIndex);

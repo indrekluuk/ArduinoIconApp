@@ -28,15 +28,17 @@ class ExampleView : public Touchable {
     ColorPickerButton backgroundColorButton;
     ColorPickerButton borderColorButton;
 
-    uint8_t scale;
 
 public:
+    uint8_t scale;
+
     static const uint16_t GAP = 2;
 
     static const uint16_t VIEW_X = 0;
     static const uint16_t VIEW_Y = DrawingGrid::GRID_Y;
     static const uint8_t VIEW_W = DrawingGrid::GRID_X - GAP;
     static const uint8_t VIEW_H = VIEW_W;
+    static const uint8_t MAX_SCALE = VIEW_W / 16;
 
     static const uint16_t BUTTONS_X = VIEW_X;
     static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H + GAP;
@@ -68,6 +70,8 @@ public:
 
     void scaleUp();
     void scaleDown();
+    void setScale(uint8_t newScale);
+
     void setForegroundColor(RgbColor color);
     void setBackgroundColor(RgbColor color);
     void setBorderColor(RgbColor color);
