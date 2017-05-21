@@ -72,6 +72,15 @@ void Tools::showEditToolbar(uint8_t) {
       .reset()
       .setIcon(&iconRight);
 
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::flipIcon, 0)
+      .reset()
+      .setIcon(&iconFlip);
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::rotateIcon, 0)
+      .reset()
+      .setIcon(&iconRotate);
+
   toolbar.addButton(true)
       .setCallback(this, &Tools::clearIcon, 0)
       .reset()
@@ -170,6 +179,28 @@ void Tools::moveIconRight(uint8_t) {
   }
   UI->iconUpdated(true, false, false);
 }
+
+
+void Tools::flipIcon(uint8_t) {
+  for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
+    uint16_t fromMask = 0x8000;
+    uint16_t toMask = 0x0001;
+    uint16_t newRow = 0;
+    while (fromMask > 0) {
+      if (UI->activeIcon.bitmap[i] & fromMask) newRow |= toMask;
+      fromMask >>= 1;
+      toMask <<= 1;
+    }
+    UI->activeIcon.bitmap[i] = newRow;
+  }
+  UI->iconUpdated(true, false, false);
+}
+
+
+void Tools::rotateIcon(uint8_t) {
+
+}
+
 
 void Tools::clearIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {

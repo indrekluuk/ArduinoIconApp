@@ -27,6 +27,8 @@ class Tools {
     IconBufferProgMem iconDown = IconBufferProgMem(&ICON_DOWN);
     IconBufferProgMem iconLeft = IconBufferProgMem(&ICON_LEFT);
     IconBufferProgMem iconRight = IconBufferProgMem(&ICON_RIGHT);
+    IconBufferProgMem iconFlip = IconBufferProgMem(&ICON_FLIP);
+    IconBufferProgMem iconRotate = IconBufferProgMem(&ICON_ROTATE);
     IconBufferProgMem iconClear = IconBufferProgMem(&ICON_CLEAR);
 
     Toolbar toolbar;
@@ -51,6 +53,8 @@ private:
     void moveIconDown(uint8_t);
     void moveIconLeft(uint8_t);
     void moveIconRight(uint8_t);
+    void flipIcon(uint8_t);
+    void rotateIcon(uint8_t);
     void clearIcon(uint8_t);
 
     void saveIcon(uint8_t slotIndex);
