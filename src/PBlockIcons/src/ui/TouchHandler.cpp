@@ -74,9 +74,9 @@ uint8_t TouchHandler::getRegionCount() {
 #define TOUCH_SAMPLE_COUNT 5
 
 #define TOUCH_LEFT 960
-#define TOUCH_RIGHT 125
-#define TOUCH_TOP 123
-#define TOUCH_BOTTOM 915
+#define TOUCH_RIGHT 155
+#define TOUCH_TOP 138
+#define TOUCH_BOTTOM 924
 
 
 void TouchHandler::check() {
