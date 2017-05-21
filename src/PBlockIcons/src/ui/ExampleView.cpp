@@ -50,7 +50,7 @@ void ExampleView::evaluateIconData() {
 
 bool ExampleView::touch(uint16_t x, uint16_t y) {
   if (isTouchOnView(x, y)) {
-    nextBorderStyle();
+    UI->showDrawingGrid();
     return true;
   } else {
     return false;
@@ -68,23 +68,6 @@ void ExampleView::release(uint16_t x, uint16_t y) {
 bool ExampleView::isTouchOnView(uint16_t x, uint16_t y) {
   return isTapIn(x, VIEW_X, VIEW_W) && isTapIn(y, VIEW_Y, VIEW_H);
 }
-
-
-
-void ExampleView::nextBorderStyle() {
-  if (!UI->activeIcon.color.hasBorder) {
-    UI->activeIcon.color.hasBorder = true;
-    UI->activeIcon.color.hasBorder3d = false;
-  } else if (!UI->activeIcon.color.hasBorder3d) {
-    UI->activeIcon.color.hasBorder3d = true;
-  } else {
-    UI->activeIcon.color.hasBorder = false;
-    UI->activeIcon.color.hasBorder3d = false;
-  }
-  UI->iconUpdated(false, true, false);
-}
-
-
 
 
 

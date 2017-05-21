@@ -66,7 +66,6 @@ public:
     void release(uint16_t x, uint16_t y);
     bool isTouchOnView(uint16_t x, uint16_t y);
 
-    void nextBorderStyle();
     void scaleUp();
     void scaleDown();
     void setForegroundColor(RgbColor color);

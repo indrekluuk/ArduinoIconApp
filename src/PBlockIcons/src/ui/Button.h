@@ -47,7 +47,7 @@ public:
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
     void setActive(bool active);
 
-    void setOff();
+    ButtonBase & setToggleStatus(bool isOn);
 
     bool touch(uint16_t x, uint16_t y);
     void hold(uint16_t x, uint16_t y);

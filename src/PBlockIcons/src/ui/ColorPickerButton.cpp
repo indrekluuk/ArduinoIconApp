@@ -33,7 +33,8 @@ void ColorPickerButton::setActive(bool active) {
 
 
 void ColorPickerButton::setOff() {
-  button.setOff();
+  button.setToggleStatus(false);
+  button.draw();
 }
 
 

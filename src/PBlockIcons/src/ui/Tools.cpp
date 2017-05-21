@@ -83,13 +83,15 @@ void Tools::showEditToolbar(uint8_t) {
 
   toolbar.addButton(false)
       .setCallback(this, &Tools::setBorder, 0)
-      .setToggle(true)
       .reset()
+      .setToggle(true)
+      .setToggleStatus(UI->activeIcon.color.hasBorder && !UI->activeIcon.color.hasBorder3d)
       .setIcon(&iconBorder);
   toolbar.addButton(false)
       .setCallback(this, &Tools::setBorder3D, 0)
-      .setToggle(true)
       .reset()
+      .setToggle(true)
+      .setToggleStatus(UI->activeIcon.color.hasBorder && UI->activeIcon.color.hasBorder3d)
       .setIcon(&iconBorder3D);
 
   toolbar.addButton(true)
@@ -230,13 +232,24 @@ void Tools::rotateIcon(uint8_t) {
 
 
 void Tools::setBorder(uint8_t) {
-
+  UI->activeIcon.color.hasBorder = !UI->activeIcon.color.hasBorder || UI->activeIcon.color.hasBorder3d;
+  UI->activeIcon.color.hasBorder3d = false;
+  showEditToolbar(0);
+  UI->iconUpdated(false, true, false);
 }
 
 
 
 void Tools::setBorder3D(uint8_t) {
-
+  if (UI->activeIcon.color.hasBorder3d) {
+    UI->activeIcon.color.hasBorder = false;
+    UI->activeIcon.color.hasBorder3d = false;
+  } else {
+    UI->activeIcon.color.hasBorder = true;
+    UI->activeIcon.color.hasBorder3d = true;
+  }
+  showEditToolbar(0);
+  UI->iconUpdated(false, true, false);
 }
 
 

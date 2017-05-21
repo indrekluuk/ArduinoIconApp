@@ -65,12 +65,10 @@ void ButtonBase::setActive(bool active) {
 
 
 
-void ButtonBase::setOff() {
-  isToggleOn = false;
-  isPressed = false;
-  if (isActive) {
-    draw();
-  }
+ButtonBase & ButtonBase::setToggleStatus(bool isOn) {
+  isToggleOn = isOn;
+  isPressed = isOn;
+  return *this;
 }
 
 
