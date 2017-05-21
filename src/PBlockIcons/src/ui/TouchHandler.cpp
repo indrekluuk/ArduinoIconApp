@@ -69,7 +69,8 @@ uint8_t TouchHandler::getRegionCount() {
 
 
 
-#define TOUCH_Z_THRESHOLD 200
+#define TOUCH_Z_THRESHOLD_LOW 100
+#define TOUCH_Z_THRESHOLD_HIGH 1000
 #define TOUCH_SAMPLE_COUNT 5
 
 #define TOUCH_LEFT 960
@@ -111,7 +112,6 @@ void TouchHandler::check() {
     if (!isHold) {
       tapOnTouchable = nullptr;
     }
-    //UI->tft.drawRect(x, y, 1, 1, COLOR_YELLOW);
   }
 }
 
@@ -120,7 +120,7 @@ void TouchHandler::check() {
 void TouchHandler::readResistiveTouch() {
   TSPoint tp = touchScreen.getPoint();
 
-  if (tp.z > TOUCH_Z_THRESHOLD) {
+  if (tp.z > TOUCH_Z_THRESHOLD_LOW && tp.z < TOUCH_Z_THRESHOLD_HIGH) {
     if (holdCounter < TOUCH_SAMPLE_COUNT) holdCounter++;
     if (holdCounter == TOUCH_SAMPLE_COUNT) {
       x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, screenW);
