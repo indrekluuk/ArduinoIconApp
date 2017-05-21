@@ -45,7 +45,7 @@ void CalibrationView::release(uint16_t x, uint16_t y) {
       UI->touchHandler.setBottomLeftCalibration(detectedPoint.y, detectedPoint.x, stepX[0], stepY[0]);
     }
     if (calibrationStep == 1) {
-      UI->touchHandler.setTopRightCalibration(detectedPoint.y, detectedPoint.x , stepX[1], stepY[1]);
+      UI->touchHandler.setTopRightCalibration(detectedPoint.y, detectedPoint.x , stepX[1]-2, stepY[1]);
     }
 
     calibrationStep ++;
