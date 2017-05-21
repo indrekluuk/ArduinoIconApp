@@ -56,7 +56,7 @@ public:
         backgroundColorButton(COLOR_background, this, &ExampleView::setBackgroundColor),
         borderColorButton(COLOR_border, this, &ExampleView::setBorderColor)
     {
-        scale = 2;
+        scale = 4;
     }
 
 
