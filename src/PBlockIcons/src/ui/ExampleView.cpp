@@ -73,13 +73,13 @@ bool ExampleView::isTouchOnView(uint16_t x, uint16_t y) {
 
 void ExampleView::scaleUp() {
   setScale(scale + 1);
-
+  updatePreview();
 }
 
 
 void ExampleView::scaleDown() {
   setScale(scale - 1);
-
+  updatePreview();
 }
 
 
@@ -91,8 +91,6 @@ void ExampleView::setScale(uint8_t newScale) {
   } else {
     scale = newScale;
   }
-  updatePreview();
-  printScale();
 }
 
 
@@ -126,7 +124,6 @@ void ExampleView::draw() {
   foregroundColorButton.draw();
   backgroundColorButton.draw();
   borderColorButton.draw();
-  printScale();
 }
 
 
@@ -134,6 +131,7 @@ void ExampleView::draw() {
 void ExampleView::updatePreview() {
   IconColor color = UI->activeIcon.getColor();
   UI->tft.drawIcon(VIEW_X, VIEW_Y, UI->activeIcon, color, VIEW_W, VIEW_H, 0, 0, scale, scale);
+  printScale();
 }
 
 void ExampleView::printScale() {
