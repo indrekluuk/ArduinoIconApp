@@ -466,6 +466,7 @@ void Adafruit_GFX::drawXBitmap(int16_t x, int16_t y,
   }
 }
 
+/*
 #if ARDUINO >= 100
 size_t Adafruit_GFX::write(uint8_t c) {
 #else
@@ -520,6 +521,8 @@ void Adafruit_GFX::write(uint8_t c) {
   return 1;
 #endif
 }
+ */
+
 
 // Draw a character
 void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
