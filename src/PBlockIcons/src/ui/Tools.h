@@ -28,6 +28,8 @@ class Tools {
     IconBufferProgMem iconLeft = IconBufferProgMem(&ICON_LEFT);
     IconBufferProgMem iconRight = IconBufferProgMem(&ICON_RIGHT);
     IconBufferProgMem iconFlip = IconBufferProgMem(&ICON_FLIP);
+    IconBufferProgMem iconBorder = IconBufferProgMem(&ICON_BORDER_SMALL);
+    IconBufferProgMem iconBorder3D = IconBufferProgMem(&ICON_BORDER_SMALL_3D);
     IconBufferProgMem iconRotate = IconBufferProgMem(&ICON_ROTATE);
     IconBufferProgMem iconClear = IconBufferProgMem(&ICON_CLEAR);
 
@@ -55,6 +57,8 @@ private:
     void moveIconRight(uint8_t);
     void flipIcon(uint8_t);
     void rotateIcon(uint8_t);
+    void setBorder(uint8_t);
+    void setBorder3D(uint8_t);
     void clearIcon(uint8_t);
 
     void saveIcon(uint8_t slotIndex);

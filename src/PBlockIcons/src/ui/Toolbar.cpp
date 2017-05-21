@@ -21,12 +21,21 @@ void Toolbar::init() {
       x = TOOLBAR_X + TOOLBAR_W / 2;
     } else {
       y1 = y2;
-      y2 = TOOLBAR_Y + ((row+(uint8_t)1) * TOOLBAR_H) / MAX_BUTTON_COUNT * (uint8_t)2;
+      y2 = TOOLBAR_Y + ((row+(uint8_t)1) * TOOLBAR_H) / (MAX_BUTTON_COUNT / (uint8_t)2);
       h = y2 - y1;
       x = TOOLBAR_X;
       row++;
     }
-    buttons[i].init(x, y1, TOOLBAR_W / 2, h);
+    buttons[i].init(x, y1, getHalfButtonWidth(i), h);
+  }
+}
+
+
+uint8_t Toolbar::getHalfButtonWidth(uint8_t buttonIndex) {
+  if (buttonIndex & 1) {
+    return TOOLBAR_W - (TOOLBAR_W >> 1);
+  } else {
+    return TOOLBAR_W >> 1;
   }
 }
 
@@ -50,7 +59,7 @@ Button1<Tools, uint8_t> & Toolbar::addButton(bool wide) {
     buttons[currentButton].buttonW = TOOLBAR_W;
     buttonCount++;
   } else {
-    buttons[currentButton].buttonW = TOOLBAR_W / 2;
+    buttons[currentButton].buttonW = getHalfButtonWidth(currentButton);
   }
 
   return buttons[currentButton];

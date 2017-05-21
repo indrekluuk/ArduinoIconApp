@@ -36,6 +36,9 @@ public:
 
     void draw();
 
+private:
+    uint8_t getHalfButtonWidth(uint8_t buttonIndex);
+
 
 
 };

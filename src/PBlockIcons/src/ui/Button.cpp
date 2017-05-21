@@ -24,6 +24,8 @@ ButtonBase & ButtonBase::reset() {
   decoration = nullptr;
   isShowArrow = false;
   isPressed = false;
+  isToggleButton = false;
+  isToggleOn = false;
   setActive(true);
   return *this;
 }

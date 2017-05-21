@@ -81,6 +81,17 @@ void Tools::showEditToolbar(uint8_t) {
       .reset()
       .setIcon(&iconRotate);
 
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::setBorder, 0)
+      .setToggle(true)
+      .reset()
+      .setIcon(&iconBorder);
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::setBorder3D, 0)
+      .setToggle(true)
+      .reset()
+      .setIcon(&iconBorder3D);
+
   toolbar.addButton(true)
       .setCallback(this, &Tools::clearIcon, 0)
       .reset()
@@ -198,6 +209,33 @@ void Tools::flipIcon(uint8_t) {
 
 
 void Tools::rotateIcon(uint8_t) {
+  uint16_t rotatedBitmap[Icon::BITMAP_HEIGHT];
+  uint16_t fromMask = 0x8000;
+  for (uint8_t j=0; j<Icon::BITMAP_WIDTH; j++) {
+    rotatedBitmap[j] = 0;
+    uint16_t toMask = 0x0001;
+    for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
+      if (UI->activeIcon.bitmap[i] & fromMask) {
+        rotatedBitmap[j] |= toMask;
+      }
+      toMask <<= 1;
+    }
+    fromMask >>= 1;
+  }
+  for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
+    UI->activeIcon.bitmap[i] = rotatedBitmap[i];
+  }
+  UI->iconUpdated(true, false, false);
+}
+
+
+void Tools::setBorder(uint8_t) {
+
+}
+
+
+
+void Tools::setBorder3D(uint8_t) {
 
 }
 

@@ -17,7 +17,7 @@ class ExampleView : public Touchable {
 
     IconBufferProgMem iconZoomIn = IconBufferProgMem(&ICON_ZOOM_IN);
     IconBufferProgMem iconZoomOut = IconBufferProgMem(&ICON_ZOOM_OUT);
-    IconBufferProgMem iconForeground = IconBufferProgMem(&ICON_FOREGOUND);
+    IconBufferProgMem iconForeground = IconBufferProgMem(&ICON_FOREGROUND);
     IconBufferProgMem iconBackground = IconBufferProgMem(&ICON_BACKGROUND);
     IconBufferProgMem iconBorder = IconBufferProgMem(&ICON_BORDER);
 

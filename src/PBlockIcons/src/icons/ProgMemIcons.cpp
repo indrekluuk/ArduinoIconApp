@@ -384,7 +384,7 @@ const PROGMEM IconBufferProgMem::IconData ICON_ZOOM_OUT = {
 
 
 
-const PROGMEM IconBufferProgMem::IconData ICON_FOREGOUND = {
+const PROGMEM IconBufferProgMem::IconData ICON_FOREGROUND = {
     IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000000000000000,
@@ -456,3 +456,50 @@ const PROGMEM IconBufferProgMem::IconData ICON_BORDER = {
     }
 };
 
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_BORDER_SMALL = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1100000000000011,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+    }
+};
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_BORDER_SMALL_3D = {
+    IconColor(Palette::BLACK, Palette::WHITE, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1000000000000011,
+        (uint16_t) 0b1011111111111111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1010000000000111,
+        (uint16_t) 0b1011111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+    }
+};
