@@ -9,6 +9,8 @@
 
 #include <Arduino.h>
 #include <TouchScreen.h>
+#include "UiConstants.h"
+
 
 
 
@@ -37,28 +39,38 @@ protected:
 
 class TouchHandler {
 
-    uint16_t screenW;
-    uint16_t screenH;
     Touchable * tapOnTouchable = nullptr;
     TouchScreen touchScreen = TouchScreen(XP, YP, XM, YM, 300);
     int16_t x;
     int16_t y;
-    uint8_t holdCounter : 7;
-    uint8_t isHold : 1;
+    uint8_t holdCounter;
+    bool isHold;
+
+    TSPoint lastTouchPoint;
+    uint16_t touchLeft = 960;
+    uint16_t touchRight = 155;
+    uint16_t touchTop = 138;
+    uint16_t touchBottom = 924;
+    uint16_t refLeft = 0;
+    uint16_t refRight = SCREEN_WIDTH;
+    uint16_t refTop = 0;
+    uint16_t refBottom = SCREEN_HEIGHT;
+
 
 public:
+
+
     TouchHandler() {
       holdCounter = 0;
       isHold = false;
     }
 
-    void init(uint16_t screenW, uint16_t screenH);
-
     void check();
     uint8_t getRegionCount();
+    TSPoint readResistiveTouch();
 
-private:
-    void readResistiveTouch();
+    void setBottomLeftCalibration(uint16_t x, uint16_t y);
+    void setTopRightCalibration(uint16_t x, uint16_t y);
 
 
 };

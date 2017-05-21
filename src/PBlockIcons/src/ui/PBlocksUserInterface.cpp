@@ -28,17 +28,19 @@ void PBlocksUserInterface::init() {
   drawingGrid.init();
   exampleView.init();
   tools.init();
-  touchHandler.init((uint16_t)tft.width(), (uint16_t)tft.height());
-
 }
 
 
 
 void PBlocksUserInterface::draw() {
-  drawingGrid.draw();
-  pickerView.draw();
-  exampleView.draw();
-  tools.draw();
+  if (calibration.isActive) {
+    calibration.draw();
+  } else {
+    drawingGrid.draw();
+    pickerView.draw();
+    exampleView.draw();
+    tools.draw();
+  }
 }
 
 

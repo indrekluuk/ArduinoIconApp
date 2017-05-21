@@ -50,13 +50,6 @@ bool Touchable::isTapBetween(int16_t v, int16_t begin, int16_t end) {
 
 
 
-
-void TouchHandler::init(uint16_t screenW, uint16_t screenH) {
-  this->screenW = screenW;
-  this->screenH = screenH;
-}
-
-
 uint8_t TouchHandler::getRegionCount() {
   uint8_t count = 0;
   Touchable * touchable = firstTouchable;
@@ -73,10 +66,6 @@ uint8_t TouchHandler::getRegionCount() {
 #define TOUCH_Z_THRESHOLD_HIGH 1000
 #define TOUCH_SAMPLE_COUNT 5
 
-#define TOUCH_LEFT 960
-#define TOUCH_RIGHT 155
-#define TOUCH_TOP 138
-#define TOUCH_BOTTOM 924
 
 
 void TouchHandler::check() {
@@ -112,19 +101,21 @@ void TouchHandler::check() {
     if (!isHold) {
       tapOnTouchable = nullptr;
     }
+    //UI->tft.drawRect(x, y, 1, 1, COLOR_YELLOW); // comment out
   }
 }
 
 
 
-void TouchHandler::readResistiveTouch() {
+TSPoint TouchHandler::readResistiveTouch() {
   TSPoint tp = touchScreen.getPoint();
 
   if (tp.z > TOUCH_Z_THRESHOLD_LOW && tp.z < TOUCH_Z_THRESHOLD_HIGH) {
     if (holdCounter < TOUCH_SAMPLE_COUNT) holdCounter++;
     if (holdCounter == TOUCH_SAMPLE_COUNT) {
-      x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, screenW);
-      y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, screenH);
+      x = (uint16_t)map(tp.y, touchLeft, touchRight, refLeft, refRight);
+      y = (uint16_t)map(tp.x, touchTop, touchBottom, refTop, refBottom);
+      lastTouchPoint = tp;
     }
   } else {
     if (holdCounter > 0) holdCounter--;
@@ -134,6 +125,45 @@ void TouchHandler::readResistiveTouch() {
   pinMode(XM, OUTPUT);
   digitalWrite(YP, HIGH);   //because TFT control pins
   digitalWrite(XM, HIGH);
+
+  return tp;
+}
+
+
+
+void TouchHandler::setBottomLeftCalibration(uint16_t x, uint16_t y) {
+  refBottom = y;
+  refLeft = x;
+  touchBottom = lastTouchPoint.x;
+  touchLeft = lastTouchPoint.y;
+
+  Serial.print("refBottom = ");
+  Serial.println((int)refBottom);
+  Serial.print("refLeft = ");
+  Serial.println((int)refLeft);
+
+  Serial.print("touchBottom = ");
+  Serial.println((int)touchBottom);
+  Serial.print("touchLeft = ");
+  Serial.println((int)touchLeft);
+}
+
+
+void TouchHandler::setTopRightCalibration(uint16_t x, uint16_t y) {
+  refTop = y;
+  refRight = x;
+  touchTop = lastTouchPoint.x;
+  touchRight = lastTouchPoint.y;
+
+  Serial.print("refTop = ");
+  Serial.println((int)refTop);
+  Serial.print("refRight = ");
+  Serial.println((int)refRight);
+
+  Serial.print("touchTop = ");
+  Serial.println((int)touchTop);
+  Serial.print("touchRight = ");
+  Serial.println((int)touchRight);
 }
 
 

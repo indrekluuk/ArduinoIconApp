@@ -44,6 +44,8 @@ public:
 
 private:
 
+    void initMainToolbar();
+
     void showMainToolbar(uint8_t);
     void showEditToolbar(uint8_t);
     void showSaveToolbar(uint8_t);

@@ -16,7 +16,7 @@ void Tools::init() {
   }
 
   toolbar.init();
-  showMainToolbar(0);
+  initMainToolbar();
 }
 
 
@@ -26,7 +26,8 @@ void Tools::draw() {
 }
 
 
-void Tools::showMainToolbar(uint8_t) {
+
+void Tools::initMainToolbar() {
   toolbar.reset();
   toolbar.addButton(true)
       .setCallback(this, &Tools::showEditToolbar, 0)
@@ -44,6 +45,11 @@ void Tools::showMainToolbar(uint8_t) {
       .setCallback(this, &Tools::showSendToolbar, 0)
       .reset()
       .setIcon(&iconSend);
+}
+
+
+void Tools::showMainToolbar(uint8_t) {
+  initMainToolbar();
   draw();
 }
 
