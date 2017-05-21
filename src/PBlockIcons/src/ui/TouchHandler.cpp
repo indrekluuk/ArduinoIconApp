@@ -132,39 +132,19 @@ TSPoint TouchHandler::readResistiveTouch() {
 
 
 
-void TouchHandler::setBottomLeftCalibration(uint16_t x, uint16_t y) {
-  refBottom = y;
-  refLeft = x;
-  touchBottom = lastTouchPoint.x;
-  touchLeft = lastTouchPoint.y;
-
-  Serial.print("refBottom = ");
-  Serial.println((int)refBottom);
-  Serial.print("refLeft = ");
-  Serial.println((int)refLeft);
-
-  Serial.print("touchBottom = ");
-  Serial.println((int)touchBottom);
-  Serial.print("touchLeft = ");
-  Serial.println((int)touchLeft);
+void TouchHandler::setBottomLeftCalibration(uint16_t touchX, uint16_t touchY, uint16_t refX, uint16_t refY) {
+  touchBottom = touchY;
+  touchLeft = touchX;
+  refBottom = refY;
+  refLeft = refX;
 }
 
 
-void TouchHandler::setTopRightCalibration(uint16_t x, uint16_t y) {
-  refTop = y;
-  refRight = x;
-  touchTop = lastTouchPoint.x;
-  touchRight = lastTouchPoint.y;
-
-  Serial.print("refTop = ");
-  Serial.println((int)refTop);
-  Serial.print("refRight = ");
-  Serial.println((int)refRight);
-
-  Serial.print("touchTop = ");
-  Serial.println((int)touchTop);
-  Serial.print("touchRight = ");
-  Serial.println((int)touchRight);
+void TouchHandler::setTopRightCalibration(uint16_t touchX, uint16_t touchY, uint16_t refX, uint16_t refY) {
+  touchTop = touchY;
+  touchRight = touchX;
+  refTop = refY;
+  refRight = refX;
 }
 
 

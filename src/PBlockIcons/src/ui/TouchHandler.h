@@ -46,7 +46,6 @@ class TouchHandler {
     uint8_t holdCounter;
     bool isHold;
 
-    TSPoint lastTouchPoint;
     uint16_t touchLeft = 960;
     uint16_t touchRight = 155;
     uint16_t touchTop = 138;
@@ -58,7 +57,7 @@ class TouchHandler {
 
 
 public:
-
+    TSPoint lastTouchPoint;
 
     TouchHandler() {
       holdCounter = 0;
@@ -69,8 +68,8 @@ public:
     uint8_t getRegionCount();
     TSPoint readResistiveTouch();
 
-    void setBottomLeftCalibration(uint16_t x, uint16_t y);
-    void setTopRightCalibration(uint16_t x, uint16_t y);
+    void setBottomLeftCalibration(uint16_t touchX, uint16_t touchY, uint16_t refX, uint16_t refY);
+    void setTopRightCalibration(uint16_t touchX, uint16_t touchY, uint16_t refX, uint16_t refY);
 
 
 };

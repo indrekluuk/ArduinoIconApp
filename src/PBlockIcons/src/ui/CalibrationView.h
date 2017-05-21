@@ -12,6 +12,9 @@
 
 class CalibrationView : public Touchable {
 
+    static const uint32_t HOLD_TIME = 500;
+    static const uint32_t HOLD_D = 5;
+
     static const uint8_t STEP_COUNT = 2;
     static const uint8_t TARGET_SIZE = 30;
 
@@ -25,6 +28,8 @@ class CalibrationView : public Touchable {
     };
 
     uint8_t calibrationStep = 0;
+    uint32_t detectTimer = 0;
+    TSPoint detectedPoint;
 
 public:
     bool isActive = true;
