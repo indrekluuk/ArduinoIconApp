@@ -3,21 +3,14 @@
 //
 
 #include "IconMem.h"
+#include <EEPROM.h>
 
-
-uint8_t IconMem::getSlotNumber(uint16_t memIndex) {
-  IconStorageData * addr = getMemAddress(memIndex);
-  return readMemByte(&addr->slotIndex);
-}
-
-void IconMem::clearSlotNumber(uint16_t memIndex) {
-  IconStorageData * addr = getMemAddress(memIndex);
-  writeMemByte(&addr->slotIndex, 0xFF);
-}
 
 
 IconStorageData IconMem::readIconData(uint16_t memIndex) {
-  IconStorageData data(0xFF);
+  if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
+
+  IconStorageData data;
   IconStorageData * addr = getMemAddress(memIndex);
   readMemBytes(addr, sizeof(IconStorageData), &data);
   return data;
@@ -25,6 +18,8 @@ IconStorageData IconMem::readIconData(uint16_t memIndex) {
 
 
 void IconMem::writeIconData(uint16_t memIndex, IconStorageData & data) {
+  if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
+
   IconStorageData * addr = getMemAddress(memIndex);
   writeMemBytes(addr, sizeof(IconStorageData), &data);
 }

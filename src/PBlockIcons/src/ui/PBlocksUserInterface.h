@@ -14,7 +14,7 @@
 #include "ExampleView.h"
 #include "Tools.h"
 #include "src/icons/Icon.h"
-#include "src/storage/IconStorage.h"
+#include "src/storage/IconMem.h"
 
 
 class PBlocksUserInterface {
@@ -27,7 +27,7 @@ public:
     ExampleView exampleView;
     Tools tools;
     IconBufferMem activeIcon;
-    IconStorage iconStorage;
+    IconMem iconStorage;
 
 
 

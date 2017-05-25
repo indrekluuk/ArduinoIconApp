@@ -6,7 +6,7 @@
 #define PBLOCKICONS_TOOLS_H
 
 
-#include <src/storage/IconStorage.h>
+#include <src/storage/IconMem.h>
 #include "Toolbar.h"
 #include "Button.h"
 #include "src/icons/ProgMemIcons.h"
@@ -15,7 +15,7 @@
 class Tools {
 
     static const uint8_t ICON_BUTTON_COUNT = 5;
-    static const uint8_t ICON_PAGE_COUNT = 2;
+    static const uint8_t ICON_PAGE_COUNT = IconMem::MEM_COUNT / ICON_BUTTON_COUNT;
     int8_t page : 7;
     int8_t showPageNumber : 1;
     IconBufferMem savedIcons[ICON_BUTTON_COUNT];

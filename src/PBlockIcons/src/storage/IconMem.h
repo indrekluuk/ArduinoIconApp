@@ -6,7 +6,7 @@
 #define PBLOCKICONS_ICONMEM_H
 
 
-#include <EEPROM.h>
+
 #include <stdint.h>
 #include "src/icons/Icon.h"
 
@@ -23,24 +23,19 @@ struct IconStorageData {
     uint8_t hasBorder : 1;
     uint8_t is3d : 1;
     uint8_t scale : 6;
-    IconStorageData(uint8_t slotIndex) : slotIndex(slotIndex) {};
 };
 
 
 
 class IconMem {
 
-
 public:
-    uint16_t MEM_COUNT = EEPROM.length() / sizeof(IconStorageData);
 
+    static const uint16_t MEM_COUNT = 1000 / sizeof(IconStorageData);
 
-    uint8_t getSlotNumber(uint16_t memIndex);
-    void clearSlotNumber(uint16_t memIndex);
 
     IconStorageData readIconData(uint16_t memIndex);
     void writeIconData(uint16_t memIndex, IconStorageData & data);
-
 
 private:
     IconStorageData * getMemAddress(uint16_t memSlotIndex);

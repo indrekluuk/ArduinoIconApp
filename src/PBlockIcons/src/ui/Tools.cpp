@@ -19,7 +19,8 @@ void Tools::init() {
 void Tools::initSavedIconsPage(uint8_t newPage) {
   page = newPage;
   for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
-    savedIcons[i] = UI->iconStorage.getStoredIconData(page * ICON_BUTTON_COUNT + i).icon;
+    savedIcons[i] = UI->iconStorage.readIconData(page * ICON_BUTTON_COUNT + i).icon;
+    savedIcons[i].color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
   }
 }
 
@@ -36,7 +37,7 @@ void Tools::draw() {
     tft.print("/");
     tft.print(ICON_PAGE_COUNT);
   } else {
-    tft.print("     ");
+    tft.print("   ");
   }
 }
 
@@ -305,21 +306,25 @@ void Tools::moveIconPage(uint8_t direction) {
 
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
-  UI->iconStorage.saveIcon(
-      ICON_BUTTON_COUNT * page + slotIndex,
-      UI->activeIcon,
-      COLOR_foreground,
-      COLOR_background,
-      COLOR_border,
-      UI->exampleView.scale
-  );
+  IconStorageData data;
+  data.slotIndex = ICON_BUTTON_COUNT * page + slotIndex;
+  data.icon = UI->activeIcon;
+  data.hasBorder = UI->activeIcon.color.hasBorder;
+  data.is3d = UI->activeIcon.color.hasBorder3d;
+  data.foregroundColor = COLOR_foreground;
+  data.backgroundColor = COLOR_background;
+  data.borderColor = COLOR_border;
+  data.scale = UI->exampleView.scale;
+
+  UI->iconStorage.writeIconData(data.slotIndex, data);
+  initSavedIconsPage(page);
 }
 
 
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconColor color = UI->activeIcon.color;
-  IconStorageData & data = UI->iconStorage.getStoredIconData(ICON_BUTTON_COUNT * page + slotIndex);
+  IconStorageData data = UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex);
   UI->activeIcon = data.icon;
   UI->activeIcon.color = color;
   UI->activeIcon.color.hasBorder = data.hasBorder;
@@ -333,7 +338,7 @@ void Tools::loadIcon(uint8_t slotIndex) {
 
 
 void Tools::sendIcon(uint8_t slotIndex) {
-  IconBufferMem & icon = UI->iconStorage.getStoredIconData(ICON_BUTTON_COUNT * page + slotIndex).icon;
+  IconBufferMem icon = UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex).icon;
   Serial.println();
   for (uint8_t row = 0; row < Icon::BITMAP_HEIGHT; row++) {
     Serial.print("(uint16_t) 0b");
