@@ -15,8 +15,14 @@ class Tools;
 
 
 class Toolbar {
+
+public:
+    using ToobarButton = Button1<Tools, uint8_t>;
+
+private:
+
     static const uint8_t MAX_BUTTON_COUNT = 14;
-    Button1<Tools, uint8_t> buttons[MAX_BUTTON_COUNT];
+    ToobarButton buttons[MAX_BUTTON_COUNT];
     uint8_t buttonCount = 0;
 
 public:

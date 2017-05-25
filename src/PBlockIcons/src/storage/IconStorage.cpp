@@ -31,6 +31,7 @@ void IconStorage::initSlot(uint8_t slotIndex) {
 
 
 IconStorageData & IconStorage::getStoredIconData(uint8_t slotIndex) {
+  if (slotIndex >= SLOT_COUNT) slotIndex = SLOT_COUNT - 1;
   return slots[slotIndex].storedData;
 }
 
@@ -43,6 +44,7 @@ void IconStorage::saveIcon(
     uint16_t borderColor,
     uint8_t scale
 ) {
+  if (slotIndex >= SLOT_COUNT) slotIndex = SLOT_COUNT - 1;
   IconStorageData & data = slots[slotIndex].storedData;
   data.foregroundColor = foregroundColor;
   data.backgroundColor = backgroundColor;

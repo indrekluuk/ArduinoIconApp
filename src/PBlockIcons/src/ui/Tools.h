@@ -14,8 +14,16 @@
 
 class Tools {
 
-    static const uint8_t SAVED_ICON_COUNT = IconStorage::SLOT_COUNT;
-    IconBufferMem * buttonIcons[SAVED_ICON_COUNT];
+    static const uint8_t ICON_BUTTON_COUNT = 5;
+    static const uint8_t ICON_PAGE_COUNT = 2;
+    int8_t page : 7;
+    int8_t showPageNumber : 1;
+    IconBufferMem savedIcons[ICON_BUTTON_COUNT];
+
+    static const uint8_t TOOLBAR_ICONS_SAVE = 0;
+    static const uint8_t TOOLBAR_ICONS_LOAD = 1;
+    static const uint8_t TOOLBAR_ICONS_SEND = 2;
+
 
     IconBufferProgMem iconReturn = IconBufferProgMem(&ICON_RETURN);
     IconBufferProgMem iconEdit = IconBufferProgMem(&ICON_EDIT);
@@ -37,20 +45,21 @@ class Tools {
 
 public:
 
-    Tools() {}
+    Tools() : page(0), showPageNumber(false) {}
 
     void init();
     void draw();
 
 private:
+    void initSavedIconsPage();
+
+    void reset();
 
     void initMainToolbar();
 
     void showMainToolbar(uint8_t);
     void showEditToolbar(uint8_t);
-    void showSaveToolbar(uint8_t);
-    void showLoadToolbar(uint8_t);
-    void showSendToolbar(uint8_t);
+    void showIconButtonsToolbar(uint8_t action);
 
     void invertIcon(uint8_t);
     void moveIconUp(uint8_t);
@@ -63,6 +72,7 @@ private:
     void setBorder3D(uint8_t);
     void clearIcon(uint8_t);
 
+    void moveIconPage(uint8_t direction);
     void saveIcon(uint8_t slotIndex);
     void loadIcon(uint8_t slotIndex);
     void sendIcon(uint8_t slotIndex);

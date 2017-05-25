@@ -10,39 +10,59 @@
 
 
 void Tools::init() {
-
-  for (uint8_t i = 0; i < SAVED_ICON_COUNT; i++) {
-    buttonIcons[i] = &UI->iconStorage.getStoredIconData(i).icon;
-  }
-
+  initSavedIconsPage();
   toolbar.init();
   initMainToolbar();
 }
 
 
-
-void Tools::draw() {
-  toolbar.draw();
+void Tools::initSavedIconsPage() {
+  for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
+    savedIcons[i] = UI->iconStorage.getStoredIconData(page * ICON_BUTTON_COUNT + i).icon;
+  }
 }
 
 
+void Tools::draw() {
+  toolbar.draw();
+
+  TFT & tft = UI->tft;
+  tft.setTextSize(1);
+  tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
+  tft.setCursor(Toolbar::TOOLBAR_X + Toolbar::TOOLBAR_W - 6 * 3 - 1, 5);
+  if (showPageNumber) {
+    tft.print(page+1);
+    tft.print("/");
+    tft.print(ICON_PAGE_COUNT);
+  } else {
+    tft.print("     ");
+  }
+}
+
+
+void Tools::reset() {
+  toolbar.reset();
+  showPageNumber = false;
+}
+
 
 void Tools::initMainToolbar() {
-  toolbar.reset();
+  reset();
+
   toolbar.addButton(true)
       .setCallback(this, &Tools::showEditToolbar, 0)
       .reset()
       .setIcon(&iconEdit);
   toolbar.addButton(true)
-      .setCallback(this, &Tools::showSaveToolbar, 0)
+      .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_SAVE)
       .reset()
       .setIcon(&iconSave);
   toolbar.addButton(true)
-      .setCallback(this, &Tools::showLoadToolbar, 0)
+      .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_LOAD)
       .reset()
       .setIcon(&iconLoad);
   toolbar.addButton(true)
-      .setCallback(this, &Tools::showSendToolbar, 0)
+      .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_SEND)
       .reset()
       .setIcon(&iconSend);
 }
@@ -55,7 +75,8 @@ void Tools::showMainToolbar(uint8_t) {
 
 
 void Tools::showEditToolbar(uint8_t) {
-  toolbar.reset();
+  reset();
+
   toolbar.addButton(true)
       .setCallback(this, &Tools::invertIcon, 0)
       .reset()
@@ -112,14 +133,44 @@ void Tools::showEditToolbar(uint8_t) {
 }
 
 
-void Tools::showSaveToolbar(uint8_t) {
-  toolbar.reset();
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
+void Tools::showIconButtonsToolbar(uint8_t action) {
+  reset();
+  showPageNumber = true;
+
+  Toolbar::ToobarButton::CallbackMethod iconButtonCallback = nullptr;
+  bool isPlacementRight = false;
+  bool isDirectionRight = false;
+  if (action == TOOLBAR_ICONS_SAVE) {
+    iconButtonCallback = &Tools::saveIcon;
+    isPlacementRight = false;
+    isDirectionRight = true;
+  } else if (action == TOOLBAR_ICONS_LOAD) {
+    iconButtonCallback = &Tools::loadIcon;
+    isPlacementRight = false;
+    isDirectionRight = false;
+  } else if (action == TOOLBAR_ICONS_SEND) {
+    iconButtonCallback = &Tools::sendIcon;
+    isPlacementRight = true;
+    isDirectionRight = true;
+  }
+
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::moveIconPage, -1)
+      .reset()
+      .setLabel("<");
+      //.setIcon(&iconLeft);
+  toolbar.addButton(false)
+      .setCallback(this, &Tools::moveIconPage, 1)
+      .reset()
+      .setLabel(">");
+      //.setIcon(&iconRight);
+
+  for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
     toolbar.addButton(true)
-        .setCallback(this, &Tools::saveIcon, i)
+        .setCallback(this, iconButtonCallback, i)
         .reset()
-        .setIcon(buttonIcons[i])
-        .showArrow(false, true);
+        .setIcon(&savedIcons[i])
+        .showArrow(isPlacementRight, isDirectionRight);
   }
   toolbar.addButton(true)
       .setCallback(this, &Tools::showMainToolbar, 0)
@@ -127,39 +178,6 @@ void Tools::showSaveToolbar(uint8_t) {
       .setIcon(&iconReturn);
   draw();
 }
-
-void Tools::showLoadToolbar(uint8_t) {
-  toolbar.reset();
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
-    toolbar.addButton(true)
-        .setCallback(this, &Tools::loadIcon, i)
-        .reset()
-        .setIcon(buttonIcons[i])
-        .showArrow(false, false);
-  }
-  toolbar.addButton(true)
-      .setCallback(this, &Tools::showMainToolbar, 0)
-      .reset()
-      .setIcon(&iconReturn);
-  draw();
-}
-
-void Tools::showSendToolbar(uint8_t) {
-  toolbar.reset();
-  for (uint8_t i=0; i<SAVED_ICON_COUNT; i++) {
-    toolbar.addButton(true)
-        .setCallback(this, &Tools::sendIcon, i)
-        .reset()
-        .setIcon(buttonIcons[i])
-        .showArrow(true, true);
-  }
-  toolbar.addButton(true)
-      .setCallback(this, &Tools::showMainToolbar, 0)
-      .reset()
-      .setIcon(&iconReturn);
-  draw();
-}
-
 
 
 void Tools::invertIcon(uint8_t) {
@@ -269,10 +287,22 @@ void Tools::clearIcon(uint8_t) {
 
 
 
+void Tools::moveIconPage(uint8_t direction) {
+  page += direction;
+  if (page < 0) {
+    page = 0;
+  } else if (page >= ICON_PAGE_COUNT) {
+    page = ICON_PAGE_COUNT - 1;
+  }
+  initSavedIconsPage();
+  draw();
+}
+
+
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   UI->iconStorage.saveIcon(
-      slotIndex,
+      ICON_BUTTON_COUNT * page + slotIndex,
       UI->activeIcon,
       COLOR_foreground,
       COLOR_background,
@@ -285,7 +315,7 @@ void Tools::saveIcon(uint8_t slotIndex) {
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconColor color = UI->activeIcon.color;
-  IconStorageData & data = UI->iconStorage.getStoredIconData(slotIndex);
+  IconStorageData & data = UI->iconStorage.getStoredIconData(ICON_BUTTON_COUNT * page + slotIndex);
   UI->activeIcon = data.icon;
   UI->activeIcon.color = color;
   UI->activeIcon.color.hasBorder = data.hasBorder;
@@ -299,7 +329,7 @@ void Tools::loadIcon(uint8_t slotIndex) {
 
 
 void Tools::sendIcon(uint8_t slotIndex) {
-  IconBufferMem & icon = UI->iconStorage.getStoredIconData(slotIndex).icon;
+  IconBufferMem & icon = UI->iconStorage.getStoredIconData(ICON_BUTTON_COUNT * page + slotIndex).icon;
   Serial.println();
   for (uint8_t row = 0; row < Icon::BITMAP_HEIGHT; row++) {
     Serial.print("(uint16_t) 0b");

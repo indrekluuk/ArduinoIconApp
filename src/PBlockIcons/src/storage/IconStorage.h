@@ -26,8 +26,8 @@ class IconStorage {
 
 public:
     IconMem iconMem;
-    static const uint8_t SLOT_COUNT = 6;
-    IconsSlots slots[SLOT_COUNT] = {0, 1, 2, 3, 4, 5};
+    static const uint8_t SLOT_COUNT = 10;
+    IconsSlots slots[SLOT_COUNT] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 
     IconStorage();

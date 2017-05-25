@@ -207,6 +207,10 @@ void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uin
     cX+=2;
     cY+=2;
   }
+
+  // quick and dirty hack to move "scroll left" to center
+  if (buttonLabel[0] == '<') cX--;
+
   tft.startTextFillBox(x, y, w, h, cX, cY);
   if (buttonLabel) {
     tft.print(buttonLabel);
