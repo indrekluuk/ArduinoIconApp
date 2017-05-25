@@ -10,13 +10,14 @@
 
 
 void Tools::init() {
-  initSavedIconsPage();
+  initSavedIconsPage(0);
   toolbar.init();
   initMainToolbar();
 }
 
 
-void Tools::initSavedIconsPage() {
+void Tools::initSavedIconsPage(uint8_t newPage) {
+  page = newPage;
   for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
     savedIcons[i] = UI->iconStorage.getStoredIconData(page * ICON_BUTTON_COUNT + i).icon;
   }
@@ -288,14 +289,17 @@ void Tools::clearIcon(uint8_t) {
 
 
 void Tools::moveIconPage(uint8_t direction) {
-  page += direction;
-  if (page < 0) {
-    page = 0;
-  } else if (page >= ICON_PAGE_COUNT) {
-    page = ICON_PAGE_COUNT - 1;
+
+  int8_t newPage = page + direction;
+  if (newPage < 0) {
+    newPage = 0;
+  } else if (newPage >= ICON_PAGE_COUNT) {
+    newPage = ICON_PAGE_COUNT - 1;
   }
-  initSavedIconsPage();
-  draw();
+  if (newPage != page) {
+    initSavedIconsPage(newPage);
+    draw();
+  }
 }
 
 

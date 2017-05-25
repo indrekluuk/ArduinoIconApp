@@ -51,7 +51,7 @@ public:
     void draw();
 
 private:
-    void initSavedIconsPage();
+    void initSavedIconsPage(uint8_t newPage);
 
     void reset();
 
