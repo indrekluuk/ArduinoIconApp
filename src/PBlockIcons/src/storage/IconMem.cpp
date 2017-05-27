@@ -5,34 +5,36 @@
 #include "IconMem.h"
 #include <EEPROM.h>
 
-
-
 IconMem::IconMem() {
 }
 
 
+uint8_t IconMem::getCurrentStructureVersion() {
+  return readMemByte(&(structure->header.dataStructureVersion));
+}
+
+void IconMem::saveCurrentStructureVersion() {
+  writeMemByte(&(structure->header.dataStructureVersion), STRUCTURE_VERSION);
+}
 
 
-IconStorageData IconMem::readIconData(uint16_t memIndex, IconStorageData & data) {
-  if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
 
-  void * addr = getMemAddress(memIndex, sizeof(IconStorageData));
-  readMemBytes(addr, sizeof(IconStorageData), &data);
+IconStorageData IconMem::readIconData(uint16_t iconIndex, IconStorageData & data) {
+  if (iconIndex >= ICON_COUNT) iconIndex = ICON_COUNT - 1;
+  readMemBytes(&(structure->data[iconIndex]), sizeof(IconStorageData), &data);
   return data;
 }
 
 
-void IconMem::writeIconData(uint16_t memIndex, IconStorageData & data) {
-  if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
+void IconMem::writeIconData(uint16_t iconIndex, IconStorageData & data) {
+  if (iconIndex >= ICON_COUNT) iconIndex = ICON_COUNT - 1;
+  writeMemBytes(&(structure->data[iconIndex]), sizeof(IconStorageData), &data);
 
-  void * addr = getMemAddress(memIndex, sizeof(IconStorageData));
-  writeMemBytes(addr, sizeof(IconStorageData), &data);
+  if (getCurrentStructureVersion() != STRUCTURE_VERSION) {
+    saveCurrentStructureVersion();
+  }
 }
 
-
-void * IconMem::getMemAddress(uint16_t memSlotIndex, uint16_t cnt) {
-  return (void *)(cnt * memSlotIndex);
-}
 
 uint8_t IconMem::readMemByte(void * addr) {
   return EEPROM.read((uint64_t)(addr));

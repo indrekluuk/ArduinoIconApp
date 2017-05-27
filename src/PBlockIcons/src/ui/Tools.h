@@ -15,7 +15,7 @@
 class Tools {
 
     static const uint8_t ICON_BUTTON_COUNT = 5;
-    static const uint8_t ICON_PAGE_COUNT = IconMem::MEM_COUNT / ICON_BUTTON_COUNT;
+    static const uint8_t ICON_PAGE_COUNT = IconMem::ICON_COUNT / ICON_BUTTON_COUNT;
     int8_t page : 7;
     int8_t showPageNumber : 1;
     IconBufferMem savedIcons[ICON_BUTTON_COUNT];
