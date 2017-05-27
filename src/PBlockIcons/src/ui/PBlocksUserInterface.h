@@ -36,9 +36,12 @@ public:
 
     void draw();
     void iconUpdated(bool pixels, bool border, bool colors);
+    void setActiveIcon(IconStorageData & data);
+    void getActiveIcon(IconStorageData & data);
     void showDrawingGrid();
     void showColorPicker(ColorPickerButton * button);
     void run();
+
 
 
 

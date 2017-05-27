@@ -15,8 +15,7 @@
 
 
 struct IconStorageData {
-    uint8_t slotIndex;
-    IconBufferMem icon;
+    uint16_t bitmap[Icon::BITMAP_HEIGHT];
     uint16_t foregroundColor;
     uint16_t backgroundColor;
     uint16_t borderColor;
@@ -30,15 +29,15 @@ struct IconStorageData {
 class IconMem {
 
 public:
-
     static const uint16_t MEM_COUNT = 1000 / sizeof(IconStorageData);
 
+    IconMem();
 
-    IconStorageData readIconData(uint16_t memIndex);
+    IconStorageData readIconData(uint16_t memIndex, IconStorageData & data);
     void writeIconData(uint16_t memIndex, IconStorageData & data);
 
 private:
-    IconStorageData * getMemAddress(uint16_t memSlotIndex);
+    void * getMemAddress(uint16_t memSlotIndex, uint16_t cnt);
     uint8_t readMemByte(void * addr);
     void readMemBytes(void * addr, uint16_t cnt, void * toAddr);
     void writeMemByte(void * addr, uint8_t byte);

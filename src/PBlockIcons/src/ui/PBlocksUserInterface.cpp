@@ -62,6 +62,35 @@ void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors) {
 }
 
 
+void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
+  IconColor color = UI->activeIcon.color;
+  for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
+    UI->activeIcon.bitmap[i] = data.bitmap[i];
+  }
+  UI->activeIcon.color = color;
+  UI->activeIcon.color.hasBorder = data.hasBorder;
+  UI->activeIcon.color.hasBorder3d = data.is3d;
+  UI->exampleView.setScale(data.scale);
+  COLOR_foreground = data.foregroundColor;
+  COLOR_background = data.backgroundColor;
+  COLOR_border = data.borderColor;
+}
+
+
+void PBlocksUserInterface::getActiveIcon(IconStorageData & data) {
+  for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
+    data.bitmap[i] = UI->activeIcon.bitmap[i];
+  }
+  data.hasBorder = UI->activeIcon.color.hasBorder;
+  data.is3d = UI->activeIcon.color.hasBorder3d;
+  data.foregroundColor = COLOR_foreground;
+  data.backgroundColor = COLOR_background;
+  data.borderColor = COLOR_border;
+  data.scale = UI->exampleView.scale;
+}
+
+
+
 void PBlocksUserInterface::showDrawingGrid() {
   drawingGrid.setActive(true);
   pickerView.deactivate();

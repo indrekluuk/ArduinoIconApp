@@ -7,11 +7,16 @@
 
 
 
-IconStorageData IconMem::readIconData(uint16_t memIndex) {
+IconMem::IconMem() {
+}
+
+
+
+
+IconStorageData IconMem::readIconData(uint16_t memIndex, IconStorageData & data) {
   if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
 
-  IconStorageData data;
-  IconStorageData * addr = getMemAddress(memIndex);
+  void * addr = getMemAddress(memIndex, sizeof(IconStorageData));
   readMemBytes(addr, sizeof(IconStorageData), &data);
   return data;
 }
@@ -20,13 +25,13 @@ IconStorageData IconMem::readIconData(uint16_t memIndex) {
 void IconMem::writeIconData(uint16_t memIndex, IconStorageData & data) {
   if (memIndex >= MEM_COUNT) memIndex = MEM_COUNT - 1;
 
-  IconStorageData * addr = getMemAddress(memIndex);
+  void * addr = getMemAddress(memIndex, sizeof(IconStorageData));
   writeMemBytes(addr, sizeof(IconStorageData), &data);
 }
 
 
-IconStorageData * IconMem::getMemAddress(uint16_t memIndex) {
-  return (IconStorageData *)(sizeof(IconStorageData) * memIndex);
+void * IconMem::getMemAddress(uint16_t memSlotIndex, uint16_t cnt) {
+  return (void *)(cnt * memSlotIndex);
 }
 
 uint8_t IconMem::readMemByte(void * addr) {

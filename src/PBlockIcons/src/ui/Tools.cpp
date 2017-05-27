@@ -19,7 +19,11 @@ void Tools::init() {
 void Tools::initSavedIconsPage(uint8_t newPage) {
   page = newPage;
   for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
-    savedIcons[i] = UI->iconStorage.readIconData(page * ICON_BUTTON_COUNT + i).icon;
+    IconStorageData data;
+    UI->iconStorage.readIconData(page * ICON_BUTTON_COUNT + i, data);
+    for (uint8_t j=0; j<Icon::BITMAP_HEIGHT; j++) {
+      savedIcons[i].bitmap[j] = data.bitmap[j];
+    }
     savedIcons[i].color = IconColor(Palette::WHITE, Palette::BLACK, Palette::BLACK, false, false);
   }
 }
@@ -64,7 +68,7 @@ void Tools::initMainToolbar() {
       .reset()
       .setIcon(&iconLoad);
   toolbar.addButton(true)
-      .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_SEND)
+      .setCallback(this, &Tools::sendIcon, 0)
       .reset()
       .setIcon(&iconSend);
 }
@@ -150,10 +154,6 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
     iconButtonCallback = &Tools::loadIcon;
     isPlacementRight = false;
     isDirectionRight = false;
-  } else if (action == TOOLBAR_ICONS_SEND) {
-    iconButtonCallback = &Tools::sendIcon;
-    isPlacementRight = true;
-    isDirectionRight = true;
   }
 
   toolbar.addButton(false)
@@ -307,45 +307,29 @@ void Tools::moveIconPage(uint8_t direction) {
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconStorageData data;
-  data.slotIndex = ICON_BUTTON_COUNT * page + slotIndex;
-  data.icon = UI->activeIcon;
-  data.hasBorder = UI->activeIcon.color.hasBorder;
-  data.is3d = UI->activeIcon.color.hasBorder3d;
-  data.foregroundColor = COLOR_foreground;
-  data.backgroundColor = COLOR_background;
-  data.borderColor = COLOR_border;
-  data.scale = UI->exampleView.scale;
-
-  UI->iconStorage.writeIconData(data.slotIndex, data);
+  UI->getActiveIcon(data);
+  UI->iconStorage.writeIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
   initSavedIconsPage(page);
 }
 
 
 void Tools::loadIcon(uint8_t slotIndex) {
   showMainToolbar(0);
-  IconColor color = UI->activeIcon.color;
-  IconStorageData data = UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex);
-  UI->activeIcon = data.icon;
-  UI->activeIcon.color = color;
-  UI->activeIcon.color.hasBorder = data.hasBorder;
-  UI->activeIcon.color.hasBorder3d = data.is3d;
-  UI->exampleView.setScale(data.scale);
-  COLOR_foreground = data.foregroundColor;
-  COLOR_background = data.backgroundColor;
-  COLOR_border = data.borderColor;
+  IconStorageData data;
+  UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
+  UI->setActiveIcon(data);
   UI->iconUpdated(true, true, true);
 }
 
 
-void Tools::sendIcon(uint8_t slotIndex) {
-  IconBufferMem icon = UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex).icon;
+void Tools::sendIcon(uint8_t) {
   Serial.println();
   for (uint8_t row = 0; row < Icon::BITMAP_HEIGHT; row++) {
     Serial.print("(uint16_t) 0b");
     uint32_t mask = 0x10000;
     for (uint8_t i=0; i<16; i++) {
       mask >>= 1;
-      Serial.print(icon.bitmap[row] & mask ? "1" : "0");
+      Serial.print(UI->activeIcon.bitmap[row] & mask ? "1" : "0");
     }
     Serial.println(",");
   }

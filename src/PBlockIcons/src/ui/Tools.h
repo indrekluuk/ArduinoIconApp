@@ -22,7 +22,6 @@ class Tools {
 
     static const uint8_t TOOLBAR_ICONS_SAVE = 0;
     static const uint8_t TOOLBAR_ICONS_LOAD = 1;
-    static const uint8_t TOOLBAR_ICONS_SEND = 2;
 
 
     IconBufferProgMem iconReturn = IconBufferProgMem(&ICON_RETURN);
@@ -75,7 +74,8 @@ private:
     void moveIconPage(uint8_t direction);
     void saveIcon(uint8_t slotIndex);
     void loadIcon(uint8_t slotIndex);
-    void sendIcon(uint8_t slotIndex);
+
+    void sendIcon(uint8_t);
 
 };
 
