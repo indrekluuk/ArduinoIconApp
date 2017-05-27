@@ -54,6 +54,9 @@ public:
     void redo();
     void loadFromUndoBuffer();
 
+    bool isUndoAvailable();
+    bool isRedoAvailable();
+
     void setActiveIcon(IconStorageData & data);
     void loadActiveIcon(IconStorageData & data);
     void showDrawingGrid();

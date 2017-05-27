@@ -49,6 +49,8 @@ void Tools::draw() {
 void Tools::reset() {
   toolbar.reset();
   showPageNumber = false;
+  undoButton = nullptr;
+  redoButton = nullptr;
 }
 
 
@@ -73,15 +75,38 @@ void Tools::initMainToolbar() {
       .setIcon(&iconSend);
 
 
-  toolbar.addButton(false, true)
+  redoButton = &toolbar.addButton(false, true)
       .setCallback(this, &Tools::redo, 0)
       .reset()
       .setIcon(&iconRedo);
-  toolbar.addButton(false, true)
+  undoButton = &toolbar.addButton(false, true)
       .setCallback(this, &Tools::undo, 0)
       .reset()
       .setIcon(&iconUndo);
+
+  checkUndoAndRedo(false);
 }
+
+
+void Tools::checkUndoAndRedo(bool redraw) {
+  if (undoButton != nullptr) {
+    if (undoButton->isButtonDisabled() == UI->isUndoAvailable()) {
+      undoButton->setDisabled(!undoButton->isButtonDisabled());
+      if (redraw) {
+        undoButton->draw();
+      }
+    }
+  }
+  if (redoButton != nullptr) {
+    if (redoButton->isButtonDisabled() == UI->isRedoAvailable()) {
+      redoButton->setDisabled(!redoButton->isButtonDisabled());
+      if (redraw) {
+        redoButton->draw();
+      }
+    }
+  }
+}
+
 
 
 void Tools::showMainToolbar(uint8_t) {
@@ -154,15 +179,12 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
   showPageNumber = true;
 
   Toolbar::ToobarButton::CallbackMethod iconButtonCallback = nullptr;
-  bool isPlacementRight = false;
   bool isDirectionRight = false;
   if (action == TOOLBAR_ICONS_SAVE) {
     iconButtonCallback = &Tools::saveIcon;
-    isPlacementRight = false;
     isDirectionRight = true;
   } else if (action == TOOLBAR_ICONS_LOAD) {
     iconButtonCallback = &Tools::loadIcon;
-    isPlacementRight = false;
     isDirectionRight = false;
   }
 
@@ -182,7 +204,7 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
         .setCallback(this, iconButtonCallback, i)
         .reset()
         .setIcon(&savedIcons[i])
-        .showArrow(isPlacementRight, isDirectionRight);
+        .showArrow(isDirectionRight);
   }
   toolbar.addButton(true, false)
       .setCallback(this, &Tools::showMainToolbar, 0)

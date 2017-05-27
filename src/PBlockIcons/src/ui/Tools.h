@@ -16,8 +16,10 @@ class Tools {
 
     static const uint8_t ICON_BUTTON_COUNT = 5;
     static const uint8_t ICON_PAGE_COUNT = IconMem::ICON_COUNT / ICON_BUTTON_COUNT;
-    int8_t page : 7;
-    int8_t showPageNumber : 1;
+    uint8_t page : 7;
+    uint8_t showPageNumber : 1;
+    ButtonBase * undoButton = nullptr;
+    ButtonBase * redoButton = nullptr;
     IconBufferMem savedIcons[ICON_BUTTON_COUNT];
 
     static const uint8_t TOOLBAR_ICONS_SAVE = 0;
@@ -50,6 +52,7 @@ public:
 
     void init();
     void draw();
+    void checkUndoAndRedo(bool redraw);
 
 private:
     void initSavedIconsPage(uint8_t newPage);

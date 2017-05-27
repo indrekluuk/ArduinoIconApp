@@ -27,6 +27,7 @@ ButtonBase & ButtonBase::reset() {
   isToggleButton = false;
   isToggleOn = false;
   setActive(true);
+  isDisabled = false;
   return *this;
 }
 
@@ -51,9 +52,8 @@ ButtonBase & ButtonBase::setLabel(const char * label) {
 }
 
 
-ButtonBase & ButtonBase::showArrow(bool isPlacementRight, bool isDirectionRight) {
+ButtonBase & ButtonBase::showArrow(bool isDirectionRight) {
   isShowArrow = true;
-  arrowPlacementRight = isPlacementRight;
   arrowDirectionRight = isDirectionRight;
   return *this;
 }
@@ -69,6 +69,16 @@ bool ButtonBase::isButtonActive() {
 }
 
 
+void ButtonBase::setDisabled(bool disabled) {
+  isDisabled = disabled;
+}
+
+
+bool ButtonBase::isButtonDisabled() {
+  return isDisabled;
+}
+
+
 ButtonBase & ButtonBase::setToggleStatus(bool isOn) {
   isToggleOn = isOn;
   isPressed = isOn;
@@ -77,7 +87,7 @@ ButtonBase & ButtonBase::setToggleStatus(bool isOn) {
 
 
 bool ButtonBase::touch(uint16_t x, uint16_t y) {
-  if (isActive && isTouchOnButton(x, y)) {
+  if (isActive && !isDisabled && isTouchOnButton(x, y)) {
     isPressed = true;
     draw();
     return true;
@@ -159,7 +169,7 @@ void ButtonBase::draw() {
   }
 
   if (isShowArrow) {
-    uint16_t arrX = arrowPlacementRight ? buttonX + buttonW - 10 : buttonX + 4 ;
+    uint16_t arrX = buttonX + 4;
     uint16_t arrY = buttonY + 4;
     drawArrow(arrX, arrY);
   }
@@ -173,19 +183,17 @@ void ButtonBase::draw() {
 void ButtonBase::drawIcon(Icon * buttonIcon, uint16_t x, uint16_t y, uint8_t w, uint8_t h) {
   uint8_t scale = (buttonW < (uint8_t)34) || (buttonH < (uint8_t)34) ? (uint8_t)1 : (uint8_t)2;
 
+  IconColor color = buttonIcon->getColor();
+  color.setNoBorder();
+
   if (isPressed) {
-    IconColor color = buttonIcon->getColor();
-
     color.setBackgroundColor(Palette::GRAY85);
-    color.setNoBorder();
-
     UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 2, 2, scale, scale);
   } else {
-    IconColor color = buttonIcon->getColor();
-
     color.setBackgroundColor(Palette::GRAY66);
-    color.setNoBorder();
-
+    if (isDisabled) {
+      color.setForegroundColor(Palette::GRAY50);
+    }
     UI->tft.drawIcon(x, y, *buttonIcon, color, w, h, 0, 0, scale, scale);
   }
 }
@@ -200,7 +208,7 @@ void ButtonBase::drawLabel(const char * buttonLabel, uint16_t x, uint16_t y, uin
   if (isPressed) {
     tft.setTextColor(COLOR_BLACK, COLOR_GRAY85);
   } else {
-    tft.setTextColor(COLOR_BLACK, COLOR_GRAY66);
+    tft.setTextColor(isDisabled ? COLOR_GRAY50 : COLOR_BLACK, COLOR_GRAY66);
   }
   tft.setTextSize(2);
 
@@ -231,9 +239,11 @@ void ButtonBase::drawArrow(uint16_t x, uint16_t y) {
     y += 2;
   }
 
-  tft.fillRect(x + (arrowDirectionRight ? 0 : 4), y + 0, 2, 10, COLOR_BLACK);
-  tft.fillRect(x + (arrowDirectionRight ? 2 : 2), y + 2, 2, 6, COLOR_BLACK);
-  tft.fillRect(x + (arrowDirectionRight ? 4 : 0), y + 4, 2, 2, COLOR_BLACK);
+  uint16_t arrowColor = isDisabled ? COLOR_GRAY50 : COLOR_BLACK;
+
+  tft.fillRect(x + (arrowDirectionRight ? 0 : 4), y + 0, 2, 10, arrowColor);
+  tft.fillRect(x + (arrowDirectionRight ? 2 : 2), y + 2, 2, 6, arrowColor);
+  tft.fillRect(x + (arrowDirectionRight ? 4 : 0), y + 4, 2, 2, arrowColor);
 }
 
 

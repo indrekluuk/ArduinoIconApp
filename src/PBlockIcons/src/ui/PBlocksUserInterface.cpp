@@ -93,6 +93,7 @@ void PBlocksUserInterface::saveToUndoBuffer() {
     if (undoStart >= UNDO_BUFFER_DEPTH) undoStart = 0;
   }
   loadActiveIcon(undoBuffer[undoEnd]);
+  tools.checkUndoAndRedo(true);
 }
 
 
@@ -125,7 +126,21 @@ void PBlocksUserInterface::loadFromUndoBuffer() {
   exampleView.scale = scale;
   activeIcon.color.hasBorder = hasBorder;
   activeIcon.color.hasBorder3d = hasBorder3d;
+
+  tools.checkUndoAndRedo(true);
   refreshUpdatedIcon(true, true, true);
+}
+
+
+
+bool PBlocksUserInterface::isUndoAvailable() {
+  return undoIndex != undoStart;
+}
+
+
+
+bool PBlocksUserInterface::isRedoAvailable() {
+  return undoIndex != undoEnd;
 }
 
 
