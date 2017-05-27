@@ -30,6 +30,8 @@ extern const IconBufferProgMem::IconData ICON_BACKGROUND;
 extern const IconBufferProgMem::IconData ICON_BORDER;
 extern const IconBufferProgMem::IconData ICON_BORDER_SMALL;
 extern const IconBufferProgMem::IconData ICON_BORDER_SMALL_3D;
+extern const IconBufferProgMem::IconData ICON_UNDO;
+extern const IconBufferProgMem::IconData ICON_REDO;
 
 
 

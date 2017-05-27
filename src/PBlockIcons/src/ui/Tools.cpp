@@ -76,11 +76,11 @@ void Tools::initMainToolbar() {
   toolbar.addButton(false, true)
       .setCallback(this, &Tools::redo, 0)
       .reset()
-      .setLabel("R");
+      .setIcon(&iconRedo);
   toolbar.addButton(false, true)
       .setCallback(this, &Tools::undo, 0)
       .reset()
-      .setLabel("U");
+      .setIcon(&iconUndo);
 }
 
 

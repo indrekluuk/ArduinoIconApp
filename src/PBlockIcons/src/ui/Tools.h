@@ -39,6 +39,8 @@ class Tools {
     IconBufferProgMem iconBorder3D = IconBufferProgMem(&ICON_BORDER_SMALL_3D);
     IconBufferProgMem iconRotate = IconBufferProgMem(&ICON_ROTATE);
     IconBufferProgMem iconClear = IconBufferProgMem(&ICON_CLEAR);
+    IconBufferProgMem iconUndo = IconBufferProgMem(&ICON_UNDO);
+    IconBufferProgMem iconRedo = IconBufferProgMem(&ICON_REDO);
 
     Toolbar toolbar;
 
