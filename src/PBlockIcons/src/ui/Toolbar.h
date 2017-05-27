@@ -23,7 +23,8 @@ private:
 
     static const uint8_t MAX_BUTTON_COUNT = 14;
     ToobarButton buttons[MAX_BUTTON_COUNT];
-    uint8_t buttonCount = 0;
+    uint8_t buttonIndexStart : 4;
+    uint8_t buttonIndexEnd : 4;
 
 public:
 
@@ -38,7 +39,7 @@ public:
     void init();
     void reset();
 
-    Button1<Tools, uint8_t> & addButton(bool wide);
+    Button1<Tools, uint8_t> & addButton(bool wide, bool end);
 
     void draw();
 

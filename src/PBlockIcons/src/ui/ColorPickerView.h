@@ -46,7 +46,7 @@ public:
     void draw();
 
     void resetColor(RgbColor color);
-    void colorSelected(RgbColor color);
+    void colorSelected(RgbColor color, bool final);
 
 private:
     void setCursor(uint8_t at);

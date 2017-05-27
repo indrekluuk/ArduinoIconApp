@@ -41,23 +41,27 @@ uint8_t Toolbar::getHalfButtonWidth(uint8_t buttonIndex) {
 
 
 void Toolbar::reset() {
-  buttonCount = 0;
+  buttonIndexStart = 0;
+  buttonIndexEnd = MAX_BUTTON_COUNT - 1;
   for (uint8_t i = 0; i<MAX_BUTTON_COUNT; i++) {
     buttons[i].setActive(false);
   }
 }
 
 
-Button1<Tools, uint8_t> & Toolbar::addButton(bool wide) {
-  if (wide && (buttonCount & 1)) buttonCount++;
-  if (buttonCount < MAX_BUTTON_COUNT) {
-    buttonCount++;
+Button1<Tools, uint8_t> & Toolbar::addButton(bool wide, bool end) {
+  uint8_t currentButton;
+  if (end) {
+    currentButton = buttonIndexEnd;
+    buttonIndexEnd -= wide ? 2 : 1;
+  } else {
+    currentButton = buttonIndexStart;
+    buttonIndexStart += wide ? 2 : 1;
   }
-  uint8_t currentButton = buttonCount - 1;
+
   buttons[currentButton].setActive(true);
   if (wide) {
     buttons[currentButton].buttonW = TOOLBAR_W;
-    buttonCount++;
   } else {
     buttons[currentButton].buttonW = getHalfButtonWidth(currentButton);
   }
@@ -69,12 +73,14 @@ Button1<Tools, uint8_t> & Toolbar::addButton(bool wide) {
 
 
 void Toolbar::draw() {
-  uint16_t bottom = TOOLBAR_Y;
-  for (uint8_t i=0; i<buttonCount; i++) {
-    buttons[i].draw();
-    bottom = buttons[i].buttonY + buttons[i].buttonH;
+  for (uint8_t i=0; i<MAX_BUTTON_COUNT; i++) {
+    if (buttons[i].isButtonActive()) {
+      buttons[i].draw();
+    } else if (!(i & 1)) {
+      UI->tft.fillRect(TOOLBAR_X, buttons[i].buttonY, TOOLBAR_W, buttons[i].buttonH, COLOR_BLACK);
+    }
   }
-  UI->tft.fillRect(TOOLBAR_X, bottom, TOOLBAR_W, TOOLBAR_Y + TOOLBAR_H - bottom, COLOR_BLACK);
+
 }
 
 

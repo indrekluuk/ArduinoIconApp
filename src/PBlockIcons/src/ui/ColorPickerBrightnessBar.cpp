@@ -42,7 +42,7 @@ void ColorPickerBrightnessBar::colorSelected(uint16_t x, uint16_t y, bool final)
   if (pickerX >= BAR_COLOR_W * BAR_SCALE_W) pickerX = BAR_COLOR_W * BAR_SCALE_W - 1;
   if (pickerY >= BAR_COLOR_H * BAR_SCALE_H) pickerY = BAR_COLOR_H * BAR_SCALE_H - 1;
   brightnessBarGenerator.generateLine(pickerY / BAR_SCALE_H);
-  pickerView.colorSelected(brightnessBarGenerator.getPixel(pickerX / BAR_SCALE_W));
+  pickerView.colorSelected(brightnessBarGenerator.getPixel(pickerX / BAR_SCALE_W), final);
 
   if (final) {
     pickerView.palette.paletteGenerator.setValue(

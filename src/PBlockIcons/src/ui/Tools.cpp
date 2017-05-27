@@ -55,22 +55,32 @@ void Tools::reset() {
 void Tools::initMainToolbar() {
   reset();
 
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::showEditToolbar, 0)
       .reset()
       .setIcon(&iconEdit);
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_SAVE)
       .reset()
       .setIcon(&iconSave);
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_LOAD)
       .reset()
       .setIcon(&iconLoad);
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::sendIcon, 0)
       .reset()
       .setIcon(&iconSend);
+
+
+  toolbar.addButton(false, true)
+      .setCallback(this, &Tools::redo, 0)
+      .reset()
+      .setLabel("R");
+  toolbar.addButton(false, true)
+      .setCallback(this, &Tools::undo, 0)
+      .reset()
+      .setLabel("U");
 }
 
 
@@ -83,55 +93,55 @@ void Tools::showMainToolbar(uint8_t) {
 void Tools::showEditToolbar(uint8_t) {
   reset();
 
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::invertIcon, 0)
       .reset()
       .setIcon(&iconInvert);
 
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconUp, 0)
       .reset()
       .setIcon(&iconUp);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconDown, 0)
       .reset()
       .setIcon(&iconDown);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconLeft, 0)
       .reset()
       .setIcon(&iconLeft);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconRight, 0)
       .reset()
       .setIcon(&iconRight);
 
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::flipIcon, 0)
       .reset()
       .setIcon(&iconFlip);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::rotateIcon, 0)
       .reset()
       .setIcon(&iconRotate);
 
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::setBorder, 0)
       .reset()
       .setToggle(true)
       .setToggleStatus(UI->activeIcon.color.hasBorder && !UI->activeIcon.color.hasBorder3d)
       .setIcon(&iconBorder);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::setBorder3D, 0)
       .reset()
       .setToggle(true)
       .setToggleStatus(UI->activeIcon.color.hasBorder && UI->activeIcon.color.hasBorder3d)
       .setIcon(&iconBorder3D);
 
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::clearIcon, 0)
       .reset()
       .setIcon(&iconClear);
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::showMainToolbar, 0)
       .reset()
       .setIcon(&iconReturn);
@@ -156,25 +166,25 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
     isDirectionRight = false;
   }
 
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconPage, -1)
       .reset()
       .setLabel("<");
       //.setIcon(&iconLeft);
-  toolbar.addButton(false)
+  toolbar.addButton(false, false)
       .setCallback(this, &Tools::moveIconPage, 1)
       .reset()
       .setLabel(">");
       //.setIcon(&iconRight);
 
   for (uint8_t i=0; i<ICON_BUTTON_COUNT; i++) {
-    toolbar.addButton(true)
+    toolbar.addButton(true, false)
         .setCallback(this, iconButtonCallback, i)
         .reset()
         .setIcon(&savedIcons[i])
         .showArrow(isPlacementRight, isDirectionRight);
   }
-  toolbar.addButton(true)
+  toolbar.addButton(true, false)
       .setCallback(this, &Tools::showMainToolbar, 0)
       .reset()
       .setIcon(&iconReturn);
@@ -182,11 +192,22 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
 }
 
 
+
+void Tools::undo(uint8_t) {
+  UI->undo();
+}
+
+
+void Tools::redo(uint8_t) {
+  UI->redo();
+}
+
+
 void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 void Tools::moveIconUp(uint8_t) {
@@ -194,7 +215,7 @@ void Tools::moveIconUp(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i+1];
   }
   UI->activeIcon.bitmap[Icon::BITMAP_HEIGHT-1] = 0;
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 void Tools::moveIconDown(uint8_t) {
@@ -202,21 +223,21 @@ void Tools::moveIconDown(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i-1];
   }
   UI->activeIcon.bitmap[0] = 0;
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 void Tools::moveIconLeft(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] <<= 1;
   }
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 void Tools::moveIconRight(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] >>= 1;
   }
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 
@@ -232,7 +253,7 @@ void Tools::flipIcon(uint8_t) {
     }
     UI->activeIcon.bitmap[i] = newRow;
   }
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 
@@ -253,7 +274,7 @@ void Tools::rotateIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = rotatedBitmap[i];
   }
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 
@@ -261,7 +282,7 @@ void Tools::setBorder(uint8_t) {
   UI->activeIcon.color.hasBorder = !UI->activeIcon.color.hasBorder || UI->activeIcon.color.hasBorder3d;
   UI->activeIcon.color.hasBorder3d = false;
   showEditToolbar(0);
-  UI->iconUpdated(false, true, false);
+  UI->iconUpdated(false, true, false, false, true);
 }
 
 
@@ -275,7 +296,7 @@ void Tools::setBorder3D(uint8_t) {
     UI->activeIcon.color.hasBorder3d = true;
   }
   showEditToolbar(0);
-  UI->iconUpdated(false, true, false);
+  UI->iconUpdated(false, true, false, false, true);
 }
 
 
@@ -284,7 +305,7 @@ void Tools::clearIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = 0;
   }
   showMainToolbar(0);
-  UI->iconUpdated(true, false, false);
+  UI->iconUpdated(true, false, false, false, true);
 }
 
 
@@ -307,7 +328,7 @@ void Tools::moveIconPage(uint8_t direction) {
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconStorageData data;
-  UI->getActiveIcon(data);
+  UI->loadActiveIcon(data);
   UI->iconStorage.writeIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
   initSavedIconsPage(page);
 }
@@ -318,7 +339,7 @@ void Tools::loadIcon(uint8_t slotIndex) {
   IconStorageData data;
   UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
   UI->setActiveIcon(data);
-  UI->iconUpdated(true, true, true);
+  UI->iconUpdated(true, true, true, false, true);
 }
 
 

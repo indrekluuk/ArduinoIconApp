@@ -18,6 +18,14 @@
 
 
 class PBlocksUserInterface {
+
+    static const uint8_t UNDO_BUFFER_DEPTH = 10;
+    IconStorageData undoBuffer[UNDO_BUFFER_DEPTH];
+    uint8_t undoStart = 0;
+    uint8_t undoEnd = 0;
+    uint8_t undoIndex = 0;
+
+
 public:
     TFT tft;
     TouchHandler touchHandler;
@@ -35,14 +43,22 @@ public:
     void init();
 
     void draw();
-    void iconUpdated(bool pixels, bool border, bool colors);
+    void iconUpdated(bool pixels, bool border, bool colors, bool updatePreviewOnly, bool saveUndo);
+
+    void saveToUndoBuffer();
+    void undo();
+    void redo();
+    void loadFromUndoBuffer();
+
     void setActiveIcon(IconStorageData & data);
-    void getActiveIcon(IconStorageData & data);
+    void loadActiveIcon(IconStorageData & data);
     void showDrawingGrid();
     void showColorPicker(ColorPickerButton * button);
     void run();
 
 
+private:
+    void refreshUpdatedIcon(bool pixels, bool border, bool colors, bool updatePreviewOnly);
 
 
 };

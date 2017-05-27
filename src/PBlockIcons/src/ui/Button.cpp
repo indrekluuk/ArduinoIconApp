@@ -64,6 +64,10 @@ void ButtonBase::setActive(bool active) {
 }
 
 
+bool ButtonBase::isButtonActive() {
+  return isActive;
+}
+
 
 ButtonBase & ButtonBase::setToggleStatus(bool isOn) {
   isToggleOn = isOn;

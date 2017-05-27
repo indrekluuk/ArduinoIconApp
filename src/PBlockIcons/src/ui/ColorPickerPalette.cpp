@@ -28,16 +28,17 @@ bool ColorPickerPalette::touch(uint16_t x, uint16_t y) {
 }
 
 void ColorPickerPalette::hold(uint16_t x, uint16_t y) {
-  colorSelected(x, y);
+  colorSelected(x, y, false);
 }
 
 void ColorPickerPalette::release(uint16_t x, uint16_t y) {
+  colorSelected(x, y, true);
 }
 
 
 
 
-void ColorPickerPalette::colorSelected(uint16_t x, uint16_t y) {
+void ColorPickerPalette::colorSelected(uint16_t x, uint16_t y, bool final) {
   int16_t pickerX = (int16_t)x - paletteX;
   int16_t pickerY = (int16_t)y - paletteY;
   if (pickerX < 0) pickerX = 0;
@@ -52,7 +53,7 @@ void ColorPickerPalette::colorSelected(uint16_t x, uint16_t y) {
   pickerView.brightnessBar.draw();
 
   paletteGenerator.generateLine(pickerY / PALETTE_SCALE_H);
-  pickerView.colorSelected(paletteGenerator.getPixel(pickerX / PALETTE_SCALE_W));
+  pickerView.colorSelected(paletteGenerator.getPixel(pickerX / PALETTE_SCALE_W), final);
 }
 
 

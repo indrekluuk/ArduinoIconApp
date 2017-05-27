@@ -46,6 +46,7 @@ public:
     ButtonBase & setLabel(const char * label);
     ButtonBase & showArrow(bool isPlacementRight, bool isDirectionRight);
     void setActive(bool active);
+    bool isButtonActive();
 
     ButtonBase & setToggleStatus(bool isOn);
 

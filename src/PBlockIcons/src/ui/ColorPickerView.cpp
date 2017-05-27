@@ -62,12 +62,12 @@ void ColorPickerView::resetColor(RgbColor color) {
   brightnessBar.brightnessBarGenerator.setHue(hsv.H);
   brightnessBar.brightnessBarGenerator.setSaturation(hsv.S);
   palette.paletteGenerator.setValue(hsv.V);
-  colorSelected(color);
+  colorSelected(color, false);
 }
 
 
 
-void ColorPickerView::colorSelected(RgbColor color) {
+void ColorPickerView::colorSelected(RgbColor color, bool final) {
   if (activeButton != nullptr) {
 
     uint32_t color24bit =
@@ -81,7 +81,7 @@ void ColorPickerView::colorSelected(RgbColor color) {
     printColorCode(7, 6, color24bit);
     printColorCode(23, 4, color.colorCode);
 
-    activeButton->colorSelected(color);
+    activeButton->colorSelected(color, final);
   }
 }
 

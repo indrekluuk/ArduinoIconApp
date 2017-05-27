@@ -96,19 +96,16 @@ void ExampleView::setScale(uint8_t newScale) {
 
 void ExampleView::setForegroundColor(RgbColor color) {
   COLOR_foreground = color.colorCode;
-  UI->iconUpdated(false, false, true);
 }
 
 
 void ExampleView::setBackgroundColor(RgbColor color) {
   COLOR_background = color.colorCode;
-  UI->iconUpdated(false, false, true);
 }
 
 
 void ExampleView::setBorderColor(RgbColor color) {
   COLOR_border = color.colorCode;
-  UI->iconUpdated(false, false, true);
 }
 
 

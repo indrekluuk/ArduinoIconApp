@@ -72,10 +72,15 @@ void ColorPickerButton::togglePalette() {
 }
 
 
-void ColorPickerButton::colorSelected(RgbColor color) {
+void ColorPickerButton::colorSelected(RgbColor color, bool final) {
   selectedColor = color;
   drawPickedColor();
   (view->*callbackMethod)(color);
+  if (final) {
+    UI->iconUpdated(false, false, true, false, true);
+  } else {
+    UI->iconUpdated(false, false, true, false, false);
+  }
 }
 
 

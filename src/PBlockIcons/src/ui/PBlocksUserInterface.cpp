@@ -28,6 +28,8 @@ void PBlocksUserInterface::init() {
   drawingGrid.init();
   exampleView.init();
   tools.init();
+
+  loadActiveIcon(undoBuffer[undoStart]);
 }
 
 
@@ -45,12 +47,22 @@ void PBlocksUserInterface::draw() {
 
 
 
-void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors) {
+void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors, bool updatePreviewOnly, bool saveUndo) {
+  refreshUpdatedIcon(pixels, border, colors, updatePreviewOnly);
+  if (saveUndo && (pixels || colors)) {
+    saveToUndoBuffer();
+  }
+}
 
-  if (!drawingGrid.isActive && (pixels || border)) {
-    showDrawingGrid();
-  } else if (pixels) {
-    drawingGrid.draw();
+
+
+void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool colors, bool updatePreviewOnly) {
+  if (!updatePreviewOnly) {
+    if (!drawingGrid.isActive && (pixels || border)) {
+      showDrawingGrid();
+    } else if (pixels) {
+      drawingGrid.draw();
+    }
   }
 
   if (border) {
@@ -60,6 +72,54 @@ void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors) {
     exampleView.updatePreview();
   }
 }
+
+
+
+void PBlocksUserInterface::saveToUndoBuffer() {
+  undoIndex++;
+  if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
+  undoEnd = undoIndex;
+
+  if (undoEnd == undoStart) {
+    undoStart++;
+    if (undoStart >= UNDO_BUFFER_DEPTH) undoStart = 0;
+  }
+  loadActiveIcon(undoBuffer[undoEnd]);
+}
+
+
+void PBlocksUserInterface::undo() {
+  if (undoIndex != undoStart) {
+    if (undoIndex == 0) {
+      undoIndex = UNDO_BUFFER_DEPTH - 1;
+    } else {
+      undoIndex--;
+    }
+    loadFromUndoBuffer();
+  }
+}
+
+
+void PBlocksUserInterface::redo() {
+  if (undoIndex != undoEnd) {
+    undoIndex++;
+    if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
+    loadFromUndoBuffer();
+  }
+}
+
+
+void PBlocksUserInterface::loadFromUndoBuffer() {
+  uint8_t scale = exampleView.scale;
+  uint8_t hasBorder = activeIcon.color.hasBorder;
+  uint8_t hasBorder3d = activeIcon.color.hasBorder3d;
+  setActiveIcon(undoBuffer[undoIndex]);
+  exampleView.scale = scale;
+  activeIcon.color.hasBorder = hasBorder;
+  activeIcon.color.hasBorder3d = hasBorder3d;
+  refreshUpdatedIcon(true, true, true, false);
+}
+
 
 
 void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
@@ -77,7 +137,7 @@ void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
 }
 
 
-void PBlocksUserInterface::getActiveIcon(IconStorageData & data) {
+void PBlocksUserInterface::loadActiveIcon(IconStorageData & data) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     data.bitmap[i] = UI->activeIcon.bitmap[i];
   }

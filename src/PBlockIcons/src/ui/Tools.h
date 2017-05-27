@@ -60,6 +60,9 @@ private:
     void showEditToolbar(uint8_t);
     void showIconButtonsToolbar(uint8_t action);
 
+    void undo(uint8_t);
+    void redo(uint8_t);
+
     void invertIcon(uint8_t);
     void moveIconUp(uint8_t);
     void moveIconDown(uint8_t);
