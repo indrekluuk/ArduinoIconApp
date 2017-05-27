@@ -45,24 +45,32 @@ void PBlocksUserInterface::draw() {
   }
 }
 
+void PBlocksUserInterface::iconReloaded() {
+  refreshUpdatedIcon(true, true, true);
+  saveToUndoBuffer();
+}
 
+void PBlocksUserInterface::iconPixelsUpdated() {
+  refreshUpdatedIcon(true, false, false);
+  saveToUndoBuffer();
+}
 
-void PBlocksUserInterface::iconUpdated(bool pixels, bool border, bool colors, bool updatePreviewOnly, bool saveUndo) {
-  refreshUpdatedIcon(pixels, border, colors, updatePreviewOnly);
-  if (saveUndo && (pixels || colors)) {
-    saveToUndoBuffer();
-  }
+void PBlocksUserInterface::iconBorderUpdated() {
+  refreshUpdatedIcon(false, true, false);
+}
+
+void PBlocksUserInterface::iconColorUpdated() {
+  refreshUpdatedIcon(false, false, true);
+  saveToUndoBuffer();
 }
 
 
 
-void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool colors, bool updatePreviewOnly) {
-  if (!updatePreviewOnly) {
-    if (!drawingGrid.isActive && (pixels || border)) {
-      showDrawingGrid();
-    } else if (pixels) {
-      drawingGrid.draw();
-    }
+void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool colors) {
+  if (!drawingGrid.isActive && (pixels || border)) {
+    showDrawingGrid();
+  } else if (pixels) {
+    drawingGrid.draw();
   }
 
   if (border) {
@@ -117,7 +125,7 @@ void PBlocksUserInterface::loadFromUndoBuffer() {
   exampleView.scale = scale;
   activeIcon.color.hasBorder = hasBorder;
   activeIcon.color.hasBorder3d = hasBorder3d;
-  refreshUpdatedIcon(true, true, true, false);
+  refreshUpdatedIcon(true, true, true);
 }
 
 

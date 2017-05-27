@@ -43,7 +43,11 @@ public:
     void init();
 
     void draw();
-    void iconUpdated(bool pixels, bool border, bool colors, bool updatePreviewOnly, bool saveUndo);
+    void iconReloaded();
+    void iconPixelsUpdated();
+    void iconBorderUpdated();
+    void iconColorUpdated();
+
 
     void saveToUndoBuffer();
     void undo();
@@ -58,7 +62,7 @@ public:
 
 
 private:
-    void refreshUpdatedIcon(bool pixels, bool border, bool colors, bool updatePreviewOnly);
+    void refreshUpdatedIcon(bool pixels, bool border, bool colors);
 
 
 };

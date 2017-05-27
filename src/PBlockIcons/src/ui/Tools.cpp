@@ -207,7 +207,7 @@ void Tools::invertIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = ~UI->activeIcon.bitmap[i];
   }
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 void Tools::moveIconUp(uint8_t) {
@@ -215,7 +215,7 @@ void Tools::moveIconUp(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i+1];
   }
   UI->activeIcon.bitmap[Icon::BITMAP_HEIGHT-1] = 0;
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 void Tools::moveIconDown(uint8_t) {
@@ -223,21 +223,21 @@ void Tools::moveIconDown(uint8_t) {
     UI->activeIcon.bitmap[i] = UI->activeIcon.bitmap[i-1];
   }
   UI->activeIcon.bitmap[0] = 0;
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 void Tools::moveIconLeft(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] <<= 1;
   }
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 void Tools::moveIconRight(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] >>= 1;
   }
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 
@@ -253,7 +253,7 @@ void Tools::flipIcon(uint8_t) {
     }
     UI->activeIcon.bitmap[i] = newRow;
   }
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 
@@ -274,7 +274,7 @@ void Tools::rotateIcon(uint8_t) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = rotatedBitmap[i];
   }
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 
@@ -282,7 +282,7 @@ void Tools::setBorder(uint8_t) {
   UI->activeIcon.color.hasBorder = !UI->activeIcon.color.hasBorder || UI->activeIcon.color.hasBorder3d;
   UI->activeIcon.color.hasBorder3d = false;
   showEditToolbar(0);
-  UI->iconUpdated(false, true, false, false, true);
+  UI->iconBorderUpdated();
 }
 
 
@@ -296,7 +296,7 @@ void Tools::setBorder3D(uint8_t) {
     UI->activeIcon.color.hasBorder3d = true;
   }
   showEditToolbar(0);
-  UI->iconUpdated(false, true, false, false, true);
+  UI->iconBorderUpdated();
 }
 
 
@@ -305,7 +305,7 @@ void Tools::clearIcon(uint8_t) {
     UI->activeIcon.bitmap[i] = 0;
   }
   showMainToolbar(0);
-  UI->iconUpdated(true, false, false, false, true);
+  UI->iconPixelsUpdated();
 }
 
 
@@ -339,7 +339,7 @@ void Tools::loadIcon(uint8_t slotIndex) {
   IconStorageData data;
   UI->iconStorage.readIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
   UI->setActiveIcon(data);
-  UI->iconUpdated(true, true, true, false, true);
+  UI->iconReloaded();
 }
 
 
