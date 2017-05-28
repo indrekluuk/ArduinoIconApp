@@ -64,15 +64,18 @@ void Tools::initMainToolbar() {
   toolbar.addButton(true, false)
       .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_SAVE)
       .reset()
-      .setIcon(&iconSave);
+      .setIcon(&iconSave)
+      .showArrow(true);
   toolbar.addButton(true, false)
       .setCallback(this, &Tools::showIconButtonsToolbar, TOOLBAR_ICONS_LOAD)
       .reset()
-      .setIcon(&iconLoad);
+      .setIcon(&iconLoad)
+      .showArrow(false);
   toolbar.addButton(true, false)
       .setCallback(this, &Tools::sendIcon, 0)
       .reset()
-      .setIcon(&iconSend);
+      .setIcon(&iconSend)
+      .showArrow(true);
 
 
   redoButton = &toolbar.addButton(false, true)
