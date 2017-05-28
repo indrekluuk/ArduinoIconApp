@@ -4,7 +4,7 @@
 
 #include "ColorPickerView.h"
 #include "PBlocksUserInterface.h"
-#include "src/palette/RgbToHsv.h"
+#include "../palette/RgbToHsv.h"
 
 
 void ColorPickerView::setActive(ColorPickerButton * button) {

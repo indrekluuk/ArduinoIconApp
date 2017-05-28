@@ -6,10 +6,10 @@
 #define PBLOCKMAIN_TFT_H
 
 
-#include "src/lib/MCUFRIEND_kbv_mod/MCUFRIEND_kbv.h"
-#include "src/lib/MCUFRIEND_kbv_mod/utility/mcufriend_shield.h"
-#include "src/icons/Icon.h"
-#include "src/palette/PaletteGenerator.h"
+#include "../lib/MCUFRIEND_kbv_mod/MCUFRIEND_kbv.h"
+#include "../lib/MCUFRIEND_kbv_mod/utility/mcufriend_shield.h"
+#include "../icons/Icon.h"
+#include "../palette/PaletteGenerator.h"
 
 
 class TFT : public MCUFRIEND_kbv {

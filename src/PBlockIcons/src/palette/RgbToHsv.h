@@ -5,7 +5,7 @@
 #ifndef PBLOCKICONS_RGBTOHSV_H
 #define PBLOCKICONS_RGBTOHSV_H
 
-#include "src/screen/Colors.h"
+#include "../screen/Colors.h"
 
 
 class RgbToHsv {

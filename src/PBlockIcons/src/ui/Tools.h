@@ -6,10 +6,10 @@
 #define PBLOCKICONS_TOOLS_H
 
 
-#include <src/storage/IconMem.h>
+#include "../storage/IconMem.h"
 #include "Toolbar.h"
 #include "Button.h"
-#include "src/icons/ProgMemIcons.h"
+#include "../icons/ProgMemIcons.h"
 
 
 class Tools {

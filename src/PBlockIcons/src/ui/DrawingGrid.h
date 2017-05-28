@@ -6,7 +6,7 @@
 #define PBLOCKICONS_DRAWINGGRID_H
 
 
-#include <src/icons/Icon.h>
+#include "../icons/Icon.h"
 #include "TouchHandler.h"
 
 #include "UiConstants.h"

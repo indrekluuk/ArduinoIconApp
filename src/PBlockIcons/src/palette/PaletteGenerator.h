@@ -6,7 +6,7 @@
 #define PBLOCKICONS_PALETTEGENERATOR_H
 
 
-#include "src/screen/Colors.h"
+#include "../screen/Colors.h"
 #include "Arduino.h"
 
 

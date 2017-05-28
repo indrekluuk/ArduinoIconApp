@@ -10,7 +10,7 @@
 #include "Button.h"
 #include "DrawingGrid.h"
 #include "ColorPickerButton.h"
-#include "src/icons/ProgMemIcons.h"
+#include "../icons/ProgMemIcons.h"
 
 
 class ExampleView : public Touchable {

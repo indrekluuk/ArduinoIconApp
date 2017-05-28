@@ -7,7 +7,7 @@
 
 
 #include "TouchHandler.h"
-#include "src/icons/Icon.h"
+#include "../icons/Icon.h"
 
 
 class ButtonBase : public Touchable {

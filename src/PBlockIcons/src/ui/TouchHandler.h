@@ -8,7 +8,7 @@
 
 
 #include <Arduino.h>
-#include "src/lib/Touch-Screen-Library_mod/TouchScreen.h"
+#include "../lib/Touch-Screen-Library_mod/TouchScreen.h"
 #include "UiConstants.h"
 
 

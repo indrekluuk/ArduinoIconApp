@@ -7,14 +7,14 @@
 
 
 #include "TouchHandler.h"
-#include "src/screen/TFT.h"
+#include "../screen/TFT.h"
 #include "CalibrationView.h"
 #include "DrawingGrid.h"
 #include "ColorPickerView.h"
 #include "ExampleView.h"
 #include "Tools.h"
-#include "src/icons/Icon.h"
-#include "src/storage/IconMem.h"
+#include "../icons/Icon.h"
+#include "../storage/IconMem.h"
 
 
 class PBlocksUserInterface {

@@ -7,7 +7,7 @@
 
 
 #include "TouchHandler.h"
-#include "src/palette/PaletteGenerator.h"
+#include "../palette/PaletteGenerator.h"
 
 
 
