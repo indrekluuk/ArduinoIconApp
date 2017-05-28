@@ -28,6 +28,10 @@ add_executable(runTests
         test/fake/MCUFRIEND_kbv.cpp
         test/fake/avr/pgmspace.cpp
 
+        src/PBlockIcons/src/lib/Touch-Screen-Library_mod/TouchScreen.cpp
+        src/PBlockIcons/src/lib/MCUFRIEND_kbv_mod/MCUFRIEND_kbv.cpp
+        src/PBlockIcons/src/lib/Adafruit_GFX_Library_mod/Adafruit_GFX.cpp
+
         src/PBlockIcons/src/ui/TouchHandler.cpp
         src/PBlockIcons/src/ui/PBlocksUserInterface.cpp
         src/PBlockIcons/src/ui/CalibrationView.cpp
@@ -44,7 +48,6 @@ add_executable(runTests
         src/PBlockIcons/src/screen/Font.cpp
         src/PBlockIcons/src/screen/Colors.cpp
         src/PBlockIcons/src/icons/ProgMemIcons.cpp
-        src/PBlockIcons/src/storage/IconStorage.cpp
         src/PBlockIcons/src/storage/IconMem.cpp
         src/PBlockIcons/src/palette/PaletteGenerator.cpp
         src/PBlockIcons/src/palette/RgbToHsv.cpp
@@ -52,6 +55,7 @@ add_executable(runTests
         test/src/ui/TestTouchRegion.cpp
         test/src/palette/TestRgbToHsv.cpp
         )
+target_compile_definitions(runTests PRIVATE ARDUINO=180)
 
 # link
 add_subdirectory(test/lib/gtest-1.7.0)

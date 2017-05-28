@@ -1,0 +1,8 @@
+//
+// Created by indrek on 28.05.2017.
+//
+
+#ifndef PBLOCKICONS_PINS_ARDUINO_H
+#define PBLOCKICONS_PINS_ARDUINO_H
+
+#endif //PBLOCKICONS_PINS_ARDUINO_H

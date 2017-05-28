@@ -14,13 +14,21 @@ extern uint8_t dummy;
 
 
 #define __AVR_ATmega328P__ dummy
-#define ARDUINO 180
 
 #define boolean bool
+
+
+#define __FlashStringHelper uint8_t
 
 #define PINB 0
 #define PINC 0
 #define PIND 0
+#define PORTB dummy
+#define PORTC dummy
+#define PORTD dummy
+#define DDRB dummy
+#define DDRD dummy
+#define A0 0
 #define A1 0
 #define A2 0
 #define A3 0
@@ -49,15 +57,20 @@ extern uint8_t dummy;
 #define OCR2B dummy
 
 
+
 #define abs(x) ((x)>0?(x):-(x))
 
 void pinMode(int, int);
 void delay(int);
 uint8_t pgm_read_byte(const uint8_t * pByte);
+uint16_t pgm_read_word(const uint16_t * pWord);
+uint32_t pgm_read_dword(const uint32_t * pDWord);
 void digitalWrite(int, int);
 int analogRead(int);
 int map(int, int, int, int, int);
 
+uint8_t * malloc(uint8_t);
+void free(void *);
 
 unsigned long millis();
 
