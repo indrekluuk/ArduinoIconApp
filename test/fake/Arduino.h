@@ -62,9 +62,12 @@ extern uint8_t dummy;
 
 void pinMode(int, int);
 void delay(int);
+
 uint8_t pgm_read_byte(const uint8_t * pByte);
 uint16_t pgm_read_word(const uint16_t * pWord);
-uint32_t pgm_read_dword(const uint32_t * pDWord);
+// fix pointer casting warning
+#define pgm_read_dword(addr) ((const unsigned long *)(addr))
+
 void digitalWrite(int, int);
 int analogRead(int);
 int map(int, int, int, int, int);
