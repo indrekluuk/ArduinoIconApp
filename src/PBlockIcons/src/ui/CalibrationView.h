@@ -13,7 +13,7 @@
 class CalibrationView : public Touchable {
 
     static const uint32_t HOLD_TIME = 500;
-    static const uint32_t HOLD_D = 5;
+    static const uint32_t HOLD_D = 6;
 
     static const uint8_t STEP_COUNT = 2;
     static const uint8_t TARGET_SIZE = 30;
