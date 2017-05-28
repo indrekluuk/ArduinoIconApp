@@ -6,7 +6,7 @@
 #define PBLOCKICONS_DRAWINGGRID_H
 
 
-
+#include <src/icons/Icon.h>
 #include "TouchHandler.h"
 
 #include "UiConstants.h"
@@ -15,21 +15,25 @@
 
 class DrawingGrid : public Touchable {
 
-
-
-    bool isColorSelected = false;
-    bool selectedColor = false;
-
     static const uint8_t COUNT = 16;
     static const uint8_t SIZE = 18;
 
+    uint16_t bitmap[Icon::BITMAP_HEIGHT];
+
 public:
-    bool isActive = true;
+    uint8_t isColorSelected : 1;
+    uint8_t selectedColor : 1;
+    uint8_t isActive : 6;
 
     static const uint16_t GRID_X = 130;
     static const uint16_t GRID_Y = (SCREEN_HEIGHT - COUNT * SIZE) / 2;
     static const uint16_t GRID_W = COUNT * SIZE + 1;
     static const uint16_t GRID_H = COUNT * SIZE + 1;
+
+    DrawingGrid() :
+        isColorSelected(false),
+        selectedColor(false),
+        isActive(true) {}
 
     void init();
     void setActive(bool active);
@@ -38,15 +42,15 @@ public:
     void release(uint16_t x, uint16_t y) override;
     bool isTouchOnGrid(uint16_t x, uint16_t y);
     void draw();
-
+    void drawPixels(bool forceRedrawAll);
 
 private:
 
     void drawGrid();
-    void drawPixel(uint8_t x, uint8_t y);
+    void drawPixel(uint8_t x, uint8_t y, bool redrawAll);
 
-    bool getPixel(uint8_t x, uint8_t y);
-    void setPixel(uint8_t x, uint8_t y, bool pixel);
+    void setActiveIconPixel(uint8_t x, uint8_t y, bool pixel);
+    uint16_t getPixelMask(uint8_t x);
 
 };
 

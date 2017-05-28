@@ -22,7 +22,7 @@ bool DrawingGrid::touch(uint16_t x, uint16_t y) {
   if (isActive && isTouchOnGrid(x, y)) {
     uint8_t px = (x - GRID_X) / SIZE;
     uint8_t py = (y - GRID_Y) / SIZE;
-    selectedColor = !getPixel(px, py);
+    selectedColor = !(UI->activeIcon.bitmap[py] & getPixelMask(px));
     isColorSelected = true;
     return true;
   } else {
@@ -34,18 +34,14 @@ void DrawingGrid::hold(uint16_t x, uint16_t y) {
   if (isTouchOnGrid(x, y)) {
     uint8_t px = (x - GRID_X) / SIZE;
     uint8_t py = (y - GRID_Y) / SIZE;
-    bool curColor = getPixel(px, py);
-    if (curColor != selectedColor) {
-      setPixel(px, py, selectedColor);
-      drawPixel(px, py);
-    }
+    setActiveIconPixel(px, py, selectedColor);
+    drawPixel(px, py, false);
   }
 }
 
 void DrawingGrid::release(uint16_t x, uint16_t y) {
   isColorSelected = false;
-  UI->exampleView.updatePreview();
-  UI->saveToUndoBuffer();
+  UI->iconPixelsUpdated();
 }
 
 
@@ -63,13 +59,18 @@ void DrawingGrid::draw() {
 
   UI->tft.fillRect(GRID_X, GRID_Y + GRID_H, GRID_W, SCREEN_HEIGHT - GRID_H - GRID_Y, COLOR_BLACK);
   drawGrid();
-  for (uint8_t x=0; x<COUNT; x++) {
-    for (uint8_t y=0; y<COUNT; y++) {
-      drawPixel(x, y);
+  drawPixels(true);
+}
+
+
+void DrawingGrid::drawPixels(bool forceRedrawAll) {
+  for (uint8_t y=0; y<COUNT; y++) {
+    if (forceRedrawAll || (bitmap[y] != UI->activeIcon.bitmap[y]))
+    for (uint8_t x=0; x<COUNT; x++) {
+      drawPixel(x, y, forceRedrawAll);
     }
   }
 }
-
 
 
 void DrawingGrid::drawGrid() {
@@ -80,23 +81,34 @@ void DrawingGrid::drawGrid() {
   }
 }
 
-void DrawingGrid::drawPixel(uint8_t x, uint8_t y) {
+
+void DrawingGrid::drawPixel(uint8_t x, uint8_t y, bool forceRedrawAll) {
   TFT & tft = UI->tft;
-  uint16_t color = getPixel(x, y) ? COLOR_WHITE : COLOR_BLACK;
-  tft.fillRect(GRID_X + x*SIZE+1, GRID_Y + y*SIZE+1, SIZE-1, SIZE-1, color);
-}
 
-
-bool DrawingGrid::getPixel(uint8_t x, uint8_t y) {
-  return UI->activeIcon.bitmap[y] & (1<<(COUNT-x-1));
-}
-
-void DrawingGrid::setPixel(uint8_t x, uint8_t y, bool pixel) {
-  if (pixel) {
-    UI->activeIcon.bitmap[y] |= (1<<(COUNT-x-1));
-  } else {
-    UI->activeIcon.bitmap[y] &= ~(1<<(COUNT-x-1));
+  uint16_t pMask = getPixelMask(x);
+  bool bit = ((UI->activeIcon.bitmap[y]) & pMask);
+  if (forceRedrawAll || (bit != (bitmap[y] & pMask))) {
+    uint16_t color = bit ? COLOR_WHITE : COLOR_BLACK;
+    tft.fillRect(GRID_X + x*SIZE+1, GRID_Y + y*SIZE+1, SIZE-1, SIZE-1, color);
+    if (bit) {
+      bitmap[y] |= pMask;
+    } else {
+      bitmap[y] &= ~pMask;
+    }
   }
+}
+
+void DrawingGrid::setActiveIconPixel(uint8_t x, uint8_t y, bool pixel) {
+  uint16_t pMask = getPixelMask(x);
+  if (pixel) {
+    UI->activeIcon.bitmap[y] |= pMask;
+  } else {
+    UI->activeIcon.bitmap[y] &= ~pMask;
+  }
+}
+
+uint16_t DrawingGrid::getPixelMask(uint8_t x) {
+  return (1<<(COUNT-x-1));
 }
 
 

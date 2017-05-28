@@ -67,10 +67,10 @@ void PBlocksUserInterface::iconColorUpdated() {
 
 
 void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool colors) {
-  if (!drawingGrid.isActive && (pixels || border)) {
-    showDrawingGrid();
-  } else if (pixels) {
-    drawingGrid.draw();
+  if (!drawingGrid.isActive) {
+    if (pixels || border) showDrawingGrid();
+  } else {
+    if (pixels) drawingGrid.drawPixels(false);
   }
 
   if (border) {
