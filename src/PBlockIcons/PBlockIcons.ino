@@ -1,24 +1,27 @@
 
 
-#include "PBlocksIconsEditor.h"
+#include "src/ui/PBlocksUserInterface.h"
 
 
 
 
-PBlocksIconsEditor module;
+PBlocksUserInterface userInterface;
+
 
 
 
 
 void setup(void) {
   Serial.begin(9600);
-  module.init();
+  userInterface.init();
+  userInterface.draw();
 }
 
 
 
 void loop(void) {
-  module.run();
+  userInterface.run();
+  delay(5);
 }
 
 
