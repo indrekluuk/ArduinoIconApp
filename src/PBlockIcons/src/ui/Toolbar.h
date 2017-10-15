@@ -7,7 +7,7 @@
 
 
 #include "Button.h"
-#include "DrawingGrid.h"
+#include "DrawingGridView.h"
 #include "UiConstants.h"
 
 
@@ -28,10 +28,10 @@ private:
 
 public:
 
-    static const uint16_t TOOLBAR_X = DrawingGrid::GRID_X +  DrawingGrid::GRID_W + 2;
-    static const uint16_t TOOLBAR_Y = DrawingGrid::GRID_Y;
+    static const uint16_t TOOLBAR_X = DrawingGridView::GRID_X +  DrawingGridView::GRID_W + 2;
+    static const uint16_t TOOLBAR_Y = DrawingGridView::GRID_Y;
     static const uint16_t TOOLBAR_W = SCREEN_WIDTH - TOOLBAR_X;
-    static const uint16_t TOOLBAR_H = DrawingGrid::GRID_H;
+    static const uint16_t TOOLBAR_H = DrawingGridView::GRID_H;
 
 
     Toolbar() {}

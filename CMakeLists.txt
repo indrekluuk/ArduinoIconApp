@@ -35,7 +35,7 @@ add_executable(runTests
         src/PBlockIcons/src/ui/TouchHandler.cpp
         src/PBlockIcons/src/ui/PBlocksUserInterface.cpp
         src/PBlockIcons/src/ui/CalibrationView.cpp
-        src/PBlockIcons/src/ui/DrawingGrid.cpp
+        src/PBlockIcons/src/ui/DrawingGridView.cpp
         src/PBlockIcons/src/ui/ColorPickerView.cpp
         src/PBlockIcons/src/ui/ExampleView.cpp
         src/PBlockIcons/src/ui/ColorPickerButton.cpp

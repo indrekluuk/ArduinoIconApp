@@ -8,7 +8,7 @@
 
 #include "TouchHandler.h"
 #include "Button.h"
-#include "DrawingGrid.h"
+#include "DrawingGridView.h"
 #include "ColorPickerButton.h"
 #include "../icons/ProgMemIcons.h"
 
@@ -35,20 +35,20 @@ public:
     static const uint16_t GAP = 2;
 
     static const uint16_t VIEW_X = 0;
-    static const uint16_t VIEW_Y = DrawingGrid::GRID_Y;
-    static const uint8_t VIEW_W = DrawingGrid::GRID_X - GAP;
+    static const uint16_t VIEW_Y = DrawingGridView::GRID_Y;
+    static const uint8_t VIEW_W = DrawingGridView::GRID_X - GAP;
     static const uint8_t VIEW_H = VIEW_W;
     static const uint8_t MAX_SCALE = VIEW_W / 16;
 
     static const uint16_t BUTTONS_X = VIEW_X;
     static const uint16_t BUTTONS_Y = VIEW_Y + VIEW_H + GAP;
     static const uint8_t BUTTONS_W = VIEW_W;
-    static const uint8_t BUTTONS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - BUTTONS_Y;
+    static const uint8_t BUTTONS_H = DrawingGridView::GRID_Y + DrawingGridView::GRID_H - BUTTONS_Y;
 
     static const uint16_t PICKERS_X = VIEW_X;
     static const uint16_t PICKERS_Y = BUTTONS_Y + BUTTONS_H;
     static const uint16_t PICKERS_W = VIEW_W;
-    static const uint16_t PICKERS_H = DrawingGrid::GRID_Y + DrawingGrid::GRID_H - PICKERS_Y;
+    static const uint16_t PICKERS_H = DrawingGridView::GRID_Y + DrawingGridView::GRID_H - PICKERS_Y;
 
 
     ExampleView() :

@@ -6,7 +6,7 @@
 #define PBLOCKICONS_COLORPICKERVIEW_H
 
 
-#include "DrawingGrid.h"
+#include "DrawingGridView.h"
 #include "ColorPickerPalette.h"
 #include "ColorPickerBrightnessBar.h"
 
@@ -18,10 +18,10 @@ class ColorPickerButton;
 
 class ColorPickerView {
 public:
-    static const uint16_t PICKER_X = DrawingGrid::GRID_X + 1;
-    static const uint16_t PICKER_Y = DrawingGrid::GRID_Y + 1;
-    static const uint16_t PICKER_W = DrawingGrid::GRID_W - 2;
-    static const uint16_t PICKER_H = DrawingGrid::GRID_H - 2;
+    static const uint16_t PICKER_X = DrawingGridView::GRID_X + 1;
+    static const uint16_t PICKER_Y = DrawingGridView::GRID_Y + 1;
+    static const uint16_t PICKER_W = DrawingGridView::GRID_W - 2;
+    static const uint16_t PICKER_H = DrawingGridView::GRID_H - 2;
 
     static const uint16_t BAR_X = PICKER_X + 1;
     static const uint16_t PALETTE_X = PICKER_X + PICKER_W - ColorPickerPalette::PALETTE_W - 1;

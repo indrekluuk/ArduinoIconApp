@@ -2,8 +2,8 @@
 // Created by indrek on 6.05.2017.
 //
 
-#ifndef PBLOCKICONS_DRAWINGGRID_H
-#define PBLOCKICONS_DRAWINGGRID_H
+#ifndef PBLOCKICONS_DRAWINGGRIDVIEW_H
+#define PBLOCKICONS_DRAWINGGRIDVIEW_H
 
 
 #include "../icons/Icon.h"
@@ -13,7 +13,7 @@
 
 
 
-class DrawingGrid : public Touchable {
+class DrawingGridView : public Touchable {
 
     static const uint8_t COUNT = 16;
     static const uint8_t SIZE = 18;
@@ -29,7 +29,7 @@ public:
     static const uint16_t GRID_W = COUNT * SIZE + 1;
     static const uint16_t GRID_H = COUNT * SIZE + 1;
 
-    DrawingGrid() :
+    DrawingGridView() :
         selectedColor(false),
         isActive(true) {}
 
@@ -53,4 +53,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_DRAWINGGRID_H
+#endif //PBLOCKICONS_DRAWINGGRIDVIEW_H

@@ -25,7 +25,7 @@ void PBlocksUserInterface::init() {
   tft.setRotation(1);
   tft.fillScreen(COLOR_BLACK);
 
-  drawingGrid.init();
+  drawingGridView.init();
   exampleView.init();
   tools.init();
 
@@ -35,10 +35,10 @@ void PBlocksUserInterface::init() {
 
 
 void PBlocksUserInterface::draw() {
-  if (calibration.isActive) {
-    calibration.draw();
+  if (calibrationView.isActive) {
+    calibrationView.draw();
   } else {
-    drawingGrid.draw();
+    drawingGridView.draw();
     pickerView.draw();
     exampleView.draw();
     tools.draw();
@@ -67,10 +67,10 @@ void PBlocksUserInterface::activeIconColorUpdated() {
 
 
 void PBlocksUserInterface::refreshUpdatedActiveIcon(bool pixels, bool border, bool colors) {
-  if (!drawingGrid.isActive) {
+  if (!drawingGridView.isActive) {
     if (pixels || border) showDrawingGrid();
   } else {
-    if (pixels) drawingGrid.drawPixels(false);
+    if (pixels) drawingGridView.drawPixels(false);
   }
 
   if (border) {
@@ -175,14 +175,14 @@ void PBlocksUserInterface::copyActiveIconTo(IconStorageData & data) {
 
 
 void PBlocksUserInterface::showDrawingGrid() {
-  drawingGrid.setActive(true);
+  drawingGridView.setActive(true);
   pickerView.deactivate();
-  drawingGrid.draw();
+  drawingGridView.draw();
 }
 
 
 void PBlocksUserInterface::showColorPicker(ColorPickerButton * button) {
-  drawingGrid.setActive(false);
+  drawingGridView.setActive(false);
   pickerView.setActive(button);
   pickerView.draw();
 }

@@ -9,7 +9,7 @@
 #include "TouchHandler.h"
 #include "../screen/TFT.h"
 #include "CalibrationView.h"
-#include "DrawingGrid.h"
+#include "DrawingGridView.h"
 #include "ColorPickerView.h"
 #include "ExampleView.h"
 #include "Tools.h"
@@ -29,8 +29,8 @@ class PBlocksUserInterface {
 public:
     TFT tft;
     TouchHandler touchHandler;
-    CalibrationView calibration;
-    DrawingGrid drawingGrid;
+    CalibrationView calibrationView;
+    DrawingGridView drawingGridView;
     ColorPickerView pickerView;
     ExampleView exampleView;
     Tools tools;
