@@ -6,7 +6,7 @@
 #define PBLOCKICONS_TOOLS_H
 
 
-#include "../storage/IconMem.h"
+#include "src/storage/IconStorage.h"
 #include "Toolbar.h"
 #include "Button.h"
 #include "../icons/ProgMemIcons.h"
@@ -15,7 +15,7 @@
 class Tools {
 
     static const uint8_t ICON_BUTTON_COUNT = 5;
-    static const uint8_t ICON_PAGE_COUNT = IconMem::ICON_COUNT / ICON_BUTTON_COUNT;
+    static const uint8_t ICON_PAGE_COUNT = IconStorage::ICON_COUNT / ICON_BUTTON_COUNT;
     uint8_t page : 7;
     uint8_t showPageNumber : 1;
     ButtonBase * undoButton = nullptr;

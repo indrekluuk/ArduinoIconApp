@@ -48,7 +48,7 @@ add_executable(runTests
         src/PBlockIcons/src/screen/Font.cpp
         src/PBlockIcons/src/screen/Colors.cpp
         src/PBlockIcons/src/icons/ProgMemIcons.cpp
-        src/PBlockIcons/src/storage/IconMem.cpp
+        src/PBlockIcons/src/storage/IconStorage.cpp
         src/PBlockIcons/src/palette/PaletteGenerator.cpp
         src/PBlockIcons/src/palette/RgbToHsv.cpp
 

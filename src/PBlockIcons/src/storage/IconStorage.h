@@ -2,8 +2,8 @@
 // Created by indrek on 7.05.2017.
 //
 
-#ifndef PBLOCKICONS_ICONMEM_H
-#define PBLOCKICONS_ICONMEM_H
+#ifndef PBLOCKICONS_ICONSTORAGE_H
+#define PBLOCKICONS_ICONSTORAGE_H
 
 
 
@@ -27,7 +27,7 @@ struct IconStorageData {
 };
 
 
-class IconMem {
+class IconStorage {
     static const uint8_t STRUCTURE_VERSION = 1;
 
 public:
@@ -39,7 +39,7 @@ public:
     };
 
 
-    IconMem();
+    IconStorage();
 
     IconStorageData readIconData(uint16_t iconIndex, IconStorageData & data);
     void writeIconData(uint16_t iconIndex, IconStorageData & data);
@@ -58,4 +58,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_ICONMEM_H
+#endif //PBLOCKICONS_ICONSTORAGE_H
