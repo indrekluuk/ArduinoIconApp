@@ -6,7 +6,7 @@
 #define PBLOCKICONS_TOOLS_H
 
 
-#include "src/storage/IconStorage.h"
+#include "../storage/IconStorage.h"
 #include "Toolbar.h"
 #include "Button.h"
 #include "../icons/ProgMemIcons.h"

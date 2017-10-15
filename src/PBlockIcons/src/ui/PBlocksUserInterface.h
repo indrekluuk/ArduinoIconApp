@@ -14,7 +14,7 @@
 #include "ExampleView.h"
 #include "Tools.h"
 #include "../icons/Icon.h"
-#include "src/storage/IconStorage.h"
+#include "../storage/IconStorage.h"
 
 
 class PBlocksUserInterface {
