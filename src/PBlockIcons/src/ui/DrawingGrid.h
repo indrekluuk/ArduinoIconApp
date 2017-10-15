@@ -21,9 +21,8 @@ class DrawingGrid : public Touchable {
     uint16_t bitmap[Icon::BITMAP_HEIGHT];
 
 public:
-    uint8_t isColorSelected : 1;
     uint8_t selectedColor : 1;
-    uint8_t isActive : 6;
+    uint8_t isActive : 7;
 
     static const uint16_t GRID_X = 130;
     static const uint16_t GRID_Y = (SCREEN_HEIGHT - COUNT * SIZE) / 2;
@@ -31,7 +30,6 @@ public:
     static const uint16_t GRID_H = COUNT * SIZE + 1;
 
     DrawingGrid() :
-        isColorSelected(false),
         selectedColor(false),
         isActive(true) {}
 

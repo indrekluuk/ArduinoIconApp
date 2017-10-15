@@ -23,7 +23,6 @@ bool DrawingGrid::touch(uint16_t x, uint16_t y) {
     uint8_t px = (x - GRID_X) / SIZE;
     uint8_t py = (y - GRID_Y) / SIZE;
     selectedColor = !(UI->activeIcon.bitmap[py] & getPixelMask(px));
-    isColorSelected = true;
     return true;
   } else {
     return false;
@@ -40,7 +39,6 @@ void DrawingGrid::hold(uint16_t x, uint16_t y) {
 }
 
 void DrawingGrid::release(uint16_t x, uint16_t y) {
-  isColorSelected = false;
   UI->iconPixelsUpdated();
 }
 
