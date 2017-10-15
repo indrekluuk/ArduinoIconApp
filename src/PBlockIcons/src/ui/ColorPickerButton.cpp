@@ -77,7 +77,7 @@ void ColorPickerButton::colorSelected(RgbColor color, bool final) {
   drawPickedColor();
   (view->*callbackMethod)(color);
   if (final) {
-    UI->iconColorUpdated();
+    UI->activeIconColorUpdated();
   } else {
     UI->exampleView.updatePreview();
   }

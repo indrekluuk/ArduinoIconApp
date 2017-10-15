@@ -43,17 +43,13 @@ public:
     void init();
 
     void draw();
-    void iconReloaded();
-    void iconPixelsUpdated();
-    void iconBorderUpdated();
-    void iconColorUpdated();
+    void activeIconReloaded();
+    void activeIconPixelsUpdated();
+    void activeIconBorderUpdated();
+    void activeIconColorUpdated();
 
-
-    void saveToUndoBuffer();
     void undo();
     void redo();
-    void loadFromUndoBuffer();
-
     bool isUndoAvailable();
     bool isRedoAvailable();
 
@@ -65,7 +61,10 @@ public:
 
 
 private:
-    void refreshUpdatedIcon(bool pixels, bool border, bool colors);
+    void refreshUpdatedActiveIcon(bool pixels, bool border, bool colors);
+
+    void saveActiveIconToUndoBuffer();
+    void loadActiveIconFromUndoBuffer();
 
 
 };

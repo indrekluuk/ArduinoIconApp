@@ -45,28 +45,28 @@ void PBlocksUserInterface::draw() {
   }
 }
 
-void PBlocksUserInterface::iconReloaded() {
-  refreshUpdatedIcon(true, true, true);
-  saveToUndoBuffer();
+void PBlocksUserInterface::activeIconReloaded() {
+  refreshUpdatedActiveIcon(true, true, true);
+  saveActiveIconToUndoBuffer();
 }
 
-void PBlocksUserInterface::iconPixelsUpdated() {
-  refreshUpdatedIcon(true, false, false);
-  saveToUndoBuffer();
+void PBlocksUserInterface::activeIconPixelsUpdated() {
+  refreshUpdatedActiveIcon(true, false, false);
+  saveActiveIconToUndoBuffer();
 }
 
-void PBlocksUserInterface::iconBorderUpdated() {
-  refreshUpdatedIcon(false, true, false);
+void PBlocksUserInterface::activeIconBorderUpdated() {
+  refreshUpdatedActiveIcon(false, true, false);
 }
 
-void PBlocksUserInterface::iconColorUpdated() {
-  refreshUpdatedIcon(false, false, true);
-  saveToUndoBuffer();
+void PBlocksUserInterface::activeIconColorUpdated() {
+  refreshUpdatedActiveIcon(false, false, true);
+  saveActiveIconToUndoBuffer();
 }
 
 
 
-void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool colors) {
+void PBlocksUserInterface::refreshUpdatedActiveIcon(bool pixels, bool border, bool colors) {
   if (!drawingGrid.isActive) {
     if (pixels || border) showDrawingGrid();
   } else {
@@ -83,7 +83,7 @@ void PBlocksUserInterface::refreshUpdatedIcon(bool pixels, bool border, bool col
 
 
 
-void PBlocksUserInterface::saveToUndoBuffer() {
+void PBlocksUserInterface::saveActiveIconToUndoBuffer() {
   undoIndex++;
   if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
   undoEnd = undoIndex;
@@ -104,7 +104,7 @@ void PBlocksUserInterface::undo() {
     } else {
       undoIndex--;
     }
-    loadFromUndoBuffer();
+    loadActiveIconFromUndoBuffer();
   }
 }
 
@@ -113,12 +113,12 @@ void PBlocksUserInterface::redo() {
   if (undoIndex != undoEnd) {
     undoIndex++;
     if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
-    loadFromUndoBuffer();
+    loadActiveIconFromUndoBuffer();
   }
 }
 
 
-void PBlocksUserInterface::loadFromUndoBuffer() {
+void PBlocksUserInterface::loadActiveIconFromUndoBuffer() {
   uint8_t scale = exampleView.scale;
   uint8_t hasBorder = activeIcon.color.hasBorder;
   uint8_t hasBorder3d = activeIcon.color.hasBorder3d;
@@ -128,7 +128,7 @@ void PBlocksUserInterface::loadFromUndoBuffer() {
   activeIcon.color.hasBorder3d = hasBorder3d;
 
   tools.checkUndoAndRedo(true);
-  refreshUpdatedIcon(true, true, true);
+  refreshUpdatedActiveIcon(true, true, true);
 }
 
 
