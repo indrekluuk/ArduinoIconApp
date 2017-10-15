@@ -58,7 +58,7 @@ public:
     bool isRedoAvailable();
 
     void setActiveIcon(IconStorageData & data);
-    void loadActiveIcon(IconStorageData & data);
+    void copyActiveIconTo(IconStorageData & data);
     void showDrawingGrid();
     void showColorPicker(ColorPickerButton * button);
     void run();

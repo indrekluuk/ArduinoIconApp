@@ -353,7 +353,7 @@ void Tools::moveIconPage(uint8_t direction) {
 void Tools::saveIcon(uint8_t slotIndex) {
   showMainToolbar(0);
   IconStorageData data;
-  UI->loadActiveIcon(data);
+  UI->copyActiveIconTo(data);
   UI->iconStorage.writeIconData(ICON_BUTTON_COUNT * page + slotIndex, data);
   initSavedIconsPage(page);
 }

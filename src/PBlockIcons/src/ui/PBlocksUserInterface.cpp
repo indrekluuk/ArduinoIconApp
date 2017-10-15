@@ -29,7 +29,7 @@ void PBlocksUserInterface::init() {
   exampleView.init();
   tools.init();
 
-  loadActiveIcon(undoBuffer[undoStart]);
+  copyActiveIconTo(undoBuffer[undoStart]);
 }
 
 
@@ -92,7 +92,7 @@ void PBlocksUserInterface::saveToUndoBuffer() {
     undoStart++;
     if (undoStart >= UNDO_BUFFER_DEPTH) undoStart = 0;
   }
-  loadActiveIcon(undoBuffer[undoEnd]);
+  copyActiveIconTo(undoBuffer[undoEnd]);
   tools.checkUndoAndRedo(true);
 }
 
@@ -160,7 +160,7 @@ void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
 }
 
 
-void PBlocksUserInterface::loadActiveIcon(IconStorageData & data) {
+void PBlocksUserInterface::copyActiveIconTo(IconStorageData & data) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     data.bitmap[i] = UI->activeIcon.bitmap[i];
   }
