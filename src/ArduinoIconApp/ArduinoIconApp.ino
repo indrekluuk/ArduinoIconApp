@@ -2,12 +2,7 @@
 
 #include "src/ui/ArduinoIconAppUserInterface.h"
 
-
-
-
 ArduinoIconAppUserInterface userInterface;
-
-
 
 
 
