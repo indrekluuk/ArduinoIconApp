@@ -17,7 +17,7 @@
 #include "../storage/IconStorage.h"
 
 
-class PBlocksUserInterface {
+class ArduinoIconAppUserInterface {
 
     static const uint8_t UNDO_BUFFER_DEPTH = 10;
     IconStorageData undoBuffer[UNDO_BUFFER_DEPTH];
@@ -39,7 +39,7 @@ public:
 
 
 
-    PBlocksUserInterface();
+    ArduinoIconAppUserInterface();
     void init();
 
     void draw();
@@ -70,6 +70,6 @@ private:
 };
 
 
-extern PBlocksUserInterface * UI;
+extern ArduinoIconAppUserInterface * UI;
 
 #endif //PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H

@@ -5,7 +5,7 @@
 #include "ExampleView.h"
 
 
-#include "PBlocksUserInterface.h"
+#include "ArduinoIconApp.h"
 
 
 void ExampleView::init() {

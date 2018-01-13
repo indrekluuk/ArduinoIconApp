@@ -3,15 +3,15 @@
 //
 
 
-#include "PBlocksUserInterface.h"
+#include "ArduinoIconApp.h"
 
 
 
-PBlocksUserInterface * UI;
+ArduinoIconAppUserInterface * UI;
 
 
 
-PBlocksUserInterface::PBlocksUserInterface() {
+ArduinoIconAppUserInterface::ArduinoIconAppUserInterface() {
   UI = this;
   activeIcon.color.setForegroundColor(Palette::ICON_COLOR_FOREGROUND);
   activeIcon.color.setBackgroundColor(Palette::ICON_COLOR_BACKGROUND);
@@ -20,7 +20,7 @@ PBlocksUserInterface::PBlocksUserInterface() {
 }
 
 
-void PBlocksUserInterface::init() {
+void ArduinoIconAppUserInterface::init() {
   tft.begin(0x9488);
   tft.setRotation(1);
   tft.fillScreen(COLOR_BLACK);
@@ -34,7 +34,7 @@ void PBlocksUserInterface::init() {
 
 
 
-void PBlocksUserInterface::draw() {
+void ArduinoIconAppUserInterface::draw() {
   if (calibrationView.isActive) {
     calibrationView.draw();
   } else {
@@ -45,28 +45,28 @@ void PBlocksUserInterface::draw() {
   }
 }
 
-void PBlocksUserInterface::activeIconReloaded() {
+void ArduinoIconAppUserInterface::activeIconReloaded() {
   refreshUpdatedActiveIcon(true, true, true);
   saveActiveIconToUndoBuffer();
 }
 
-void PBlocksUserInterface::activeIconPixelsUpdated() {
+void ArduinoIconAppUserInterface::activeIconPixelsUpdated() {
   refreshUpdatedActiveIcon(true, false, false);
   saveActiveIconToUndoBuffer();
 }
 
-void PBlocksUserInterface::activeIconBorderUpdated() {
+void ArduinoIconAppUserInterface::activeIconBorderUpdated() {
   refreshUpdatedActiveIcon(false, true, false);
 }
 
-void PBlocksUserInterface::activeIconColorUpdated() {
+void ArduinoIconAppUserInterface::activeIconColorUpdated() {
   refreshUpdatedActiveIcon(false, false, true);
   saveActiveIconToUndoBuffer();
 }
 
 
 
-void PBlocksUserInterface::refreshUpdatedActiveIcon(bool pixels, bool border, bool colors) {
+void ArduinoIconAppUserInterface::refreshUpdatedActiveIcon(bool pixels, bool border, bool colors) {
   if (!drawingGridView.isActive) {
     if (pixels || border) showDrawingGrid();
   } else {
@@ -83,7 +83,7 @@ void PBlocksUserInterface::refreshUpdatedActiveIcon(bool pixels, bool border, bo
 
 
 
-void PBlocksUserInterface::saveActiveIconToUndoBuffer() {
+void ArduinoIconAppUserInterface::saveActiveIconToUndoBuffer() {
   undoIndex++;
   if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
   undoEnd = undoIndex;
@@ -97,7 +97,7 @@ void PBlocksUserInterface::saveActiveIconToUndoBuffer() {
 }
 
 
-void PBlocksUserInterface::undo() {
+void ArduinoIconAppUserInterface::undo() {
   if (undoIndex != undoStart) {
     if (undoIndex == 0) {
       undoIndex = UNDO_BUFFER_DEPTH - 1;
@@ -109,7 +109,7 @@ void PBlocksUserInterface::undo() {
 }
 
 
-void PBlocksUserInterface::redo() {
+void ArduinoIconAppUserInterface::redo() {
   if (undoIndex != undoEnd) {
     undoIndex++;
     if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
@@ -118,7 +118,7 @@ void PBlocksUserInterface::redo() {
 }
 
 
-void PBlocksUserInterface::loadActiveIconFromUndoBuffer() {
+void ArduinoIconAppUserInterface::loadActiveIconFromUndoBuffer() {
   uint8_t scale = exampleView.scale;
   uint8_t hasBorder = activeIcon.color.hasBorder;
   uint8_t hasBorder3d = activeIcon.color.hasBorder3d;
@@ -133,19 +133,19 @@ void PBlocksUserInterface::loadActiveIconFromUndoBuffer() {
 
 
 
-bool PBlocksUserInterface::isUndoAvailable() {
+bool ArduinoIconAppUserInterface::isUndoAvailable() {
   return undoIndex != undoStart;
 }
 
 
 
-bool PBlocksUserInterface::isRedoAvailable() {
+bool ArduinoIconAppUserInterface::isRedoAvailable() {
   return undoIndex != undoEnd;
 }
 
 
 
-void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
+void ArduinoIconAppUserInterface::setActiveIcon(IconStorageData & data) {
   IconColor color = UI->activeIcon.color;
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     UI->activeIcon.bitmap[i] = data.bitmap[i];
@@ -160,7 +160,7 @@ void PBlocksUserInterface::setActiveIcon(IconStorageData & data) {
 }
 
 
-void PBlocksUserInterface::copyActiveIconTo(IconStorageData & data) {
+void ArduinoIconAppUserInterface::copyActiveIconTo(IconStorageData & data) {
   for (uint8_t i=0; i<Icon::BITMAP_HEIGHT; i++) {
     data.bitmap[i] = UI->activeIcon.bitmap[i];
   }
@@ -174,14 +174,14 @@ void PBlocksUserInterface::copyActiveIconTo(IconStorageData & data) {
 
 
 
-void PBlocksUserInterface::showDrawingGrid() {
+void ArduinoIconAppUserInterface::showDrawingGrid() {
   drawingGridView.setActive(true);
   pickerView.deactivate();
   drawingGridView.draw();
 }
 
 
-void PBlocksUserInterface::showColorPicker(ColorPickerButton * button) {
+void ArduinoIconAppUserInterface::showColorPicker(ColorPickerButton * button) {
   drawingGridView.setActive(false);
   pickerView.setActive(button);
   pickerView.draw();
@@ -189,7 +189,7 @@ void PBlocksUserInterface::showColorPicker(ColorPickerButton * button) {
 
 
 
-void PBlocksUserInterface::run() {
+void ArduinoIconAppUserInterface::run() {
   touchHandler.check();
 }
 
