@@ -2,8 +2,8 @@
 // Created by indrek on 6.04.2017.
 //
 
-#ifndef PBLOCKMAIN_ICONCOLOR_H
-#define PBLOCKMAIN_ICONCOLOR_H
+#ifndef ARDUINOICONAPP_ICONCOLOR_H
+#define ARDUINOICONAPP_ICONCOLOR_H
 
 
 #include "../screen/Colors.h"
@@ -66,4 +66,4 @@ struct IconColor {
 
 
 
-#endif //PBLOCKMAIN_ICONCOLOR_H
+#endif //ARDUINOICONAPP_ICONCOLOR_H

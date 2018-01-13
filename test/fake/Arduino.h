@@ -2,8 +2,8 @@
 // Created by indrek on 29.10.2016.
 //
 
-#ifndef PBLOCKMAIN_ARDUINO_H
-#define PBLOCKMAIN_ARDUINO_H
+#ifndef ARDUINOICONAPP_ARDUINO_H
+#define ARDUINOICONAPP_ARDUINO_H
 
 
 #include <stdint.h>
@@ -91,7 +91,7 @@ public:
 
 extern FakeSerial Serial;
 
-#endif //PBLOCKMAIN_ARDUINO_H
+#endif //ARDUINOICONAPP_ARDUINO_H
 
 
 

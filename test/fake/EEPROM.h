@@ -2,8 +2,8 @@
 // Created by indrek on 18.05.2017.
 //
 
-#ifndef PBLOCKICONS_EEPROM_H_H
-#define PBLOCKICONS_EEPROM_H_H
+#ifndef ARDUINOICONAPP_EEPROM_H
+#define ARDUINOICONAPP_EEPROM_H
 
 
 class FakeEEPROM {
@@ -18,4 +18,4 @@ public:
 extern FakeEEPROM EEPROM;
 
 
-#endif //PBLOCKICONS_EEPROM_H_H
+#endif //ARDUINOICONAPP_EEPROM_H

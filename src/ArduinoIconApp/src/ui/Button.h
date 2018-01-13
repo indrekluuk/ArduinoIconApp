@@ -2,8 +2,8 @@
 // Created by indrek on 6.05.2017.
 //
 
-#ifndef PBLOCKICONS_BUTTON_H
-#define PBLOCKICONS_BUTTON_H
+#ifndef ARDUINOICONAPP_BUTTON_H
+#define ARDUINOICONAPP_BUTTON_H
 
 
 #include "TouchHandler.h"
@@ -122,4 +122,4 @@ private:
 
 
 
-#endif //PBLOCKICONS_BUTTON_H
+#endif //ARDUINOICONAPP_BUTTON_H

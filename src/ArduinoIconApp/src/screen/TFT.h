@@ -2,8 +2,8 @@
 // Created by indrek on 26.03.2017.
 //
 
-#ifndef PBLOCKMAIN_TFT_H
-#define PBLOCKMAIN_TFT_H
+#ifndef ARDUINOICONAPP_TFT_H
+#define ARDUINOICONAPP_TFT_H
 
 
 #include "../lib/MCUFRIEND_kbv_mod/MCUFRIEND_kbv.h"
@@ -57,4 +57,4 @@ private:
 
 
 
-#endif //PBLOCKMAIN_TFT_H
+#endif //ARDUINOICONAPP_TFT_H

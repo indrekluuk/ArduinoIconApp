@@ -3,7 +3,7 @@
 //
 
 #include "ColorPickerView.h"
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 #include "../palette/RgbToHsv.h"
 
 

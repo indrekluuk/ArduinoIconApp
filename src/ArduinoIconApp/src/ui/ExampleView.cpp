@@ -5,7 +5,7 @@
 #include "ExampleView.h"
 
 
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 
 
 void ExampleView::init() {

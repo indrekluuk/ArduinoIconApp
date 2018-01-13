@@ -3,7 +3,7 @@
 //
 
 #include "TouchHandler.h"
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 
 
 Touchable * firstTouchable = nullptr;

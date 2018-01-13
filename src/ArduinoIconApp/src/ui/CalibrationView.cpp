@@ -3,7 +3,7 @@
 //
 
 #include "CalibrationView.h"
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 
 
 bool CalibrationView::touch(uint16_t x, uint16_t y) {

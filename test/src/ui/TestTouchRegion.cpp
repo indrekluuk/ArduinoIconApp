@@ -2,7 +2,7 @@
 
 
 #include "gtest/gtest.h"
-#include "src/ui/PBlocksUserInterface.h"
+#include "src/ui/ArduinoIconAppUserInterface.h"
 
 
 class TouchableItem : public Touchable {

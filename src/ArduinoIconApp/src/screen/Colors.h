@@ -2,8 +2,8 @@
 // Created by indrek on 21.03.2017.
 //
 
-#ifndef PBLOCKMAIN_COLORS_H_H
-#define PBLOCKMAIN_COLORS_H_H
+#ifndef ARDUINOICONAPP_COLORS_H
+#define ARDUINOICONAPP_COLORS_H
 
 
 #include <stdint.h>
@@ -136,4 +136,4 @@ struct RgbColor {
 
 
 
-#endif //PBLOCKMAIN_COLORS_H_H
+#endif //ARDUINOICONAPP_COLORS_H

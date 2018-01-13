@@ -4,7 +4,7 @@
 
 #include "ColorPickerPalette.h"
 #include "ColorPickerView.h"
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 
 
 

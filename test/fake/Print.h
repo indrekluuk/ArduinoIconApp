@@ -2,8 +2,8 @@
 // Created by indrek on 28.05.2017.
 //
 
-#ifndef PBLOCKICONS_PRINT_H
-#define PBLOCKICONS_PRINT_H
+#ifndef ARDUINOICONAPP_PRINT_H
+#define ARDUINOICONAPP_PRINT_H
 
 
 class Print {
@@ -15,4 +15,4 @@ public:
 
 };
 
-#endif //PBLOCKICONS_PRINT_H
+#endif //ARDUINOICONAPP_PRINT_H

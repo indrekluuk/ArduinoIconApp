@@ -33,7 +33,7 @@ add_executable(runTests
         src/ArduinoIconApp/src/lib/Adafruit_GFX_Library_mod/Adafruit_GFX.cpp
 
         src/ArduinoIconApp/src/ui/TouchHandler.cpp
-        src/ArduinoIconApp/src/ui/ArduinoIconApp.cpp
+        src/ArduinoIconApp/src/ui/ArduinoIconAppUserInterface.cpp
         src/ArduinoIconApp/src/ui/CalibrationView.cpp
         src/ArduinoIconApp/src/ui/DrawingGridView.cpp
         src/ArduinoIconApp/src/ui/ColorPickerView.cpp

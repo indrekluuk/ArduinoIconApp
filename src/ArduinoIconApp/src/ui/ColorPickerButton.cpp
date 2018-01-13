@@ -3,7 +3,7 @@
 //
 
 #include "ColorPickerButton.h"
-#include "ArduinoIconApp.h"
+#include "ArduinoIconAppUserInterface.h"
 
 
 void ColorPickerButton::init(uint16_t x, uint16_t y, uint8_t w, uint8_t h, Icon * icon) {

@@ -2,8 +2,8 @@
 // Created by indrek on 18.05.2017.
 //
 
-#ifndef PBLOCKICONS_RGBTOHSV_H
-#define PBLOCKICONS_RGBTOHSV_H
+#ifndef ARDUINOICONAPP_RGBTOHSV_H
+#define ARDUINOICONAPP_RGBTOHSV_H
 
 #include "../screen/Colors.h"
 
@@ -24,4 +24,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_RGBTOHSV_H
+#endif //ARDUINOICONAPP_RGBTOHSV_H

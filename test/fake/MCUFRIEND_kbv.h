@@ -2,8 +2,8 @@
 // Created by indrek on 26.03.2017.
 //
 
-#ifndef PBLOCKMAIN_MCUFRIEND_KBV_H
-#define PBLOCKMAIN_MCUFRIEND_KBV_H
+#ifndef ARDUINOICONAPP_MCUFRIEND_KBV_H
+#define ARDUINOICONAPP_MCUFRIEND_KBV_H
 
 
 #include "stdint.h"
@@ -57,4 +57,4 @@ public:
 
 
 
-#endif //PBLOCKMAIN_MCUFRIEND_KBV_H
+#endif //ARDUINOICONAPP_MCUFRIEND_KBV_H

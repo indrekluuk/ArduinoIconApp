@@ -2,8 +2,8 @@
 // Created by indrek on 25.03.2017.
 //
 
-#ifndef PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H
-#define PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H
+#ifndef ARDUINOICONAPP_USER_INTERFACE_H
+#define ARDUINOICONAPP_USER_INTERFACE_H
 
 
 #include "TouchHandler.h"
@@ -72,4 +72,4 @@ private:
 
 extern ArduinoIconAppUserInterface * UI;
 
-#endif //PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H
+#endif //ARDUINOICONAPP_USER_INTERFACE_H

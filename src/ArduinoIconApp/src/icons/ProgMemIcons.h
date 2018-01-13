@@ -2,8 +2,8 @@
 // Created by indrek on 1.04.2017.
 //
 
-#ifndef PBLOCKMAIN_PROGMEMICONS_H
-#define PBLOCKMAIN_PROGMEMICONS_H
+#ifndef ARDUINOICONAPP_PROGMEMICONS_H
+#define ARDUINOICONAPP_PROGMEMICONS_H
 
 
 #include "../icons/Icon.h"
@@ -39,4 +39,4 @@ extern const IconBufferProgMem::IconData ICON_REDO;
 
 
 
-#endif //PBLOCKMAIN_PROGMEMICONS_H
+#endif //ARDUINOICONAPP_PROGMEMICONS_H

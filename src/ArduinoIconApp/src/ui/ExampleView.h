@@ -2,8 +2,8 @@
 // Created by indrek on 6.05.2017.
 //
 
-#ifndef PBLOCKICONS_EXAMPLEVIEW_H
-#define PBLOCKICONS_EXAMPLEVIEW_H
+#ifndef ARDUINOICONAPP_EXAMPLEVIEW_H
+#define ARDUINOICONAPP_EXAMPLEVIEW_H
 
 
 #include "TouchHandler.h"
@@ -83,4 +83,4 @@ public:
 };
 
 
-#endif //PBLOCKICONS_EXAMPLEVIEW_H
+#endif //ARDUINOICONAPP_EXAMPLEVIEW_H

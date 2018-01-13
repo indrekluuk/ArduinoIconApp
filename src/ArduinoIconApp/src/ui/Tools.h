@@ -2,8 +2,8 @@
 // Created by indrek on 7.05.2017.
 //
 
-#ifndef PBLOCKICONS_TOOLS_H
-#define PBLOCKICONS_TOOLS_H
+#ifndef ARDUINOICONAPP_TOOLS_H
+#define ARDUINOICONAPP_TOOLS_H
 
 
 #include "../storage/IconStorage.h"
@@ -88,4 +88,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_TOOLS_H
+#endif //ARDUINOICONAPP_TOOLS_H

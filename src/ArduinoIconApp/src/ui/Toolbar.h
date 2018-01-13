@@ -2,8 +2,8 @@
 // Created by indrek on 7.05.2017.
 //
 
-#ifndef PBLOCKICONS_TOOLBAR_H
-#define PBLOCKICONS_TOOLBAR_H
+#ifndef ARDUINOICONAPP_TOOLBAR_H
+#define ARDUINOICONAPP_TOOLBAR_H
 
 
 #include "Button.h"
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif //PBLOCKICONS_TOOLBAR_H
+#endif //ARDUINOICONAPP_TOOLBAR_H

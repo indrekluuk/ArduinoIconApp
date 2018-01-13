@@ -2,8 +2,8 @@
 // Created by indrek on 26.03.2017.
 //
 
-#ifndef PBLOCKMAIN_ICON_H
-#define PBLOCKMAIN_ICON_H
+#ifndef ARDUINOICONAPP_ICON_H
+#define ARDUINOICONAPP_ICON_H
 
 
 #include <avr/pgmspace.h>
@@ -62,4 +62,4 @@ public:
 
 
 
-#endif //PBLOCKMAIN_ICON_H
+#endif //ARDUINOICONAPP_ICON_H
