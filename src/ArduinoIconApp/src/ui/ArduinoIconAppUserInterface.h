@@ -15,16 +15,10 @@
 #include "Tools.h"
 #include "../icons/Icon.h"
 #include "../storage/IconStorage.h"
+#include "UndoBuffer.h"
 
 
 class ArduinoIconAppUserInterface {
-
-    static const uint8_t UNDO_BUFFER_DEPTH = 10;
-    IconStorageData undoBuffer[UNDO_BUFFER_DEPTH];
-    uint8_t undoStart = 0;
-    uint8_t undoEnd = 0;
-    uint8_t undoIndex = 0;
-
 
 public:
     TFT tft;
@@ -36,6 +30,7 @@ public:
     Tools tools;
     IconBufferMem activeIcon;
     IconStorage iconStorage;
+    UndoBuffer undoBuffer;
 
 
 
@@ -47,24 +42,14 @@ public:
     void activeIconPixelsUpdated();
     void activeIconBorderUpdated();
     void activeIconColorUpdated();
+    void refreshUpdatedActiveIcon(bool pixels, bool border, bool colors);
 
-    void undo();
-    void redo();
-    bool isUndoAvailable();
-    bool isRedoAvailable();
 
     void setActiveIcon(IconStorageData & data);
     void copyActiveIconTo(IconStorageData & data);
     void showDrawingGrid();
     void showColorPicker(ColorPickerButton * button);
     void run();
-
-
-private:
-    void refreshUpdatedActiveIcon(bool pixels, bool border, bool colors);
-
-    void saveActiveIconToUndoBuffer();
-    void loadActiveIconFromUndoBuffer();
 
 
 };

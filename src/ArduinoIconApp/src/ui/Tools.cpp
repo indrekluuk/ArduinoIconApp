@@ -93,7 +93,7 @@ void Tools::initMainToolbar() {
 
 void Tools::checkUndoAndRedo(bool redraw) {
   if (undoButton != nullptr) {
-    if (undoButton->isButtonDisabled() == UI->isUndoAvailable()) {
+    if (undoButton->isButtonDisabled() == UI->undoBuffer.isUndoAvailable()) {
       undoButton->setDisabled(!undoButton->isButtonDisabled());
       if (redraw) {
         undoButton->draw();
@@ -101,7 +101,7 @@ void Tools::checkUndoAndRedo(bool redraw) {
     }
   }
   if (redoButton != nullptr) {
-    if (redoButton->isButtonDisabled() == UI->isRedoAvailable()) {
+    if (redoButton->isButtonDisabled() == UI->undoBuffer.isRedoAvailable()) {
       redoButton->setDisabled(!redoButton->isButtonDisabled());
       if (redraw) {
         redoButton->draw();
@@ -219,12 +219,12 @@ void Tools::showIconButtonsToolbar(uint8_t action) {
 
 
 void Tools::undo(uint8_t) {
-  UI->undo();
+  UI->undoBuffer.undo();
 }
 
 
 void Tools::redo(uint8_t) {
-  UI->redo();
+  UI->undoBuffer.redo();
 }
 
 

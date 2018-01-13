@@ -28,8 +28,7 @@ void ArduinoIconAppUserInterface::init() {
   drawingGridView.init();
   exampleView.init();
   tools.init();
-
-  copyActiveIconTo(undoBuffer[undoStart]);
+  undoBuffer.init();
 }
 
 
@@ -47,12 +46,12 @@ void ArduinoIconAppUserInterface::draw() {
 
 void ArduinoIconAppUserInterface::activeIconReloaded() {
   refreshUpdatedActiveIcon(true, true, true);
-  saveActiveIconToUndoBuffer();
+  undoBuffer.saveActiveIconToUndoBuffer();
 }
 
 void ArduinoIconAppUserInterface::activeIconPixelsUpdated() {
   refreshUpdatedActiveIcon(true, false, false);
-  saveActiveIconToUndoBuffer();
+  undoBuffer.saveActiveIconToUndoBuffer();
 }
 
 void ArduinoIconAppUserInterface::activeIconBorderUpdated() {
@@ -61,7 +60,7 @@ void ArduinoIconAppUserInterface::activeIconBorderUpdated() {
 
 void ArduinoIconAppUserInterface::activeIconColorUpdated() {
   refreshUpdatedActiveIcon(false, false, true);
-  saveActiveIconToUndoBuffer();
+  undoBuffer.saveActiveIconToUndoBuffer();
 }
 
 
@@ -80,69 +79,6 @@ void ArduinoIconAppUserInterface::refreshUpdatedActiveIcon(bool pixels, bool bor
     exampleView.updatePreview();
   }
 }
-
-
-
-void ArduinoIconAppUserInterface::saveActiveIconToUndoBuffer() {
-  undoIndex++;
-  if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
-  undoEnd = undoIndex;
-
-  if (undoEnd == undoStart) {
-    undoStart++;
-    if (undoStart >= UNDO_BUFFER_DEPTH) undoStart = 0;
-  }
-  copyActiveIconTo(undoBuffer[undoEnd]);
-  tools.checkUndoAndRedo(true);
-}
-
-
-void ArduinoIconAppUserInterface::undo() {
-  if (undoIndex != undoStart) {
-    if (undoIndex == 0) {
-      undoIndex = UNDO_BUFFER_DEPTH - 1;
-    } else {
-      undoIndex--;
-    }
-    loadActiveIconFromUndoBuffer();
-  }
-}
-
-
-void ArduinoIconAppUserInterface::redo() {
-  if (undoIndex != undoEnd) {
-    undoIndex++;
-    if (undoIndex >= UNDO_BUFFER_DEPTH) undoIndex = 0;
-    loadActiveIconFromUndoBuffer();
-  }
-}
-
-
-void ArduinoIconAppUserInterface::loadActiveIconFromUndoBuffer() {
-  uint8_t scale = exampleView.scale;
-  uint8_t hasBorder = activeIcon.color.hasBorder;
-  uint8_t hasBorder3d = activeIcon.color.hasBorder3d;
-  setActiveIcon(undoBuffer[undoIndex]);
-  exampleView.scale = scale;
-  activeIcon.color.hasBorder = hasBorder;
-  activeIcon.color.hasBorder3d = hasBorder3d;
-
-  tools.checkUndoAndRedo(true);
-  refreshUpdatedActiveIcon(true, true, true);
-}
-
-
-
-bool ArduinoIconAppUserInterface::isUndoAvailable() {
-  return undoIndex != undoStart;
-}
-
-
-
-bool ArduinoIconAppUserInterface::isRedoAvailable() {
-  return undoIndex != undoEnd;
-}
-
 
 
 void ArduinoIconAppUserInterface::setActiveIcon(IconStorageData & data) {
