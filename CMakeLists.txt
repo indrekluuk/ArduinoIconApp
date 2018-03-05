@@ -44,6 +44,7 @@ add_executable(runTests
         src/ArduinoIconApp/src/ui/Button.cpp
         src/ArduinoIconApp/src/ui/Tools.cpp
         src/ArduinoIconApp/src/ui/Toolbar.cpp
+        src/ArduinoIconApp/src/ui/UndoBuffer.cpp
         src/ArduinoIconApp/src/screen/TFT.cpp
         src/ArduinoIconApp/src/screen/Font.cpp
         src/ArduinoIconApp/src/screen/Colors.cpp
